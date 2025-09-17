@@ -570,7 +570,7 @@ h6 {
 .footer {
   --heading-font: var(--default-font);
   color: var(--default-color);
-  background-color: var(--background-color);
+  background-color: #07190c;
   font-size: 14px;
   padding: 40px 0;
   position: relative;
@@ -878,6 +878,10 @@ section,
 
 .hero .animated {
   animation: up-down 2s ease-in-out infinite alternate-reverse both;
+}
+
+.shadow-img {
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.5));
 }
 
 @media (max-width: 640px) {
