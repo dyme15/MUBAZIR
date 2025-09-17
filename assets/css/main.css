@@ -27,7 +27,6 @@
   --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
 }
 
-
 /* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
 :root {
   --nav-color: #7f7f90;  /* The default color of the main navmenu links */
@@ -225,22 +224,34 @@ h6 {
 /*--------------------------------------------------------------
 # Global Header
 --------------------------------------------------------------*/
+/* Override supaya logo bisa besar */
+
+/* Edit: Dodyk */
 .header {
   color: var(--default-color);
   background-color: var(--background-color);
-  padding: 20px 0;
+  padding: 8px 20px;       /* tipis: atas-bawah 8px, kiri-kanan 20px */
   transition: all 0.5s;
   z-index: 997;
+
+  display: flex;
+  align-items: center;     /* isi (logo + menu) rata tengah vertikal */
 }
 
 .header .logo {
-  line-height: 1;
+  display: flex;
+  align-items: center; /* logo selalu pas di tengah vertikal */
 }
 
 .header .logo img {
-  max-height: 36px;
-  margin-right: 8px;
+  max-height: 60px;          /* ukuran asli */
+  width: auto;
+  object-fit: contain;
+  transform: scale(2.3);     /* perbesar */
+  transform-origin: left center; /* titik perbesaran dari kiri-tengah */
+  margin-top: 10px;           /* geser turun dikit */
 }
+ /* Edit: Dodyk */
 
 .header .logo h1 {
   font-size: 30px;
