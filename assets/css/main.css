@@ -1122,6 +1122,17 @@ section,
   border-bottom: 2px solid color-mix(in srgb, var(--default-color), transparent 80%);
 }
 
+.nav-item .stars {
+  margin-top: 2px; /* jarak antara teks dan bintang */
+  margin-left: 13px;
+}
+
+.nav-item .stars i {
+  font-size: 5px !important;  /* ukuran bintang, bisa sesuaikan */
+  margin: 0 1px;    /* jarak antar bintang */
+}
+
+
 @media (max-width: 575px) {
   .menu .nav-link {
     margin: 0 10px;
