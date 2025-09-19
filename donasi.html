@@ -7,125 +7,117 @@
     <title>Form Donatur - Mubazir</title>
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets/css/main.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
 </head>
 
-<body class="index-page">
-
-    <!-- Header -->
-    <header id="header" class="header d-flex align-items-center sticky-top">
-        <div class="container position-relative d-flex align-items-center justify-content-between">
-
-            <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
-                <h1 class="sitename">
-                    <img src="assets/img/LOGO MUBAZIR-LOMBA (1).png" alt="Logo Mubazir" class="logo">
-                </h1>
-            </a>
-
-            <nav id="navmenu" class="navmenu">
-                <ul>
-                    <li><a href="index.html">Beranda</a></li>
-                    <li><a href="#about">Tentang</a></li>
-                    <li><a href="#menu">Poin Berkah</a></li>
-                    <li><a href="#chefs" class="active">Donatur</a></li>
-                    <li><a href="#gallery">Galeri</a></li>
-                    <li><a href="#contact">Kontak</a></li>
-                </ul>
-                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-            </nav>
-
-            <a class="btn-getstarted" href="index.html#book-a-table">Berbagi</a>
-
+<body>
+    <div class="form-card">
+        <div class="form-header">
+            <div class="logo-wrapper">
+                <img src="assets/img/LOGO MUBAZIR-LOMBA (1).png" alt="Logo Mubazir">
+            </div>
+            <h2>Form Donatur</h2>
+            <p>Daripada terbuang, lebih baik dibagikan kepada yang membutuhkan 🌱</p>
         </div>
-    </header>
 
-<!-- Form Donatur -->
-<main class="main">
-    <section class="container py-5">
-        <div class="max-w-2xl mx-auto bg-light rounded-4 shadow p-5 border border-0"
-            style="font-family: 'Roboto', sans-serif;">
-            <h2 class="text-center fw-semibold mb-3" style="color:#2e7d32;">Form Donatur</h2>
-            <p class="text-center text-muted mb-4" style="font-size: 0.95rem;">
-                Isi data dirimu dan informasi makanan secara lengkap agar bisa tersalurkan dengan tepat.
-            </p>
+        <form action="#" method="post" enctype="multipart/form-data" class="row g-4">
 
-            <form action="#" method="post" class="row g-4">
+            <!-- Email -->
+            <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
 
-                <!-- Email -->
-                <div class="col-md-6">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" id="email" name="email" class="form-control" required>
-                </div>
+            <!-- Nomor HP -->
+            <div class="col-md-6">
+                <label for="hp" class="form-label">Nomor Handphone</label>
+                <input type="tel" id="hp" name="hp" class="form-control" required>
+            </div>
 
-                <!-- Nomor HP -->
-                <div class="col-md-6">
-                    <label for="hp" class="form-label">Nomor Handphone</label>
-                    <input type="tel" id="hp" name="hp" class="form-control" required>
-                </div>
+            <!-- Nama Lengkap -->
+            <div class="col-12">
+                <label for="nama" class="form-label">Nama Lengkap</label>
+                <input type="text" id="nama" name="nama" class="form-control" required>
+            </div>
 
-                <!-- Nama Lengkap -->
-                <div class="col-12">
-                    <label for="nama" class="form-label">Nama Lengkap</label>
-                    <input type="text" id="nama" name="nama" class="form-control" required>
-                </div>
+            <!-- Nama Makanan -->
+            <div class="col-md-6">
+                <label for="nama_makanan" class="form-label">Nama Makanan</label>
+                <input type="text" id="nama_makanan" name="nama_makanan" class="form-control" required>
+            </div>
 
-                <!-- Nama Makanan -->
-                <div class="col-md-6">
-                    <label for="nama_makanan" class="form-label">Nama Makanan</label>
-                    <input type="text" id="nama_makanan" name="nama_makanan" class="form-control" required>
-                </div>
+            <!-- Jumlah Porsi -->
+            <div class="col-md-6">
+                <label for="jumlah" class="form-label">Jumlah Porsi</label>
+                <input type="number" id="jumlah" name="jumlah" class="form-control" min="1" required>
+            </div>
 
-                <!-- Jumlah Porsi -->
-                <div class="col-md-6">
-                    <label for="jumlah" class="form-label">Jumlah Porsi</label>
-                    <input type="number" id="jumlah" name="jumlah" class="form-control" min="1" required>
-                </div>
+            <!-- Waktu Expired -->
+            <div class="col-md-6">
+                <label for="expired" class="form-label">Waktu Expired</label>
+                <input type="datetime-local" id="expired" name="expired" class="form-control" required>
+            </div>
 
-                <!-- Waktu Expired -->
-                <div class="col-md-6">
-                    <label for="expired" class="form-label">Waktu Expired</label>
-                    <input type="datetime-local" id="expired" name="expired" class="form-control" required>
-                </div>
+            <!-- Foto Makanan -->
+            <div class="col-md-6">
+                <label for="foto" class="form-label">Upload Foto Makanan</label>
+                <input type="file" id="foto" name="foto" class="form-control" accept="image/*"
+                    onchange="previewImage(event)">
+                <img id="preview" alt="Preview Gambar">
+            </div>
 
-                <!-- Lokasi Penjemputan -->
-                <div class="col-md-6">
-                    <label for="lokasi" class="form-label">Lokasi Penjemputan</label>
-                    <input type="text" id="lokasi" name="lokasi" class="form-control" required>
-                </div>
+            <!-- Lokasi Penjemputan -->
+            <div class="col-12">
+                <label for="lokasi" class="form-label">Alamat Lengkap Penjemputan</label>
+                <input type="text" id="lokasi" name="lokasi" class="form-control"
+                    placeholder="Contoh: Jl. Merdeka No.10, Pancur Batu" required>
+            </div>
 
-                <!-- Manfaat / Kandungan -->
-                <div class="col-12">
-                    <label for="manfaat" class="form-label">Manfaat / Kandungan</label>
-                    <textarea id="manfaat" name="manfaat" rows="3" class="form-control"></textarea>
-                </div>
+            <!-- Detail Lokasi -->
+            <div class="col-md-4">
+                <label for="rt" class="form-label">RT/RW</label>
+                <input type="text" id="rt" name="rt" class="form-control">
+            </div>
 
-                <!-- Pantangan / Catatan Khusus -->
-                <div class="col-12">
-                    <label for="pantangan" class="form-label">Pantangan / Catatan Khusus</label>
-                    <textarea id="pantangan" name="pantangan" rows="3" class="form-control"></textarea>
-                </div>
+            <div class="col-md-4">
+                <label for="kecamatan" class="form-label">Kecamatan</label>
+                <input type="text" id="kecamatan" name="kecamatan" class="form-control" required>
+            </div>
 
-                <!-- Submit -->
-                <div class="col-12 text-center mt-4">
-                    <button type="submit" class="btn px-5 py-2 fw-semibold text-white"
-                        style="background-color:#2e7d32; border-radius:8px;">
-                        Kirim Donasi
-                    </button>
-                </div>
+            <div class="col-md-4">
+                <label for="kota" class="form-label">Kota/Kabupaten</label>
+                <input type="text" id="kota" name="kota" class="form-control" required>
+            </div>
 
-            </form>
-        </div>
-    </section>
-</main>
+            <!-- Manfaat / Kandungan -->
+            <div class="col-12">
+                <label for="manfaat" class="form-label">Manfaat / Kandungan</label>
+                <textarea id="manfaat" name="manfaat" rows="3" class="form-control"></textarea>
+            </div>
 
-    <!-- Footer -->
-    <footer id="footer" class="footer dark-background">
-        <div class="container text-center py-3">
-            <p class="mb-0">&copy; 2025 Mubazir. Semua Hak Dilindungi.</p>
-        </div>
-    </footer>
+            <!-- Pantangan / Catatan Khusus -->
+            <div class="col-12">
+                <label for="pantangan" class="form-label">Pantangan / Catatan Khusus</label>
+                <textarea id="pantangan" name="pantangan" rows="3" class="form-control"></textarea>
+            </div>
+
+            <!-- Submit -->
+            <div class="col-12 text-center mt-3">
+                <button type="submit" class="btn btn-donasi">Kirim Donasi</button>
+            </div>
+
+        </form>
+    </div>
 
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // preview foto makanan
+        function previewImage(event) {
+            const preview = document.getElementById('preview');
+            preview.src = URL.createObjectURL(event.target.files[0]);
+            preview.style.display = 'block';
+        }
+    </script>
 </body>
 
 </html>
