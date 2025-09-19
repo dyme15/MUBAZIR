@@ -972,6 +972,17 @@ section,
   top: calc(50% - 47px);
 }
 
+.tentang-img {
+  border-radius: 12px; /* opsional, biar lebih halus */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* bayangan 3D */
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.tentang-img:hover {
+  transform: scale(1.05); /* zoom saat hover */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35); /* bayangan lebih tegas saat hover */
+}
+
 /*--------------------------------------------------------------
 # Why Us Section
 --------------------------------------------------------------*/
@@ -1049,6 +1060,35 @@ section,
 .why-us .icon-box:hover i {
   color: var(--contrast-color);
   background: var(--default-color);
+}
+
+/* Untuk box utama */
+.why-box {
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  padding: 25px;
+  background: #fff; /* pastikan ada background */
+}
+
+.why-box:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+}
+
+/* Untuk box kecil (icon-box) */
+.icon-box {
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  padding: 20px;
+  background: #fff;
+  text-align: center;
+}
+
+.icon-box:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
 }
 
 /*--------------------------------------------------------------
@@ -1563,6 +1603,17 @@ section,
   text-align: center;
 }
 
+.gallery .swiper-slide img {
+  border-radius: 12px; /* sudut membulat biar lebih halus */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* bayangan 3D */
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.gallery .swiper-slide img:hover {
+  transform: scale(1.05); /* zoom saat hover */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35); /* bayangan lebih tegas */
+}
+
 @media (min-width: 992px) {
   .gallery .swiper-wrapper {
     padding: 40px 0;
@@ -1676,6 +1727,18 @@ section,
 
 .contact .php-email-form button[type=submit]:hover {
   background: color-mix(in srgb, var(--accent-color), transparent 20%);
+}
+
+.embed-map {
+  border-radius: 12px; /* opsional biar sudut halus */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* bayangan */
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  overflow: hidden; /* supaya radius tetap rapi */
+}
+
+.embed-map:hover {
+  transform: scale(1.03); /* zoom halus saat hover */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35); /* bayangan makin tegas */
 }
 
 /*--------------------------------------------------------------
