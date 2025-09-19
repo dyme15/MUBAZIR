@@ -977,13 +977,13 @@ section,
 --------------------------------------------------------------*/
 .why-us .why-box {
   color: var(--contrast-color);
-  background: var(--accent-color);
+  background: var(--default-color);
   padding: 30px;
 }
 
 .why-us .why-box h3 {
   color: var(--contrast-color);
-  font-family: var(--default-font);
+  font-family: var(--default-color);
   font-weight: 700;
   font-size: 34px;
   margin-bottom: 30px;
@@ -1007,7 +1007,7 @@ section,
 }
 
 .why-us .why-box .more-btn:hover {
-  color: var(--accent-color);
+  color: var(--default-color);
   background: var(--surface-color);
 }
 
@@ -1021,10 +1021,10 @@ section,
 }
 
 .why-us .icon-box i {
-  color: var(--accent-color);
+  color: var(--default-color);
   font-size: 32px;
   margin-bottom: 30px;
-  background: color-mix(in srgb, var(--accent-color), transparent 95%);
+  background: color-mix(in srgb, var(--default-color), transparent 95%);
   border-radius: 50px;
   display: flex;
   align-items: center;
@@ -1038,7 +1038,7 @@ section,
   font-size: 20px;
   font-weight: 500;
   margin: 0 0 30px 0;
-  font-family: var(--default-font);
+  font-family: var(--default-color);
 }
 
 .why-us .icon-box p {
@@ -1048,7 +1048,7 @@ section,
 
 .why-us .icon-box:hover i {
   color: var(--contrast-color);
-  background: var(--accent-color);
+  background: var(--default-color);
 }
 
 /*--------------------------------------------------------------
