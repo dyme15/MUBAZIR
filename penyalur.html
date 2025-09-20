@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Penyalur - Mubazir</title>
+
+  <!-- Vendor CSS -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- CSS Utama -->
+  <link href="assets/css/main.css" rel="stylesheet">
+  <!-- CSS Khusus Penyalur -->
+  <link href="assets/css/penyalur.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ======= Header (ngikut index.html) ======= -->
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="assets/img/logo.png" alt=""> -->
+        <h1 class="sitename">
+      <img src="assets/img/LOGO MUBAZIR-LOMBA (1).png" alt="Logo Mubazir" class="logo">
+        </h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html#hero">Beranda<br></a></li>
+          <li><a href="index.html#about">Tentang</a></li>
+          <li><a href="index.html#menu">Poin Berkah</a></li>
+          <li><a href="index.html#chefs">Donatur</a></li>
+          <li><a href="index.html#gallery">Galeri</a></li>
+          <li><a href="index.html#contact">Kontak</a></li>
+          <li class="dropdown">
+            <a href="#" class="active"><span>Donasi</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+                <li><a href="penyalur.html#makanan">Makanan Utama</a></li>
+                <li><a href="penyalur.html#snack">Snack & Roti</a></li>
+                <li><a href="penyalur.html#minuman">Minuman</a></li>
+                <li><a href="penyalur.html#buah">Buah & Hidangan Penutup</a></li>
+            </ul>
+            </li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="donasi.html">Donasi Sekarang</a>
+
+    </div>
+  </header>
+  <!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero-penyalur" class="d-flex align-items-center">
+    <div class="container text-center" data-aos="fade-up">
+      <h1>Dashboard Penyalur</h1>
+      <p>Lihat dan ambil bagian dalam donasi dari para donatur</p>
+    </div>
+  </section>
+  <!-- End Hero -->
+
+  <!-- ======= Feed Random (utama) ======= -->
+<section id="feed" class="feed section">
+  <div class="container">
+    <h2 class="mb-4">Semua Donasi</h2>
+
+    <!-- Search -->
+    <div class="search-bar mb-4">
+      <input type="text" id="searchInput" class="form-control" placeholder="Cari donasi...">
+    </div>
+
+    <div class="row gy-4" id="postContainer">
+      <!-- Post Makanan -->
+      <div class="col-lg-6">
+        <div class="feed-card">
+          <div class="feed-header">
+            <i class="bi bi-person-circle"></i>
+            <h5>Donatur: Dodyk</h5>
+          </div>
+          <div class="feed-body">
+            <p><strong>Jenis:</strong> Nasi Kotak</p>
+            <p><strong>Jumlah:</strong> 50 Porsi</p>
+            <p><strong>Lokasi:</strong> Medan Johor</p>
+          </div>
+          <div class="feed-footer">
+            <button class="btn btn-success btn-sm">Ambil Donasi</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post Snack -->
+      <div class="col-lg-6">
+        <div class="feed-card">
+          <div class="feed-header">
+            <i class="bi bi-person-circle"></i>
+            <h5>Donatur: Dea</h5>
+          </div>
+          <div class="feed-body">
+            <p><strong>Jenis:</strong> Roti</p>
+            <p><strong>Jumlah:</strong> 100 Buah</p>
+            <p><strong>Lokasi:</strong> Medan Tuntungan</p>
+          </div>
+          <div class="feed-footer">
+            <button class="btn btn-success btn-sm">Ambil Donasi</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post Minuman -->
+      <div class="col-lg-6">
+        <div class="feed-card">
+          <div class="feed-header">
+            <i class="bi bi-person-circle"></i>
+            <h5>Donatur: Budi</h5>
+          </div>
+          <div class="feed-body">
+            <p><strong>Jenis:</strong> Air Mineral Botol</p>
+            <p><strong>Jumlah:</strong> 200 Botol</p>
+            <p><strong>Lokasi:</strong> Medan Selayang</p>
+          </div>
+          <div class="feed-footer">
+            <button class="btn btn-success btn-sm">Ambil Donasi</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post Buah -->
+      <div class="col-lg-6">
+        <div class="feed-card">
+          <div class="feed-header">
+            <i class="bi bi-person-circle"></i>
+            <h5>Donatur: Sinta</h5>
+          </div>
+          <div class="feed-body">
+            <p><strong>Jenis:</strong> Buah Semangka Potong</p>
+            <p><strong>Jumlah:</strong> 30 Porsi</p>
+            <p><strong>Lokasi:</strong> Medan Polonia</p>
+          </div>
+          <div class="feed-footer">
+            <button class="btn btn-success btn-sm">Ambil Donasi</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Feed Random -->
+
+<!-- ======= Kategori: Makanan ======= -->
+<section id="makanan" class="feed section">
+  <div class="container">
+    <h2 class="mb-4">Makanan Utama</h2>
+    <div class="row gy-4">
+      <!-- copy post makanan -->
+      <div class="col-lg-6">
+        <div class="feed-card">
+          <div class="feed-header">
+            <i class="bi bi-person-circle"></i>
+            <h5>Donatur: Dodyk</h5>
+          </div>
+          <div class="feed-body">
+            <p><strong>Jenis:</strong> Nasi Kotak</p>
+            <p><strong>Jumlah:</strong> 50 Porsi</p>
+            <p><strong>Lokasi:</strong> Medan Johor</p>
+          </div>
+          <div class="feed-footer">
+            <button class="btn btn-success btn-sm">Ambil Donasi</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= Kategori: Snack & Roti ======= -->
+<section id="snack" class="feed section">
+  <div class="container">
+    <h2 class="mb-4">Snack & Roti</h2>
+    <div class="row gy-4">
+      <!-- copy post snack -->
+      <div class="col-lg-6">
+        <div class="feed-card">
+          <div class="feed-header">
+            <i class="bi bi-person-circle"></i>
+            <h5>Donatur: Dea</h5>
+          </div>
+          <div class="feed-body">
+            <p><strong>Jenis:</strong> Roti</p>
+            <p><strong>Jumlah:</strong> 100 Buah</p>
+            <p><strong>Lokasi:</strong> Medan Tuntungan</p>
+          </div>
+          <div class="feed-footer">
+            <button class="btn btn-success btn-sm">Ambil Donasi</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= Kategori: Minuman ======= -->
+<section id="minuman" class="feed section">
+  <div class="container">
+    <h2 class="mb-4">Minuman</h2>
+    <div class="row gy-4">
+      <!-- copy post minuman -->
+      <div class="col-lg-6">
+        <div class="feed-card">
+          <div class="feed-header">
+            <i class="bi bi-person-circle"></i>
+            <h5>Donatur: Budi</h5>
+          </div>
+          <div class="feed-body">
+            <p><strong>Jenis:</strong> Air Mineral Botol</p>
+            <p><strong>Jumlah:</strong> 200 Botol</p>
+            <p><strong>Lokasi:</strong> Medan Selayang</p>
+          </div>
+          <div class="feed-footer">
+            <button class="btn btn-success btn-sm">Ambil Donasi</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= Kategori: Buah ======= -->
+<section id="buah" class="feed section">
+  <div class="container">
+    <h2 class="mb-4">Buah & Hidangan Penutup</h2>
+    <div class="row gy-4">
+      <!-- copy post buah -->
+      <div class="col-lg-6">
+        <div class="feed-card">
+          <div class="feed-header">
+            <i class="bi bi-person-circle"></i>
+            <h5>Donatur: Sinta</h5>
+          </div>
+          <div class="feed-body">
+            <p><strong>Jenis:</strong> Buah Semangka Potong</p>
+            <p><strong>Jumlah:</strong> 30 Porsi</p>
+            <p><strong>Lokasi:</strong> Medan Polonia</p>
+          </div>
+          <div class="feed-footer">
+            <button class="btn btn-success btn-sm">Ambil Donasi</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- ======= Footer (ngikut index.html) ======= -->
+  <footer id="footer" class="footer dark-background">
+
+    <div class="container">
+      <div class="row gy-3">
+        <div class="col-lg-3 col-md-6 d-flex">
+          <i class="bi bi-geo-alt icon"></i>
+          <div class="address">
+            <h4>Alamat</h4>
+            <p>Jl. Lap Golf, Kp. Tengah, Kec. Pancur Batu,</p>
+            <p>Kabupaten Deli Serdang 20353, Sumatera Utara – Indonesia</p>
+            <p></p>
+          </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 d-flex">
+          <i class="bi bi-telephone icon"></i>
+          <div>
+            <h4>Kontak</h4>
+            <p>
+              <strong>Phone:</strong> <span>(+6261) 6615683, 6622925</span><br>
+              <strong>Email:</strong> <span>ilkomp@uinsu.ac.id</span><br>
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 d-flex">
+          <i class="bi bi-clock icon"></i>
+          <div>
+            <h4>Jam Operasional</h4>
+            <p>
+              <strong>Mon-Sun:</strong> <span>11AM - 23PM</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <h4>Ikuti Kami</h4>
+          <div class="social-links d-flex">
+            <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">UIN Sumatera Utara</strong></p>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you've purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+        Designed by <a href="https://bootstrapmade.com/">KD2</a>
+      </div>
+    </div>
+
+  </footer>
+  <!-- End Footer -->
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/js/main.js"></script>
+
+  <script>
+    // Search Filter
+    const searchInput = document.getElementById("searchInput");
+    const posts = document.querySelectorAll("#postContainer .col-lg-6");
+
+    searchInput.addEventListener("keyup", function () {
+      const keyword = this.value.toLowerCase();
+      posts.forEach(post => {
+        const text = post.innerText.toLowerCase();
+        post.style.display = text.includes(keyword) ? "" : "none";
+      });
+    });
+  </script>
+
+</body>
+
+</html>
