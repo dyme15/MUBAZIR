@@ -1629,6 +1629,14 @@ section,
   }
 }
 
+.feed-gallery .main-img {
+  width: 100%;
+  max-height: 300px; /* atur tinggi maksimal */
+  object-fit: contain; /* biar proporsional, tidak kepotong */
+  border-radius: 8px;
+  background-color: #f8f8f8; /* kasih background netral kalau ada ruang kosong */
+}
+
 /*--------------------------------------------------------------
 # Contact Section
 --------------------------------------------------------------*/
