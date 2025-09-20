@@ -70,3 +70,25 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  // cari semua tombol "Ambil Donasi"
+  const ambilButtons = document.querySelectorAll(".btn-ambil");
+
+  ambilButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      // ambil id dari parent card
+      const post = btn.closest(".col-lg-6");
+      const postId = post.getAttribute("data-id");
+
+      // redirect ke halaman klaim.html dengan query param
+      if (postId) {
+        window.location.href = `klaim.html?post_id=${postId}`;
+      } else {
+        alert("Donasi tidak valid.");
+      }
+    });
+  });
+});
+
+
