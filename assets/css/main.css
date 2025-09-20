@@ -1629,15 +1629,6 @@ section,
   }
 }
 
-.feed-gallery .main-img {
-  width: 100% !important;
-  max-height: 300px !important;
-  height: auto !important;
-  object-fit: contain !important; /* supaya proporsional */
-  border-radius: 8px;
-  background-color: #f8f8f8;
-}
-
 /*--------------------------------------------------------------
 # Contact Section
 --------------------------------------------------------------*/

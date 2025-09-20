@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Penyalur - Mubazir</title>
+  <title>Donasi - Mubazir</title>
 
   <!-- Vendor CSS -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -18,40 +18,6 @@
   <!-- CSS Khusus Penyalur -->
   <link href="assets/css/penyalur.css" rel="stylesheet">
 
-  <style>
-    /* Tambahan styling untuk galeri */
-    .feed-gallery {
-      text-align: center;
-    }
-    .feed-gallery .main-img {
-      width: 100%;
-      max-height: 250px;
-      object-fit: cover;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
-    .feed-gallery .thumb-list {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 8px;
-    }
-    .feed-gallery .thumb {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-      border-radius: 6px;
-      cursor: pointer;
-      border: 2px solid transparent;
-      transition: all 0.3s ease;
-    }
-    .feed-gallery .thumb:hover {
-      border-color: #28a745;
-    }
-    .feed-gallery .thumb.active {
-      border-color: #28a745;
-    }
-  </style>
 </head>
 
 <body>
@@ -77,7 +43,7 @@
           <li class="dropdown">
             <a href="#" class="active"><span>Donasi</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="#makanan">Makanan Utama</a></li>
+              <li><a href="#makanan">Makanan</a></li>
               <li><a href="#snack">Snack & Roti</a></li>
               <li><a href="#minuman">Minuman</a></li>
               <li><a href="#buah">Buah & Hidangan Penutup</a></li>
@@ -93,175 +59,159 @@
   </header>
   <!-- End Header -->
 
-  <!-- ======= Hero Section ======= -->
-  <section id="hero-penyalur" class="d-flex align-items-center">
-    <div class="container text-center" data-aos="fade-up">
-      <h1>Dashboard Penyalur</h1>
-      <p>Lihat dan ambil bagian dalam donasi dari para donatur</p>
-    </div>
-  </section>
-  <!-- End Hero -->
-
   <!-- ======= Feed Random (utama) ======= -->
-  <section id="feed" class="feed section">
-    <div class="container">
-      <h2 class="mb-4">Semua Donasi</h2>
+<section id="feed" class="feed section">
+  <div class="container">
+    <h2 class="mb-4">Semua Donasi</h2>
 
-      <!-- Search -->
-      <div class="search-bar mb-4">
-        <input type="text" id="searchInput" class="form-control" placeholder="Cari donasi...">
-      </div>
+    <!-- Search -->
+    <div class="search-bar mb-4">
+      <input type="text" id="searchInput" class="form-control" placeholder="Cari donasi...">
+    </div>
 
-      <div class="row gy-4" id="postContainer">
+    <div class="row gy-4" id="postContainer">
 
-        <!-- Post Makanan -->
-        <div class="col-lg-6">
-          <div class="feed-card">
-            <div class="feed-header">
-              <i class="bi bi-person-circle"></i>
-              <h5>Donatur: Dodyk</h5>
-            </div>
-            <div class="feed-gallery">
-              <img src="assets/img/donasi/nasi1.jpg" alt="Nasi Kotak" class="main-img">
-              <div class="thumb-list mt-2">
-                <img src="assets/img/donasi/nasi1.jpg" class="thumb active">
-                <img src="assets/img/donasi/nasi2.jpg" class="thumb">
-                <img src="assets/img/donasi/nasi3.jpg" class="thumb">
-              </div>
-            </div>
-            <div class="feed-body">
-              <p><strong>Jenis:</strong> Nasi Kotak</p>
-              <p><strong>Jumlah:</strong> 50 Porsi</p>
-              <p><strong>Lokasi:</strong> Medan Johor</p>
-            </div>
-            <div class="feed-footer">
-              <button class="btn btn-success btn-sm">Ambil Donasi</button>
+      <!-- Post Makanan -->
+      <div class="col-lg-6" data-kategori="makanan">
+        <div class="feed-card">
+          <div class="feed-header">
+            <i class="bi bi-person-circle"></i>
+            <h5>Donatur: Dodyk</h5>
+          </div>
+          <div class="feed-gallery">
+            <img src="assets/img/Nasi Lalapan Ayam Goreng Telur.jpeg" alt="Nasi Kotak" class="main-img">
+            <div class="thumb-list mt-2">
+              <img src="assets/img/Nasi Lalapan Ayam Goreng Telur.jpeg" class="thumb active">
+              <img src="assets/img/Catering.jpeg" class="thumb">
+              <img src="assets/img/Terima pesanan Catering gess!!.jpeg" class="thumb">
             </div>
           </div>
-        </div>
-
-        <!-- Post Snack -->
-        <div class="col-lg-6">
-          <div class="feed-card">
-            <div class="feed-header">
-              <i class="bi bi-person-circle"></i>
-              <h5>Donatur: Dea</h5>
-            </div>
-            <div class="feed-gallery">
-              <img src="assets/img/donasi/roti1.jpg" alt="Roti" class="main-img">
-              <div class="thumb-list mt-2">
-                <img src="assets/img/donasi/roti1.jpg" class="thumb active">
-                <img src="assets/img/donasi/roti2.jpg" class="thumb">
-                <img src="assets/img/donasi/roti3.jpg" class="thumb">
-              </div>
-            </div>
-            <div class="feed-body">
-              <p><strong>Jenis:</strong> Roti</p>
-              <p><strong>Jumlah:</strong> 100 Buah</p>
-              <p><strong>Lokasi:</strong> Medan Tuntungan</p>
-            </div>
-            <div class="feed-footer">
-              <button class="btn btn-success btn-sm">Ambil Donasi</button>
-            </div>
+          <div class="feed-body">
+            <br><p><strong>Jenis:</strong> Nasi Kotak</p>
+            <p><strong>Jumlah:</strong> 50 Porsi</p>
+            <p><strong>Lokasi:</strong> Medan Johor</p>
+          </div>
+          <div class="feed-footer">
+            <button class="btn btn-success btn-sm">Ambil Donasi</button>
           </div>
         </div>
+      </div>
 
-        <!-- Post Minuman -->
-        <div class="col-lg-6">
-          <div class="feed-card">
-            <div class="feed-header">
-              <i class="bi bi-person-circle"></i>
-              <h5>Donatur: Budi</h5>
-            </div>
-            <div class="feed-gallery">
-              <img src="assets/img/Pap bearbrand.jpeg" alt="Air Mineral" class="main-img">
-              <div class="thumb-list mt-2">
-                <img src="assets/img/Pap bearbrand.jpeg" class="thumb active">
-                <img src="assets/img/C1000 & Bearbrand.jpeg" class="thumb">
-                <img src="assets/img/download (19).jpeg" class="thumb">
-              </div>
-            </div>
-            <div class="feed-body">
-              <p><strong>Jenis:</strong> Air Mineral Botol</p>
-              <p><strong>Jumlah:</strong> 200 Botol</p>
-              <p><strong>Lokasi:</strong> Medan Selayang</p>
-            </div>
-            <div class="feed-footer">
-              <button class="btn btn-success btn-sm">Ambil Donasi</button>
+      <!-- Post Snack -->
+      <div class="col-lg-6" data-kategori="snack">
+        <div class="feed-card">
+          <div class="feed-header">
+            <i class="bi bi-person-circle"></i>
+            <h5>Donatur: Dea</h5>
+          </div>
+          <div class="feed-gallery">
+            <img src="assets/img/Pisang Bolen (1).jpeg" alt="Roti" class="main-img">
+            <div class="thumb-list mt-2">
+              <img src="assets/img/Pisang Bolen (1).jpeg" class="thumb active">
+              <img src="assets/img/Pisang bolen.jpeg" class="thumb">
+              <img src="assets/img/NO KNEAD BREAD (MEMBUAT ROTI TANPA DIULENI) _ Catatan-Nina (1).jpeg" class="thumb">
             </div>
           </div>
-        </div>
-
-        <!-- Post Buah -->
-        <div class="col-lg-6">
-          <div class="feed-card">
-            <div class="feed-header">
-              <i class="bi bi-person-circle"></i>
-              <h5>Donatur: Sinta</h5>
-            </div>
-            <div class="feed-gallery">
-              <img src="assets/img/potongan buah.jpeg" alt="Semangka" class="main-img">
-              <div class="thumb-list mt-2">
-                <img src="assets/img/potongan buah.jpeg" class="thumb active">
-                <img src="assets/img/watermelon mood.jpeg" class="thumb">
-                <img src="assets/img/Hard-Boiled Eggs & All the Other Foods That Have Been Recalled in 2019.jpeg" class="thumb">
-              </div>
-            </div>
-            <div class="feed-body">
-              <p><strong>Jenis:</strong> Buah Semangka Potong</p>
-              <p><strong>Jumlah:</strong> 30 Porsi</p>
-              <p><strong>Lokasi:</strong> Medan Polonia</p>
-            </div>
-            <div class="feed-footer">
-              <button class="btn btn-success btn-sm">Ambil Donasi</button>
-            </div>
+          <div class="feed-body">
+            <br><p><strong>Jenis:</strong> Roti</p>
+            <p><strong>Jumlah:</strong> 100 Buah</p>
+            <p><strong>Lokasi:</strong> Medan Tuntungan</p>
+          </div>
+          <div class="feed-footer">
+            <button class="btn btn-success btn-sm">Ambil Donasi</button>
           </div>
         </div>
-
       </div>
-    </div>
-  </section>
-  <!-- End Feed Random -->
 
-  <!-- ======= Kategori: Makanan ======= -->
-  <section id="makanan" class="feed section">
-    <div class="container">
-      <h2 class="mb-4">Makanan Utama</h2>
-      <div class="row gy-4">
-        <!-- copy card nasi -->
+      <!-- Post Minuman -->
+      <div class="col-lg-6" data-kategori="minuman">
+        <div class="feed-card">
+          <div class="feed-header">
+            <i class="bi bi-person-circle"></i>
+            <h5>Donatur: Budi</h5>
+          </div>
+          <div class="feed-gallery">
+            <img src="assets/img/Pap bearbrand.jpeg" alt="Air Mineral" class="main-img">
+            <div class="thumb-list mt-2">
+              <img src="assets/img/Pap bearbrand.jpeg" class="thumb active">
+              <img src="assets/img/C1000 & Bearbrand.jpeg" class="thumb">
+              <img src="assets/img/download (19).jpeg" class="thumb">
+            </div>
+          </div>
+          <div class="feed-body">
+            <br><p><strong>Jenis:</strong> Air Mineral Botol</p>
+            <p><strong>Jumlah:</strong> 200 Botol</p>
+            <p><strong>Lokasi:</strong> Medan Selayang</p>
+          </div>
+          <div class="feed-footer">
+            <button class="btn btn-success btn-sm">Ambil Donasi</button>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ======= Kategori: Snack ======= -->
-  <section id="snack" class="feed section">
-    <div class="container">
-      <h2 class="mb-4">Snack & Roti</h2>
-      <div class="row gy-4">
-        <!-- copy card roti -->
+      <!-- Post Buah -->
+      <div class="col-lg-6" data-kategori="buah">
+        <div class="feed-card">
+          <div class="feed-header">
+            <i class="bi bi-person-circle"></i>
+            <h5>Donatur: Sinta</h5>
+          </div>
+          <div class="feed-gallery">
+            <img src="assets/img/potongan buah.jpeg" alt="Semangka" class="main-img">
+            <div class="thumb-list mt-2">
+              <img src="assets/img/potongan buah.jpeg" class="thumb active">
+              <img src="assets/img/watermelon mood.jpeg" class="thumb">
+              <img src="assets/img/Hard-Boiled Eggs & All the Other Foods That Have Been Recalled in 2019.jpeg" class="thumb">
+            </div>
+          </div>
+          <div class="feed-body">
+            <br><p><strong>Jenis:</strong> Buah Semangka Potong</p>
+            <p><strong>Jumlah:</strong> 30 Porsi</p>
+            <p><strong>Lokasi:</strong> Medan Polonia</p>
+          </div>
+          <div class="feed-footer">
+            <button class="btn btn-success btn-sm">Ambil Donasi</button>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ======= Kategori: Minuman ======= -->
-  <section id="minuman" class="feed section">
-    <div class="container">
-      <h2 class="mb-4">Minuman</h2>
-      <div class="row gy-4">
-        <!-- copy card minuman -->
-      </div>
     </div>
-  </section>
+  </div>
+</section>
+<!-- End Feed Random -->
 
-  <!-- ======= Kategori: Buah ======= -->
-  <section id="buah" class="feed section">
-    <div class="container">
-      <h2 class="mb-4">Buah & Hidangan Penutup</h2>
-      <div class="row gy-4">
-        <!-- copy card buah -->
-      </div>
-    </div>
-  </section>
+
+<!-- ======= Kategori: Makanan ======= -->
+<section id="makanan" class="feed section">
+  <div class="container">
+    <h2 class="mb-4">Makanan</h2>
+    <div class="row gy-4"></div>
+  </div>
+</section>
+
+<!-- ======= Kategori: Snack ======= -->
+<section id="snack" class="feed section">
+  <div class="container">
+    <h2 class="mb-4">Snack & Roti</h2>
+    <div class="row gy-4"></div>
+  </div>
+</section>
+
+<!-- ======= Kategori: Minuman ======= -->
+<section id="minuman" class="feed section">
+  <div class="container">
+    <h2 class="mb-4">Minuman</h2>
+    <div class="row gy-4"></div>
+  </div>
+</section>
+
+<!-- ======= Kategori: Buah ======= -->
+<section id="buah" class="feed section">
+  <div class="container">
+    <h2 class="mb-4">Buah & Hidangan Penutup</h2>
+    <div class="row gy-4"></div>
+  </div>
+</section>
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer dark-background">

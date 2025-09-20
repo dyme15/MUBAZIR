@@ -1,22 +1,72 @@
+// 🔍 Search: hanya cek "jenis" & "lokasi"
 const searchInput = document.getElementById("searchInput");
-    const posts = document.querySelectorAll("#postContainer .col-lg-6");
-    searchInput.addEventListener("keyup", function () {
-      const keyword = this.value.toLowerCase();
-      posts.forEach(post => {
-        const text = post.innerText.toLowerCase();
-        post.style.display = text.includes(keyword) ? "" : "none";
-      });
-    });
 
-    // Galeri Gambar Feed
-    document.querySelectorAll(".feed-gallery").forEach(gallery => {
-      const mainImg = gallery.querySelector(".main-img");
-      const thumbs = gallery.querySelectorAll(".thumb");
-      thumbs.forEach(thumb => {
-        thumb.addEventListener("click", () => {
-          mainImg.src = thumb.src;
-          thumbs.forEach(t => t.classList.remove("active"));
-          thumb.classList.add("active");
-        });
-      });
+searchInput.addEventListener("keyup", function () {
+  const keyword = this.value.toLowerCase();
+
+  const posts = document.querySelectorAll("#postContainer .col-lg-6");
+  posts.forEach(post => {
+    const feedBody = post.querySelector(".feed-body");
+    const paragraphs = feedBody ? feedBody.querySelectorAll("p") : [];
+
+    const donatur = post.querySelector(".feed-header h5")?.innerText.toLowerCase() || "";
+    const jenis   = paragraphs[0]?.innerText.toLowerCase() || "";
+    const jumlah  = paragraphs[1]?.innerText.toLowerCase() || "";
+    const lokasi  = paragraphs[2]?.innerText.toLowerCase() || "";
+    const kategoriAttr = post.getAttribute("data-kategori")?.toLowerCase() || "";
+
+    // cari judul kategori dari section
+    let kategoriTitle = "";
+    const kategoriSection = document.querySelector(`#${kategoriAttr} h2`);
+    if (kategoriSection) {
+      kategoriTitle = kategoriSection.innerText.toLowerCase();
+    }
+
+    // cek apakah keyword ada di donatur, jenis, jumlah, lokasi, atau kategori
+    const match = 
+      donatur.includes(keyword) ||
+      jenis.includes(keyword) ||
+      jumlah.includes(keyword) ||
+      lokasi.includes(keyword) ||
+      kategoriAttr.includes(keyword) ||
+      kategoriTitle.includes(keyword);
+
+    post.style.display = match ? "" : "none";
+  });
+});
+
+// 🖼️ Fungsi untuk aktifkan galeri thumbnail
+function initGallery(gallery) {
+  const mainImg = gallery.querySelector(".main-img");
+  const thumbs = gallery.querySelectorAll(".thumb");
+  thumbs.forEach(thumb => {
+    thumb.addEventListener("click", () => {
+      mainImg.src = thumb.src;
+      thumbs.forEach(t => t.classList.remove("active"));
+      thumb.classList.add("active");
     });
+  });
+}
+
+// 📌 Setelah DOM siap
+document.addEventListener("DOMContentLoaded", function () {
+  // Inisialisasi galeri di feed utama
+  document.querySelectorAll(".feed-gallery").forEach(initGallery);
+
+  // Clone card dari feed utama ke kategori
+  const posts = document.querySelectorAll("#postContainer .col-lg-6");
+  posts.forEach(post => {
+    const kategori = post.getAttribute("data-kategori");
+    if (kategori) {
+      const target = document.querySelector(`#${kategori} .row`);
+      if (target) {
+        const clone = post.cloneNode(true);
+        target.appendChild(clone);
+
+        // aktifkan galeri untuk hasil clone
+        const cloneGallery = clone.querySelector(".feed-gallery");
+        if (cloneGallery) initGallery(cloneGallery);
+      }
+    }
+  });
+});

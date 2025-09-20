@@ -56,3 +56,46 @@
   border-radius: 25px;
   padding: 10px 20px;
 }
+
+    /* Tambahan styling untuk galeri */
+    .feed-gallery {
+      text-align: center;
+    }
+    .feed-gallery .main-img {
+      width: 100%;
+      max-height: 250px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .feed-gallery .thumb-list {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .feed-gallery .thumb {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+    .feed-gallery .thumb:hover {
+      border-color: #28a745;
+    }
+    .feed-gallery .thumb.active {
+      border-color: #28a745;
+    }
+
+    .feed-gallery .main-img {
+  width: 100% !important;
+  max-height: 300px !important;
+  height: auto !important;
+  object-fit: contain !important; /* supaya proporsional */
+  border-radius: 8px;
+  background-color: #f8f8f8;
+}
+  
