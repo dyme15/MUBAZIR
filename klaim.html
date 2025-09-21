@@ -108,13 +108,14 @@
 
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script>
-    // klik tombol kamera
+    let fotoBase64 = "";
+
+    // klik tombol kamera → buka input file
     document.getElementById("btnCamera").addEventListener("click", () => {
       document.getElementById("foto").click();
     });
 
-    // preview foto di form
-    let fotoBase64 = "";
+    // preview foto
     document.getElementById("foto").addEventListener("change", function (event) {
       const file = event.target.files[0];
       if (file) {
@@ -128,10 +129,10 @@
       }
     });
 
+    // submit form
     document.getElementById("klaimForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
-      // ambil data
       const nama = document.getElementById("nama").value;
       const hp = document.getElementById("hp").value;
       const instansi = document.getElementById("instansi").value || "-";
@@ -140,42 +141,36 @@
       const klaimTime = new Date();
       const expireTime = new Date(klaimTime.getTime() + 2 * 60 * 60 * 1000);
 
-      // tampilkan batas waktu
+      // batas waktu
       document.getElementById("batasWaktu").innerHTML =
         `⏳ Batas pengambilan: <strong>${expireTime.toLocaleTimeString("id-ID", { hour: '2-digit', minute: '2-digit' })}</strong> (2 jam dari klaim)`;
 
-      // tampilkan data hasil klaim
+      // tampilkan data hasil
       document.getElementById("resNama").innerText = nama;
       document.getElementById("resHp").innerText = hp;
       document.getElementById("resInstansi").innerText = instansi;
       document.getElementById("resCatatan").innerText = catatan;
-      if (fotoBase64) {
-        document.getElementById("resFoto").src = fotoBase64;
-      }
+      if (fotoBase64) document.getElementById("resFoto").src = fotoBase64;
 
-      // sembunyikan form, tampilkan hasil
       document.getElementById("klaimForm").style.display = "none";
       document.getElementById("klaimResult").style.display = "block";
 
-      // buat QR data
-      const lokasi = "Jl. Gatot Subroto No. 123, Medan";
+      // data QR (hanya nama & hp)
       const qrData = {
-        post_id: "donasi-dummy",
-        nama, hp, instansi, catatan,
-        klaim_time: klaimTime.toLocaleString("id-ID"),
-        expire_time: expireTime.toLocaleString("id-ID"),
-        lokasi
+        claim_id: "CLAIM-" + Date.now(),
+        nama,
+        hp
       };
 
       // generate QR
       document.getElementById("qrcode").innerHTML = "";
-      const qr = new QRCode(document.getElementById("qrcode"), {
+      new QRCode(document.getElementById("qrcode"), {
         text: JSON.stringify(qrData),
         width: 200,
         height: 200
       });
 
-      // unduh QR (butuh delay render)
+      // tombol unduh QR
       setTimeout(() => {
         const canvas = document.querySelector("#qrcode canvas");
         if (canvas) {

@@ -91,4 +91,17 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+  document.addEventListener("DOMContentLoaded", () => {
+    const loginStatus = localStorage.getItem("isDonaturLogin");
+    const btnDonasi = document.getElementById("btnDonasi");
+
+    btnDonasi.addEventListener("click", () => {
+      if (loginStatus === "true") {
+        window.location.href = "dashboard_donatur.html";
+      } else {
+        window.location.href = "login_donatur.html";
+      }
+    });
+  });
+
 

@@ -174,3 +174,26 @@
   document.addEventListener('scroll', navmenuScrollspy);
 
 })();
+
+//cuman tes login
+  document.addEventListener("DOMContentLoaded", () => {
+    const loginStatus = localStorage.getItem("isDonaturLogin");
+
+    const btnAmbil = document.getElementById("btnAmbil");   // untuk penyalur
+    const btnBerbagi = document.getElementById("btnBerbagi"); // untuk donatur
+
+    // Tombol Ambil Rezeki (penyalur tetap ke penyalur.html)
+    btnAmbil.addEventListener("click", () => {
+      window.location.href = "penyalur.html";
+    });
+
+    // Tombol Berbagi Rezeki (donatur login/dashboard)
+    btnBerbagi.addEventListener("click", () => {
+      if (loginStatus === "true") {
+        window.location.href = "dashboard_donatur.html";
+      } else {
+        window.location.href = "login_donatur.html";
+      }
+    });
+  });
+

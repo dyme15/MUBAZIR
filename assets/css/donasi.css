@@ -93,4 +93,11 @@
           display: none;
       }
 
+#qrcode {
+  display: flex;
+  justify-content: center;
+}
+#qrcode canvas {
+  margin: auto;
+}
       
