@@ -187,7 +187,8 @@
 
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script type="module">
-import { tambahDonasi, listenDonasi } from "./assets/js/database.js";
+// Ganti import: gunakan listenDonasiByDonaturId
+import { tambahDonasi, listenDonasiByDonaturId } from "./assets/js/database.js"; // <-- DIUBAH
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -199,6 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.replace("login.html");
     return;
   }
+  const userId = user.id; // Ambil ID Donatur untuk filtering
 
   // =====================
   // Set Info User di Sidebar & Dashboard
@@ -359,28 +361,41 @@ document.addEventListener("DOMContentLoaded", () => {
   const tbody = document.getElementById("riwayatTableBody");
   if (tbody) {
     tbody.innerHTML = "<tr><td colspan='5'>⏳ Memuat...</td></tr>";
-    listenDonasi((data) => {
-      tbody.innerHTML = "";
-      if (!data || Object.keys(data).length === 0) {
-        tbody.innerHTML = "<tr><td colspan='5'>Belum ada donasi</td></tr>";
-        return;
-      }
-      Object.entries(data).forEach(([id, donasi]) => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${donasi.jenis || "-"}</td>
-          <td>${donasi.jumlah || 0} ${donasi.satuan || ""}</td>
-          <td>${donasi.lokasi || "-"}</td>
-          <td>
-            <span class="badge ${donasi.status === "diambil" ? "bg-success" : "bg-warning"}">
-              ${donasi.status || "Tersedia"}
-            </span>
-          </td>
-          <td>${donasi.ulasan || "-"}</td>
-        `;
-        tbody.appendChild(tr);
+
+    // Panggil fungsi BARU dan kirimkan userId
+    if (userId) {
+      listenDonasiByDonaturId(userId, (data) => { // <-- DIUBAH
+        tbody.innerHTML = "";
+
+        // Periksa apakah data adalah array dan kosong
+        if (!data || data.length === 0) { // <-- LOGIKA CEK ARRAY DIUBAH
+          tbody.innerHTML = "<tr><td colspan='5'>Belum ada donasi dari Anda.</td></tr>";
+          return;
+        }
+
+        // Gunakan forEach langsung pada data (karena sudah berupa array of objects)
+        data.forEach((donasi) => { // <-- LOGIKA LOOP DIUBAH
+          const tr = document.createElement("tr");
+          // Pastikan donaturId yang ditampilkan sesuai dengan user.id (meskipun sudah difilter di database.js, ini untuk konfirmasi)
+          if (donasi.donaturId === userId) {
+            tr.innerHTML = `
+              <td>${donasi.jenis || "-"}</td>
+              <td>${donasi.jumlah || 0} ${donasi.satuan || ""}</td>
+              <td>${donasi.lokasi || "-"}</td>
+              <td>
+                <span class="badge ${donasi.status === "diambil" ? "bg-success" : "bg-warning"}">
+                  ${donasi.status || "Tersedia"}
+                </span>
+              </td>
+              <td>${donasi.ulasan || "-"}</td>
+            `;
+            tbody.appendChild(tr);
+          }
+        });
       });
-    });
+    } else {
+        tbody.innerHTML = "<tr><td colspan='5'>Error: ID Donatur tidak ditemukan.</td></tr>";
+    }
   }
 
 }); // end DOMContentLoaded
