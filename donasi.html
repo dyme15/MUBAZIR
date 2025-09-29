@@ -1,123 +1,236 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Donatur - Mubazir</title>
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets/css/donasi.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donasi - Mubazir</title>
+
+  <!-- Favicons -->
+  <link href="assets/img/extra/logo-M.png" rel="icon">
+
+  <!-- Vendor CSS -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- CSS Utama -->
+  <link href="assets/css/main.css" rel="stylesheet">
+  <link href="assets/css/donasi.css" rel="stylesheet">
 </head>
-
 <body>
-    <div class="form-card">
-        <div class="form-header">
-            <div class="logo-wrapper">
-                <img src="assets/img/LOGO MUBAZIR-LOMBA (1).png" alt="Logo Mubazir">
-            </div>
-            <h2>Formulir Donasi</h2>
-            <p>Daripada terbuang, lebih baik dibagikan kepada yang membutuhkan 🌱</p>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+        <h1 class="sitename">
+          <img src="assets/img/extra/LOGO MUBAZIR-LOMBA (1).png" alt="Logo Mubazir" class="logo">
+        </h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html#hero">Beranda</a></li>
+          <li><a href="index.html#about">Tentang</a></li>
+          <li><a href="index.html#donatur">Donatur</a></li>
+          <li><a href="index.html#gallery">Galeri</a></li>
+          <li><a href="index.html#contact">Kontak</a></li>
+          <li class="dropdown">
+            <a href="#" class="active"><span>Donasi</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="#makanan">Makanan</a></li>
+              <li><a href="#snack">Snack & Roti</a></li>
+              <li><a href="#minuman">Minuman</a></li>
+              <li><a href="#buah">Buah & Hidangan Penutup</a></li>
+            </ul>
+          </li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a id="btnDonasi" class="btn-getstarted" href="login.html">Donasi Sekarang</a>
+    </div>
+  </header>
+  <!-- End Header -->
+
+  <!-- ======= Feed Random (utama) ======= -->
+  <section id="feed" class="feed section">
+    <div class="container">
+      <h2 class="mb-4">Semua Donasi</h2>
+
+      <div class="search-bar mb-4">
+        <input type="text" id="searchInput" class="form-control" placeholder="Cari donasi...">
+      </div>
+
+      <div class="row gy-4" id="postContainer">
+        <!-- Data donasi akan di-load dari database.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Kategori ======= -->
+  <section id="makanan" class="feed section">
+    <div class="container">
+      <h2 class="mb-4">Makanan</h2>
+      <div class="row gy-4" id="makananContainer"></div>
+    </div>
+  </section>
+
+  <section id="snack" class="feed section">
+    <div class="container">
+      <h2 class="mb-4">Snack & Roti</h2>
+      <div class="row gy-4" id="snackContainer"></div>
+    </div>
+  </section>
+
+  <section id="minuman" class="feed section">
+    <div class="container">
+      <h2 class="mb-4">Minuman</h2>
+      <div class="row gy-4" id="minumanContainer"></div>
+    </div>
+  </section>
+
+  <section id="buah" class="feed section">
+    <div class="container">
+      <h2 class="mb-4">Buah & Hidangan Penutup</h2>
+      <div class="row gy-4" id="buahContainer"></div>
+    </div>
+  </section>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer dark-background">
+    <div class="container">
+      <div class="row gy-3">
+        <div class="col-lg-3 col-md-6 d-flex">
+          <i class="bi bi-geo-alt icon"></i>
+          <div class="address">
+            <h4>Alamat</h4>
+            <p>Jl. Lap Golf, Kp. Tengah, Kec. Pancur Batu,</p>
+            <p>Kabupaten Deli Serdang 20353, Sumatera Utara – Indonesia</p>
+          </div>
         </div>
-
-        <form action="#" method="post" enctype="multipart/form-data" class="row g-4">
-
-            <!-- Email -->
-            <div class="col-md-6">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" id="email" name="email" class="form-control" required>
-            </div>
-
-            <!-- Nomor HP -->
-            <div class="col-md-6">
-                <label for="hp" class="form-label">Nomor Handphone</label>
-                <input type="tel" id="hp" name="hp" class="form-control" required>
-            </div>
-
-            <!-- Nama Lengkap -->
-            <div class="col-12">
-                <label for="nama" class="form-label">Nama Lengkap</label>
-                <input type="text" id="nama" name="nama" class="form-control" required>
-            </div>
-
-            <!-- Nama Makanan -->
-            <div class="col-md-6">
-                <label for="nama_makanan" class="form-label">Nama Makanan</label>
-                <input type="text" id="nama_makanan" name="nama_makanan" class="form-control" required>
-            </div>
-
-            <!-- Jumlah Porsi -->
-            <div class="col-md-6">
-                <label for="jumlah" class="form-label">Jumlah Porsi</label>
-                <input type="number" id="jumlah" name="jumlah" class="form-control" min="1" required>
-            </div>
-
-            <!-- Waktu Expired -->
-            <div class="col-md-6">
-                <label for="expired" class="form-label">Waktu Expired</label>
-                <input type="datetime-local" id="expired" name="expired" class="form-control" required>
-            </div>
-
-            <!-- Foto Makanan -->
-            <div class="col-md-6">
-                <label for="foto" class="form-label">Upload Foto Makanan</label>
-                <input type="file" id="foto" name="foto" class="form-control" accept="image/*"
-                    onchange="previewImage(event)">
-                <img id="preview" alt="Preview Gambar">
-            </div>
-
-            <!-- Lokasi Penjemputan -->
-            <div class="col-12">
-                <label for="lokasi" class="form-label">Alamat Lengkap Penjemputan</label>
-                <input type="text" id="lokasi" name="lokasi" class="form-control"
-                    placeholder="Contoh: Jl. Merdeka No.10, Pancur Batu" required>
-            </div>
-
-            <!-- Detail Lokasi -->
-            <div class="col-md-4">
-                <label for="rt" class="form-label">RT/RW</label>
-                <input type="text" id="rt" name="rt" class="form-control">
-            </div>
-
-            <div class="col-md-4">
-                <label for="kecamatan" class="form-label">Kecamatan</label>
-                <input type="text" id="kecamatan" name="kecamatan" class="form-control" required>
-            </div>
-
-            <div class="col-md-4">
-                <label for="kota" class="form-label">Kota/Kabupaten</label>
-                <input type="text" id="kota" name="kota" class="form-control" required>
-            </div>
-
-            <!-- Manfaat / Kandungan -->
-            <div class="col-12">
-                <label for="manfaat" class="form-label">Manfaat / Kandungan</label>
-                <textarea id="manfaat" name="manfaat" rows="3" class="form-control"></textarea>
-            </div>
-
-            <!-- Pantangan / Catatan Khusus -->
-            <div class="col-12">
-                <label for="pantangan" class="form-label">Pantangan / Catatan Khusus</label>
-                <textarea id="pantangan" name="pantangan" rows="3" class="form-control"></textarea>
-            </div>
-
-            <!-- Submit -->
-            <div class="col-12 text-center mt-3">
-                <button type="submit" class="btn btn-donasi">Posting Donasi</button>
-            </div>
-
-        </form>
+        <div class="col-lg-3 col-md-6 d-flex">
+          <i class="bi bi-telephone icon"></i>
+          <div>
+            <h4>Kontak</h4>
+            <p>
+              <strong>Phone:</strong> <span>(+6261) 6615683, 6622925</span><br>
+              <strong>Email:</strong> <span>ilkomp@uinsu.ac.id</span><br>
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 d-flex">
+          <i class="bi bi-clock icon"></i>
+          <div>
+            <h4>Jam Operasional</h4>
+            <p><strong>Mon-Sun:</strong> <span>11AM - 23PM</span></p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <h4>Ikuti Kami</h4>
+          <div class="social-links d-flex">
+            <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // preview foto makanan
-        function previewImage(event) {
-            const preview = document.getElementById('preview');
-            preview.src = URL.createObjectURL(event.target.files[0]);
-            preview.style.display = 'block';
-        }
-    </script>
-</body>
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">UIN Sumatera Utara</strong></p>
+      <div class="credits">
+        Designed by <a href="https://bootstrapmade.com/">KD2</a>
+      </div>
+    </div>
+  </footer>
 
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
+
+  <div id="preloader"></div>
+
+  <!-- Vendor JS -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS -->
+  <script src="assets/js/main.js"></script>
+  <script type="module">
+    import { getDonasi, getDonaturById } from "./assets/js/database.js";
+
+    async function loadDonasi() {
+      const donasiList = await getDonasi();
+
+      const postContainer = document.getElementById("postContainer");
+      const makananContainer = document.getElementById("makananContainer");
+      const snackContainer = document.getElementById("snackContainer");
+      const minumanContainer = document.getElementById("minumanContainer");
+      const buahContainer = document.getElementById("buahContainer");
+
+      [postContainer, makananContainer, snackContainer, minumanContainer, buahContainer].forEach(c => c.innerHTML = "");
+
+      for (const d of donasiList) {
+        let donaturNama = "Anonim";
+        let fotoDonatur = "assets/img/default-avatar.png";
+
+        if (d.donaturId) {
+          const user = await getDonaturById(d.donaturId);
+          if (user) {
+            donaturNama = user.nama || "Anonim";
+            if (user.fotoProfil) fotoDonatur = user.fotoProfil;
+          }
+        }
+
+        const card = document.createElement("div");
+        card.className = "col-lg-6";
+        card.innerHTML = `
+          <div class="feed-card">
+            <div class="feed-header d-flex align-items-center mb-2">
+              <img src="${fotoDonatur}" alt="Profil" style="width:40px;height:40px;border-radius:50%;margin-right:10px;">
+              <h5 class="mb-0">Donatur: ${donaturNama}</h5>
+            </div>
+            <div class="feed-gallery mb-2">
+              <img src="${d.foto || 'assets/img/default-food.jpg'}" alt="${d.jenis}" class="main-img w-100" style="border-radius:10px;">
+            </div>
+            <div class="feed-body">
+              <p><strong>Jenis:</strong> ${d.jenis}</p>
+              <p><strong>Jumlah:</strong> ${d.jumlah} ${d.satuan || ""}</p>
+              <p><strong>Lokasi:</strong> ${d.lokasi}</p>
+            </div>
+            <div class="feed-footer mt-2">
+              <a href="klaim.html?donasiId=${d.id}" class="btn btn-success btn-sm">Ambil Donasi</a>
+            </div>
+          </div>`;
+
+        // feed utama
+        postContainer.appendChild(card.cloneNode(true));
+
+        // kategori
+        if (d.kategori === "makanan") makananContainer.appendChild(card);
+        else if (d.kategori === "snack") snackContainer.appendChild(card);
+        else if (d.kategori === "minuman") minumanContainer.appendChild(card);
+        else if (d.kategori === "buah") buahContainer.appendChild(card);
+      }
+    }
+
+    loadDonasi();
+
+    // ======= Search Filter =======
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("input", () => {
+      const keyword = searchInput.value.toLowerCase();
+      document.querySelectorAll(".feed-card").forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(keyword) ? "" : "none";
+      });
+    });
+  </script>
+</body>
 </html>

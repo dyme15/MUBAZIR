@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login / Register - Mubazir</title>
+
+  <!-- Favicons -->
+  <link href="assets/img/extra/logo-M.png" rel="icon">
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+
+<body class="d-flex align-items-center justify-content-center vh-100" style="position: relative; overflow: hidden;">
+
+  <!-- Layer background blur -->
+  <div style="
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url('assets/img/extra/bglogin.jpg') no-repeat center center fixed;
+    background-size: cover;
+    filter: blur(0px);
+    z-index: -1;
+  "></div>
+
+  <!-- AUTH CARD -->
+  <div class="auth-card">
+    <div class="auth-inner">
+
+      <!-- FRONT (LOGIN) -->
+      <div class="auth-face">
+        <div class="text-center mb-3">
+          <img src="assets/img/extra/LOGO MUBAZIR-LOMBA (1).png" alt="Logo Mubazir">
+          <h3 id="form-title">Login</h3>
+        </div>
+        <form id="login-form" class="auth-form">
+          <div class="mb-2">
+            <label for="emailLogin" class="form-label">Email</label>
+            <input type="text" class="form-control" id="emailLogin" placeholder="Masukkan email">
+          </div>
+          <div class="mb-2">
+            <label for="passwordLogin" class="form-label">Password</label>
+            <input type="password" class="form-control" id="passwordLogin" placeholder="Masukkan password">
+          </div>
+          <button type="submit" class="btn btn-success w-100 mt-2">Login</button>
+        </form>
+        <p class="text-center mt-2 small">
+          <span id="toggle-text">Belum punya akun?</span> 
+          <a href="#" id="toggle-link">Daftar di sini</a>
+        </p>
+      </div>
+
+      <!-- BACK (REGISTER) -->
+      <div class="auth-face auth-back">
+        <div class="text-center mb-3">
+          <img src="assets/img/extra/LOGO MUBAZIR-LOMBA (1).png" alt="Logo Mubazir">
+          <h3>Register</h3>
+        </div>
+        <form id="register-form" class="auth-form">
+          <div class="mb-2">
+            <label for="nama" class="form-label">Nama</label>
+            <input type="text" class="form-control" id="nama" placeholder="Masukkan nama lengkap">
+          </div>
+          <div class="mb-2">
+            <label for="emailRegister" class="form-label">Email</label>
+            <input type="email" class="form-control" id="emailRegister" placeholder="Masukkan email">
+          </div>
+          <div class="mb-2">
+            <label for="noHp" class="form-label">No HP</label>
+            <input type="text" class="form-control" id="noHp" placeholder="08xxxxxxxxxx">
+          </div>
+          <div class="mb-2">
+            <label for="passwordRegister" class="form-label">Password</label>
+            <input type="password" class="form-control" id="passwordRegister" placeholder="Buat password">
+          </div>
+          <button type="submit" class="btn btn-primary w-100 mt-2">Daftar</button>
+        </form>
+        <p class="text-center mt-2 small">
+          <span>Sudah punya akun?</span> 
+          <a href="#" id="toggle-link-back">Login di sini</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+  <!-- Login JS File -->
+  <script type="module" src="assets/js/login.js"></script>
+</body>
+</html>

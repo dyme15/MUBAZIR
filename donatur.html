@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Donatur - Mubazir</title>
+
+  <!-- Favicons -->
+  <link href="assets/img/extra/logo-M.png" rel="icon">
+  
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
+  <style>
+    body { overflow-x: hidden; background: #f5f7fa; font-family: 'Segoe UI', sans-serif; }
+
+    /* Sidebar */
+    #sidebar { min-width: 240px; max-width: 240px; background: linear-gradient(180deg, #198754 0%, #146c43 100%); color: #fff; transition: all 0.3s ease; box-shadow: 5px 0 15px rgba(0,0,0,0.2); z-index: 1000; }
+    #sidebar.collapsed { margin-left: -240px; }
+    #profilePic { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; border: 3px solid #fff; margin: 10px 0; display: block; background: #ccc; }
+    #sidebar .user-info { text-align: left; margin-bottom: 20px; }
+    #sidebar .user-info h5 { margin: 0; font-size: 1rem; }
+    #sidebar .user-info small { font-size: 0.85rem; color: #e0e0e0; }
+    #sidebar .nav-link { color: #fff; padding: 10px 15px; margin: 4px 0; border-radius: 6px; transition: 0.3s; font-weight: 500; text-align: left; }
+    #sidebar .nav-link.active, #sidebar .nav-link:hover { background: rgba(255, 255, 255, 0.2); transform: translateX(6px); }
+
+    /* Content */
+    #content { margin-left: 240px; transition: margin-left 0.3s ease; }
+    #content.expanded { margin-left: 0; }
+
+    /* Topbar */
+    .navbar { background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
+    #toggleSidebar { margin-right: 15px; border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 6px rgba(0,0,0,0.2); transition: 0.3s; }
+    #toggleSidebar:hover { transform: rotate(90deg) scale(1.1); background: #198754; color: #fff; }
+
+    /* Card / Form styling ala 3D */
+    .card { border: none; border-radius: 16px; background: #fff; box-shadow: 0 6px 16px rgba(0,0,0,0.1); transition: 0.3s; }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+    .btn { border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); transition: all 0.3s ease; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.25); }
+    .page-section { display: none; }
+    .page-section.active { display: block; }
+  </style>
+</head>
+<body>
+<div class="d-flex">
+  <!-- Sidebar -->
+  <nav id="sidebar" class="d-flex flex-column p-3 vh-100 position-fixed">
+    <img id="profilePic" src="assets/img/default-avatar.png" alt="Foto Profil">
+    <div class="user-info">
+      <h5 id="namaSidebar">Donatur Default</h5>
+      <small id="usernameSidebar">@username123</small>
+    </div>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li><a class="nav-link active" data-section="dashboard"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
+      <li><a class="nav-link" data-section="buatDonasi"><i class="bi bi-plus-circle me-2"></i> Buat Donasi</a></li>
+      <li><a class="nav-link" data-section="riwayat"><i class="bi bi-clock-history me-2"></i> Riwayat</a></li>
+      <li><a class="nav-link" data-section="akun"><i class="bi bi-person-circle me-2"></i> Pengaturan Akun</a></li>
+      <li><button id="logoutBtn" class="btn btn-outline-light mt-3 w-100"><i class="bi bi-box-arrow-right"></i> Logout</button></li>
+    </ul>
+  </nav>
+
+  <!-- Content -->
+  <div id="content" class="flex-grow-1">
+    <!-- Topbar -->
+    <nav class="navbar navbar-light shadow-sm">
+      <div class="container-fluid d-flex align-items-center">
+        <button id="toggleSidebar" class="btn btn-outline-success me-3"><i class="bi bi-grid"></i></button>
+        <img src="assets/img/extra/LOGO MUBAZIR-LOMBA (1).png" alt="Logo Mubazir" style="height:50px; width:50px;">
+        <span class="ms-auto badge bg-warning text-dark fs-6 shadow-sm"><i class="bi bi-star-fill"></i> Poin Berkah: <span id="poinBerkah">120</span></span>
+      </div>
+    </nav>
+
+    <div class="container my-4">
+      <!-- Dashboard -->
+      <div id="dashboard" class="page-section active">
+        <div class="card p-4 mb-4">
+          <h3>Selamat Datang, <span id="namaDashboard">Donatur!</span></h3>
+          <p class="text-muted">Berikut progres Anda berdasarkan 6 kriteria utama 🌱</p>
+          <div class="row g-4 mt-2" id="dashboardCards">
+            <!-- Cards akan diisi dinamis -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Buat Donasi -->
+      <div id="buatDonasi" class="page-section">
+        <div class="card p-4">
+          <h4>Buat Donasi Baru</h4>
+          <form id="formDonasi" class="row g-3 mt-2">
+            <div class="col-md-6">
+              <label class="form-label">Jenis Donasi</label>
+              <input id="jenisDonasi" type="text" class="form-control" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Jumlah</label>
+              <input id="jumlahDonasi" type="number" class="form-control" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Satuan</label>
+              <select id="satuanDonasi" class="form-select">
+                <option>Porsi</option>
+                <option>Buah</option>
+                <option>Botol</option>
+              </select>
+            </div>
+            <div class="col-md-12">
+              <label class="form-label">Lokasi</label>
+              <input id="lokasi" type="text" class="form-control mb-2" readonly placeholder="Klik pada peta untuk memilih lokasi">
+              <iframe id="mapFrame" src="https://maps.google.com/maps?q=medan&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="250" style="border-radius:10px;"></iframe>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Upload Foto</label>
+              <input type="file" class="form-control" id="fotoDonasi">
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-success">Buat Donasi</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Hasil Donasi -->
+        <div id="hasilDonasi" class="card p-4 mt-4 d-none">
+          <h5>Donasi Dibuat</h5>
+          <p><strong>Jenis:</strong> <span id="hasilJenis"></span></p>
+          <p><strong>Jumlah:</strong> <span id="hasilJumlah"></span></p>
+          <p><strong>Lokasi:</strong> <span id="hasilLokasi"></span></p>
+          <button id="scanBtn" class="btn btn-outline-primary"><i class="bi bi-qr-code-scan"></i> Scan QR Penyalur</button>
+          <div id="qrReader" class="mt-3 d-none" style="width:300px;"></div>
+        </div>
+      </div>
+
+      <!-- Riwayat -->
+      <div id="riwayat" class="page-section">
+        <div class="card p-4">
+          <h4>Riwayat Donasi Saya</h4>
+          <table class="table table-hover mt-3">
+            <thead>
+              <tr>
+                <th>Jenis</th>
+                <th>Jumlah</th>
+                <th>Lokasi</th>
+                <th>Status</th>
+                <th>Rating & Ulasan</th>
+              </tr>
+            </thead>
+            <tbody id="riwayatTableBody">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Pengaturan Akun -->
+      <div id="akun" class="page-section">
+        <div class="card p-4">
+          <h4>Pengaturan Akun</h4>
+          <form id="formAkun" class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Nama</label>
+              <input id="namaDonatur" type="text" class="form-control" value="">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Foto Profil</label>
+              <input id="fotoProfil" type="file" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" value="donatur@example.com">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">No. HP</label>
+              <input type="text" class="form-control" placeholder="08xxxxxxxxxx">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Password Baru</label>
+              <input type="password" class="form-control" placeholder="Ganti password">
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-success">Simpan Perubahan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="module">
+import { tambahDonasi, listenDonasi } from "./assets/js/database.js";
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  // =====================
+  // Proteksi Donatur
+  // =====================
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (!user || user.role !== "donatur") {
+    window.location.replace("login.html");
+    return;
+  }
+
+  // =====================
+  // Set Info User di Sidebar & Dashboard
+  // =====================
+  const namaSidebarEl = document.getElementById("namaSidebar");
+  const namaDashboardEl = document.getElementById("namaDashboard");
+  const usernameSidebarEl = document.getElementById("usernameSidebar");
+  const profilePicEl = document.getElementById("profilePic");
+
+  namaSidebarEl.textContent = user.nama;
+  namaDashboardEl.textContent = user.nama;
+  usernameSidebarEl.textContent = "@" + (user.email.split("@")[0] || "donatur");
+
+  // =====================
+  // Logout
+  // =====================
+  const logoutBtn = document.getElementById("logoutBtn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("user");
+      window.location.href = "login.html";
+    });
+  }
+
+  // =====================
+  // Sidebar Toggle
+  // =====================
+  const toggleSidebar = document.getElementById("toggleSidebar");
+  if (toggleSidebar) {
+    toggleSidebar.addEventListener("click", () => {
+      document.getElementById("sidebar").classList.toggle("collapsed");
+      document.getElementById("content").classList.toggle("expanded");
+    });
+  }
+
+  // =====================
+  // Navigasi Sidebar
+  // =====================
+  document.querySelectorAll("#sidebar .nav-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      document.querySelectorAll("#sidebar .nav-link").forEach((l) => l.classList.remove("active"));
+      document.querySelectorAll(".page-section").forEach((sec) => sec.classList.remove("active"));
+      link.classList.add("active");
+      const sectionId = link.getAttribute("data-section");
+      if (sectionId) document.getElementById(sectionId).classList.add("active");
+    });
+  });
+
+  // =====================
+  // Form Donasi
+  // =====================
+  const formDonasi = document.getElementById("formDonasi");
+  if (formDonasi) {
+    formDonasi.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const jenis = document.getElementById("jenisDonasi").value;
+      const jumlah = document.getElementById("jumlahDonasi").value;
+      const satuan = document.getElementById("satuanDonasi").value;
+      const lokasi = document.getElementById("lokasi").value;
+      const fotoInput = document.getElementById("fotoDonasi");
+
+      let fotoBase64 = "";
+      if (fotoInput?.files && fotoInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = async (ev) => {
+          fotoBase64 = ev.target.result;
+          await simpanDonasi();
+        };
+        reader.readAsDataURL(fotoInput.files[0]);
+      } else {
+        await simpanDonasi();
+      }
+
+      async function simpanDonasi() {
+        try {
+          const data = {
+            jenis,
+            jumlah,
+            satuan,
+            lokasi,
+            status: "Tersedia",
+            donaturId: user.id,
+            foto: fotoBase64
+          };
+          const donasiId = await tambahDonasi(data);
+
+          document.getElementById("hasilJenis").textContent = jenis;
+          document.getElementById("hasilJumlah").textContent = jumlah + " " + satuan;
+          document.getElementById("hasilLokasi").textContent = lokasi;
+
+          formDonasi.classList.add("d-none");
+          document.getElementById("hasilDonasi").classList.remove("d-none");
+          console.log("✅ Donasi tersimpan:", donasiId);
+        } catch (err) {
+          console.error(err);
+          alert("Gagal menyimpan donasi. Coba lagi.");
+        }
+      }
+    });
+  }
+
+  // =====================
+  // QR Scanner
+  // =====================
+  const scanBtn = document.getElementById("scanBtn");
+  const qrReaderEl = document.getElementById("qrReader");
+  if (scanBtn && qrReaderEl) {
+    scanBtn.addEventListener("click", () => {
+      qrReaderEl.classList.remove("d-none");
+      const html5QrCode = new Html5Qrcode("qrReader");
+      html5QrCode.start(
+        { facingMode: "environment" },
+        { fps: 10, qrbox: 250 },
+        (msg) => {
+          alert("Scan Berhasil: " + msg);
+          html5QrCode.stop();
+          qrReaderEl.classList.add("d-none");
+        }
+      );
+    });
+  }
+
+  // =====================
+  // Profil Update
+  // =====================
+  const formAkun = document.getElementById("formAkun");
+  if (formAkun) {
+    formAkun.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const nama = document.getElementById("namaDonatur").value || "Donatur Default";
+      namaSidebarEl.textContent = nama;
+      namaDashboardEl.textContent = nama;
+
+      const fotoInput = document.getElementById("fotoProfil");
+      if (fotoInput?.files && fotoInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (ev) => profilePicEl.src = ev.target.result;
+        reader.readAsDataURL(fotoInput.files[0]);
+      }
+    });
+  }
+
+  // =====================
+  // Lokasi default
+  // =====================
+  const mapFrame = document.getElementById("mapFrame");
+  if (mapFrame) {
+    mapFrame.addEventListener("load", () => {
+      const lokasiInput = document.getElementById("lokasi");
+      if (lokasiInput) lokasiInput.value = "Medan, Sumatera Utara";
+    });
+  }
+
+  // =====================
+  // Riwayat Donasi Realtime
+  // =====================
+  const tbody = document.getElementById("riwayatTableBody");
+  if (tbody) {
+    tbody.innerHTML = "<tr><td colspan='5'>⏳ Memuat...</td></tr>";
+    listenDonasi((data) => {
+      tbody.innerHTML = "";
+      if (!data || Object.keys(data).length === 0) {
+        tbody.innerHTML = "<tr><td colspan='5'>Belum ada donasi</td></tr>";
+        return;
+      }
+      Object.entries(data).forEach(([id, donasi]) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${donasi.jenis || "-"}</td>
+          <td>${donasi.jumlah || 0} ${donasi.satuan || ""}</td>
+          <td>${donasi.lokasi || "-"}</td>
+          <td>
+            <span class="badge ${donasi.status === "diambil" ? "bg-success" : "bg-warning"}">
+              ${donasi.status || "Tersedia"}
+            </span>
+          </td>
+          <td>${donasi.ulasan || "-"}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    });
+  }
+
+}); // end DOMContentLoaded
+</script>
+
+</body>
+</html>

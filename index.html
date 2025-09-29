@@ -9,13 +9,13 @@
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="assets/img/logo-M.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="assets/img/extra/logo-M.png" rel="icon">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -27,14 +27,6 @@
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: Yummy
-  * Template URL: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/
-  * Updated: Aug 07 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body class="index-page">
@@ -43,10 +35,9 @@
     <div class="container position-relative d-flex align-items-center justify-content-between">
 
       <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
+
         <h1 class="sitename">
-      <img src="assets/img/LOGO MUBAZIR-LOMBA (1).png" alt="Logo Mubazir" class="logo">
+      <img src="assets/img/extra/LOGO MUBAZIR-LOMBA (1).png" alt="Logo Mubazir" class="logo">
         </h1>
       </a>
 
@@ -54,24 +45,23 @@
         <ul>
           <li><a href="#hero" class="active">Beranda<br></a></li>
           <li><a href="#about">Tentang</a></li>
-          <li><a href="#menu">Poin Berkah</a></li>
-          <li><a href="#chefs">Donatur</a></li>
+          <li><a href="#donatur">Donatur</a></li>
           <li><a href="#gallery">Galeri</a></li>
           <li><a href="#contact">Kontak</a></li>
           <li class="dropdown">
-            <a href="penyalur.html"><span>Donasi</span> <i class="bi bi-chevron-down"></i></a>
+            <a href="donasi.html"><span>Donasi</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="penyalur.html#makanan">Makanan</a></li>
-              <li><a href="penyalur.html#roti">Snack & Roti</a></li>
-              <li><a href="penyalur.html#minuman">Minuman</a></li>
-              <li><a href="penyalur.html#buah">Buah & Hidangan Penutup</a></li>
+              <li><a href="donasi.html#makanan">Makanan</a></li>
+              <li><a href="donasi.html#roti">Snack & Roti</a></li>
+              <li><a href="donasi.html#minuman">Minuman</a></li>
+              <li><a href="donasi.html#buah">Buah & Hidangan Penutup</a></li>
             </ul>
           </li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a class="btn-getstarted" href="donasi.html">Donasi Sekarang</a>
+      <a class="btn-getstarted" href="login.html">Donasi Sekarang</a>
 
     </div>
   </header>
@@ -86,20 +76,27 @@
           <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center">
         <div data-aos="fade-up" style="position: relative; display: inline-block;">
             <h1 style="margin: 0 0 0 30px; font-size: 128px; line-height: 1;">Mubazir</h1>
-            <img src="assets/img/tanganstop.png" alt="STOP"
+            <img src="assets/img/extra/tanganstop.png" alt="STOP"
                 style="position: absolute; left: -50px; top: 20%; transform: translateY(-50%); height: 70px;">
           </div>
             <p data-aos="fade-up" data-aos-delay="100">“Daripada terbuang, lebih baik dibagikan kepada yang membutuhkan.”</p>
             <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-              <a id="btnAmbil" class="btn-get-started">Ambil Rezeki</a>
-              <a id="btnBerbagi" class="glightbox btn-watch-video d-flex align-items-center">
-                <i class="fas fa-hand-holding-heart"></i>
+              <!-- Tombol Ambil Rezeki -->
+              <a href="donasi.html" class="btn-get-started">
+                Ambil Rezeki
+              </a>
+
+              <!-- Tombol Berbagi Rezeki -->
+              <a href="login.html" 
+                class="btn-get-started d-flex align-items-center" 
+                style="background: transparent; color: inherit; border: none; box-shadow: none;">
+                <i class="fas fa-hand-holding-heart me-2" style="color: #BC4749;"></i>
                 <span>Berbagi Rezeki</span>
               </a>
             </div>
           </div>
           <div class="col-lg-5 order-1 order-lg-2 iconawal" data-aos="zoom-out">
-  <img src="assets/img/iconawal.png" class="img-fluid animated shadow-img" alt="">
+  <img src="assets/img/extra/iconawal.png" class="img-fluid animated shadow-img" alt="">
 </div>
           </div>
         </div>
@@ -119,13 +116,29 @@
       <div class="container">
 
         <div class="row gy-4">
-          <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
-            <img src="assets/img/tentang.png" class="img-fluid mb-4 tentang-img" alt="">
-            <div class="book-a-table">
-              <h3>Porsi Terselamatkan</h3>
-              <p>(+6261) 6615683, 6622925</p>
+         <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
+          <img src="assets/img/about/tentang.png" class="img-fluid mb-4 tentang-img" alt="">
+          <div class="book-a-table text-center">
+            <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 28px; letter-spacing: 1px;">
+              Kolaborasi:
+            </h3>
+            <div class="d-flex justify-content-center align-items-center flex-wrap gap-4 mt-3">
+              <a href="https://kemkes.go.id/" target="_blank">
+                <img src="assets/img/kolaborasi/logo1.png" alt="Kemkes" class="logo-kolaborasi">
+              </a>
+              <a href="https://www.pom.go.id" target="_blank">
+                <img src="assets/img/kolaborasi/logo2.png" alt="BPOM" class="logo-kolaborasi">
+              </a>
+              <a href="https://baznas.go.id" target="_blank">
+                <img src="assets/img/kolaborasi/logo3.png" alt="BAZNAZ" class="logo-kolaborasi">
+              </a>
+              <a href="https://uinsu.ac.id/" target="_blank">
+                <img src="assets/img/kolaborasi/logo4.png" alt="UINSU" class="logo-kolaborasi">
+              </a>
             </div>
           </div>
+        </div>
+
           <div class="col-lg-5" data-aos="fade-up" data-aos-delay="250">
             <div class="content ps-0 ps-lg-5">
               <p class="fst-italic">
@@ -140,8 +153,8 @@
               </p>
 
               <div class="position-relative mt-4">
-                <img src="assets/img/Tentang-2.png" class="img-fluid tentang-img" alt="">
-                <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox pulsating-play-btn"></a>
+                <img src="assets/img/about/Tentang-2.png" class="img-fluid tentang-img" alt="">
+                <a href="https://youtu.be/Ax6aV3NRMXc?si=Aldyjhu21ybz3SuY" class="glightbox pulsating-play-btn"></a>
               </div>
             </div>
           </div>
@@ -165,7 +178,7 @@
                Mubazir hadir sebagai solusi untuk menghubungkan kebaikan. Sistem ini mempertemukan Donatur yang 
                memiliki makanan berlebih dengan Penyalur yang siap mendistribusikannya kepada yang membutuhkan.
               <div class="text-center">
-                <a href="#" class="more-btn"><span>Mulai Berbagi</span> <i class="bi bi-chevron-right"></i></a>
+                <a href="login.html" class="more-btn"><span>Mulai Berbagi</span> <i class="bi bi-chevron-right"></i></a>
               </div>
             </div>
           </div><!-- End Why Box -->
@@ -175,7 +188,7 @@
 
               <div class="col-xl-4">
                 <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                  <i class="bi bi-inboxes"></i>
+                  <i class="bi bi-basket"></i>
                   <h4>Donatur Berbagi</h4>
                   <p>Posting makanan berlebih dengan mudah melalui platform Mubazir.</p>
                 </div>
@@ -183,7 +196,7 @@
 
               <div class="col-xl-4" data-aos="fade-up" data-aos-delay="300">
                 <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                  <i class="bi bi-gem"></i>               
+                  <i class="bi bi-people"></i>               
                   <h4>Penyalur Menyalurkan</h4>
                   <p>Cari, klaim, lalu distribusikan donasi terdekat dengan bukti klaim dan penyaluran.</p>
                 </div>
@@ -191,8 +204,8 @@
 
               <div class="col-xl-4" data-aos="fade-up" data-aos-delay="400">
                 <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                  <i class="bi bi-clipboard-data"></i>
-                  <h4>Transparansi aman.</h4>
+                  <i class="bi bi-qr-code-scan"></i>
+                  <h4>Transparansi Aman</h4>
                   <p>Setiap serah terima tercatat dengan kode unik/QR untuk keamanan dan kepercayaan.</p>
                 </div>
               </div><!-- End Icon Box -->
@@ -209,11 +222,11 @@
     <!-- Stats Section -->
     <section id="stats" class="stats section dark-background">
 
-      <img src="assets/img/stats-bg.jpg" alt="" data-aos="fade-in">
+      <img src="assets/img/about/stats-bg.jpg" alt="" data-aos="fade-in">
 
       <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
 
-        <div class="row gy-4">
+        <div class="row gy-4 justify-content-center text-center"> <!-- Tambah text-center & justify-content-center -->
 
           <div class="col-lg-3 col-md-6">
             <div class="stats-item text-center w-100 h-100">
@@ -235,408 +248,12 @@
               <p>Porsi Makanan Terdistribusikan</p>
             </div>
           </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Jumlah Event</p>
-            </div>
-          </div><!-- End Stats Item -->
-
+          
         </div>
 
       </div>
 
     </section><!-- /Stats Section -->
-
-    <!-- Menu Section -->
-    <section id="menu" class="menu section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Poin Berkah</h2>
-        <p><span>Level</span> <span class="description-title">Donatur</span></p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
-
-          <li class="nav-item">
-            <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#menu-starters">
-              <h4 class="d-flex flex-column align-items-center">
-                <span>Dermawan</span>
-                <span class="stars">
-                  <i class="bi bi-star-fill text-warning"></i>
-                </span>
-              </h4>
-            </a>
-          </li>
-          <!-- End tab nav item -->
-
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-breakfast">
-              <h4 class="d-flex flex-column align-items-center">
-                <span>Penolong</span>
-                <span class="stars">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star-fill text-warning"></i>
-                </span>
-              </h4>
-            </a>
-          </li>
-          <!-- End tab nav item -->
-          
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-lunch">
-              <h4 class="d-flex flex-column align-items-center">
-                <span>Inspirator</span>
-                <span class="stars">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star-fill text-warning"></i>
-                </span>
-              </h4>
-            </a>
-          </li>
-          <!-- End tab nav item -->
-
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-dinner">
-              <h4 class="d-flex flex-column align-items-center">
-                <span>Pahlawan</span>
-                <span class="stars">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star-fill text-warning"></i>
-                </span>
-              </h4>
-            </a>
-          </li>
-          <!-- End tab nav item -->
-
-        </ul>
-
-        <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
-
-          <div class="tab-pane fade active show" id="menu-starters">
-
-            <div class="tab-header text-center">
-              <p>Level</p>
-              <h3>Dermawan</h3>
-            </div>
-
-            <div class="row gy-5">
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Donasi.png" class="glightbox"><img src="assets/img/Poin-Berkah/Donasi.png" class="menu-img img-fluid" alt=""></a>
-                <h4>10 Poin/ Donasi</h4>
-                <p class="ingredients">
-                  Donatur wajib melakukan donasi sesuai target level.
-                </p>
-                <p class="price">
-                  1x Donasi
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Porsi.png" class="glightbox"><img src="assets/img/Poin-Berkah/Porsi.png" class="menu-img img-fluid" alt=""></a>
-                <h4>5 Poin/ Porsi</h4>
-                <p class="ingredients">
-                  Donatur harus menyalurkan makanan hingga sampai kepada penerima.
-                </p>
-                <p class="price">
-                  3 Porsi
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Konsistensi.png" class="glightbox"><img src="assets/img/Poin-Berkah/Konsistensi.png" class="menu-img img-fluid" alt=""></a>
-                <h4>50 Poin/ Konsistensi</h4>
-                <p class="ingredients">
-                  Donatur perlu menjaga konsistensi dalam berbagi.
-                </p>
-                <p class="price">
-                  1x/ 2 minggu
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Bukti.png" class="glightbox"><img src="assets/img/Poin-Berkah/Bukti.png" class="menu-img img-fluid" alt=""></a>
-                <h4>5 Poin/ Bukti</h4>
-                <p class="ingredients">
-                  Setiap donasi harus disertai bukti distribusi dengan dokumentasi.
-                </p>
-                <p class="price">
-                  1 Dokumentasi
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Kontribusi.png" class="glightbox"><img src="assets/img/Poin-Berkah/Kontribusi.png" class="menu-img img-fluid" alt=""></a>
-                <h4>30 Poin/ Kontribusi</h4>
-                <p class="ingredients">
-                  Donatur diharapkan ikut serta dalam event atau aksi sosial.
-                </p>
-                <p class="price">
-                  1 Event
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Apresiasi.png" class="glightbox"><img src="assets/img/Poin-Berkah/Apresiasi.png" class="menu-img img-fluid" alt=""></a>
-                <h4>2 Poin/ Apresiasi</h4>
-                <p class="ingredients">
-                  Donatur mendapat apresiasi dari penerima donasi melalui rating.
-                </p>
-                <p class="price">
-                  1 Rating
-                </p>
-              </div><!-- Menu Item -->
-
-            </div>
-          </div><!-- End Starter Menu Content -->
-
-          <div class="tab-pane fade" id="menu-breakfast">
-
-            <div class="tab-header text-center">
-              <p>Level</p>
-              <h3>Penolong</h3>
-            </div>
-
-            <div class="row gy-5">
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Donasi.png" class="glightbox"><img src="assets/img/Poin-Berkah/Donasi.png" class="menu-img img-fluid" alt=""></a>
-                <h4>10 Poin/ Donasi</h4>
-                <p class="ingredients">
-                  Donatur wajib melakukan donasi sesuai target level.
-                </p>
-                <p class="price">
-                  5 DONASI
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Porsi.png" class="glightbox"><img src="assets/img/Poin-Berkah/Porsi.png" class="menu-img img-fluid" alt=""></a>
-                <h4>5 Poin/ Porsi</h4>
-                <p class="ingredients">
-                  Donatur harus menyalurkan makanan hingga sampai kepada penerima.
-                </p>
-                <p class="price">
-                  10 PORSI 
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Konsistensi.png" class="glightbox"><img src="assets/img/Poin-Berkah/Konsistensi.png" class="menu-img img-fluid" alt=""></a>
-                <h4>50 Poin/ Konsistensi</h4>
-                <p class="ingredients">
-                  Donatur perlu menjaga konsistensi dalam berbagi.
-                </p>
-                <p class="price">
-                  4x/ Bulan
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Bukti.png" class="glightbox"><img src="assets/img/Poin-Berkah/Bukti.png" class="menu-img img-fluid" alt=""></a>
-                <h4>5 Poin/ Bukti</h4>
-                <p class="ingredients">
-                  Setiap donasi harus disertai bukti distribusi dengan dokumentasi.
-                </p>
-                <p class="price">
-                  3 Dokumentasi
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Kontribusi.png" class="glightbox"><img src="assets/img/Poin-Berkah/Kontribusi.png" class="menu-img img-fluid" alt=""></a>
-                <h4>30 Poin/ Kontribusi</h4>
-                <p class="ingredients">
-                  Donatur diharapkan ikut serta dalam event atau aksi sosial.
-                </p>
-                <p class="price">
-                  1 Event 
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Apresiasi.png" class="glightbox"><img src="assets/img/Poin-Berkah/Apresiasi.png" class="menu-img img-fluid" alt=""></a>
-                <h4>2 Poin/ Apresiasi</h4>
-                <p class="ingredients">
-                  Donatur mendapat apresiasi dari penerima donasi melalui rating.
-                </p>
-                <p class="price">
-                  5 Rating
-                </p>
-              </div><!-- Menu Item -->
-
-            </div>
-          </div><!-- End Breakfast Menu Content -->
-
-          <div class="tab-pane fade" id="menu-lunch">
-
-            <div class="tab-header text-center">
-              <p>Level</p>
-              <h3>Inspirator</h3>
-            </div>
-
-            <div class="row gy-5">
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Donasi.png" class="glightbox"><img src="assets/img/Poin-Berkah/Donasi.png" class="menu-img img-fluid" alt=""></a>
-                <h4>10 Poin/ Donasi</h4>
-                <p class="ingredients">
-                  Donatur wajib melakukan donasi sesuai target level.
-                </p>
-                <p class="price">
-                  15 Donasi
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Porsi.png" class="glightbox"><img src="assets/img/Poin-Berkah/Porsi.png" class="menu-img img-fluid" alt=""></a>
-                <h4>5 Poin/ Porsi</h4>
-                <p class="ingredients">
-                 Donatur harus menyalurkan makanan hingga sampai kepada penerima.
-                </p>
-                <p class="price">
-                  30 Porsi
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Konsistensi.png" class="glightbox"><img src="assets/img/Poin-Berkah/Konsistensi.png" class="menu-img img-fluid" alt=""></a>
-                <h4>50 Poin/ Konsistensi</h4>
-                <p class="ingredients">
-                  Donatur perlu menjaga konsistensi dalam berbagi.
-                </p>
-                <p class="price">
-                  8x/ 2 Bulan
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Bukti.png" class="glightbox"><img src="assets/img/Poin-Berkah/Bukti.png" class="menu-img img-fluid" alt=""></a>
-                <h4>5 Poin/ Bukti</h4>
-                <p class="ingredients">
-                  Setiap donasi harus disertai bukti distribusi dengan dokumentasi.
-                </p>
-                <p class="price">
-                  10 Dokumentasi
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Kontribusi.png" class="glightbox"><img src="assets/img/Poin-Berkah/Kontribusi.png" class="menu-img img-fluid" alt=""></a>
-                <h4>30 Poin/ Kontribusi</h4>
-                <p class="ingredients">
-                  Donatur diharapkan ikut serta dalam event atau aksi sosial.
-                </p>
-                <p class="price">
-                  2 Event
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Apresiasi.png" class="glightbox"><img src="assets/img/Poin-Berkah/Apresiasi.png" class="menu-img img-fluid" alt=""></a>
-                <h4>2 Poin/ Apresiasi</h4>
-                <p class="ingredients">
-                  Donatur mendapat apresiasi dari penerima donasi melalui rating.
-                </p>
-                <p class="price">
-                  10 Rating 
-                </p>
-              </div><!-- Menu Item -->
-
-            </div>
-          </div><!-- End Lunch Menu Content -->
-
-          <div class="tab-pane fade" id="menu-dinner">
-
-            <div class="tab-header text-center">
-              <p>Level</p>
-              <h3>Pahlawan</h3>
-            </div>
-
-            <div class="row gy-5">
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Donasi.png" class="glightbox"><img src="assets/img/Poin-Berkah/Donasi.png" class="menu-img img-fluid" alt=""></a>
-                <h4>10 Poin/ Donasi</h4>
-                <p class="ingredients">
-                  Donatur wajib melakukan donasi sesuai target level.
-                </p>
-                <p class="price">
-                  30 Donasi
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Porsi.png" class="glightbox"><img src="assets/img/Poin-Berkah/Porsi.png" class="menu-img img-fluid" alt=""></a>
-                <h4>5 Poin/ Porsi</h4>
-                <p class="ingredients">
-                  Donatur harus menyalurkan makanan hingga sampai kepada penerima.
-                </p>
-                <p class="price">
-                  100 Porsi
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Konsistensi.png" class="glightbox"><img src="assets/img/Poin-Berkah/Konsistensi.png" class="menu-img img-fluid" alt=""></a>
-                <h4>50 Poin/ Konsistensi</h4>
-                <p class="ingredients">
-                  Donatur perlu menjaga konsistensi dalam berbagi.
-                </p>
-                <p class="price">
-                  8x/ 3 Bulan
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Bukti.png" class="glightbox"><img src="assets/img/Poin-Berkah/Bukti.png" class="menu-img img-fluid" alt=""></a>
-                <h4>5 Poin/ Bukti</h4>
-                <p class="ingredients">
-                  Setiap donasi harus disertai bukti distribusi dengan dokumentasi.
-                </p>
-                <p class="price">
-                  20 Dokumentasi
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Kontribusi.png" class="glightbox"><img src="assets/img/Poin-Berkah/Kontribusi.png" class="menu-img img-fluid" alt=""></a>
-                <h4>30 Poin/ Kontribusi</h4>
-                <p class="ingredients">
-                  Donatur diharapkan ikut serta dalam event atau aksi sosial.
-                </p>
-                <p class="price">
-                  3 Event
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/Poin-Berkah/Apresiasi.png" class="glightbox"><img src="assets/img/Poin-Berkah/Apresiasi.png" class="menu-img img-fluid" alt=""></a>
-                <h4>2 Poin/ Apresiasi</h4>
-                <p class="ingredients">
-                  Donatur mendapat apresiasi dari penerima donasi melalui rating.
-                </p>
-                <p class="price">
-                  25 Rating
-                </p>
-              </div><!-- Menu Item -->
-
-            </div>
-          </div><!-- End Dinner Menu Content -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Menu Section -->
 
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials section light-background">
@@ -667,101 +284,101 @@
           </script>
           <div class="swiper-wrapper">
 
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="row gy-4 justify-content-center">
-                  <div class="col-lg-6">
-                    <div class="testimonial-content">
-                      <p>
-                        <i class="bi bi-quote quote-icon-left"></i>
-                        <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
-                        <i class="bi bi-quote quote-icon-right"></i>
-                      </p>
-                      <h3>Saul Goodman</h3>
-                      <h4>Ceo &amp; Founder</h4>
-                      <div class="stars">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                      </div>
+           <div class="swiper-slide">
+            <div class="testimonial-item">
+              <div class="row gy-4 justify-content-center">
+                <div class="col-lg-6">
+                  <div class="testimonial-content">
+                    <p>
+                      <i class="bi bi-quote quote-icon-left"></i>
+                      <span>Sebagai pedagang, saya sering punya makanan berlebih. Dengan platform Mubazir, sekarang lebih mudah menyalurkannya daripada terbuang sia-sia.</span>
+                      <i class="bi bi-quote quote-icon-right"></i>
+                    </p>
+                    <h3>Zianah Alaricka</h3>
+                    <h4>Pedagang</h4>
+                    <div class="stars">
+                      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                     </div>
                   </div>
-                  <div class="col-lg-2 text-center">
-                    <img src="assets/img/testimonials/testimonials-1.jpg" class="img-fluid testimonial-img" alt="">
-                  </div>
+                </div>
+                <div class="col-lg-2 text-center">
+                  <img src="assets/img/testimonials/testimonials-1.jpg" class="img-fluid testimonial-img" alt="">
                 </div>
               </div>
-            </div><!-- End testimonial item -->
+            </div>
+          </div><!-- End testimonial item -->
 
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="row gy-4 justify-content-center">
-                  <div class="col-lg-6">
-                    <div class="testimonial-content">
-                      <p>
-                        <i class="bi bi-quote quote-icon-left"></i>
-                        <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
-                        <i class="bi bi-quote quote-icon-right"></i>
-                      </p>
-                      <h3>Sara Wilsson</h3>
-                      <h4>Designer</h4>
-                      <div class="stars">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                      </div>
+          <div class="swiper-slide">
+            <div class="testimonial-item">
+              <div class="row gy-4 justify-content-center">
+                <div class="col-lg-6">
+                  <div class="testimonial-content">
+                    <p>
+                      <i class="bi bi-quote quote-icon-left"></i>
+                      <span>Saya bekerja di perusahaan swasta dan waktu saya terbatas. Platform ini membantu saya tetap bisa berbagi dengan mudah dan cepat.</span>
+                      <i class="bi bi-quote quote-icon-right"></i>
+                    </p>
+                    <h3>Nazwa Aliya Muthmainnah Hasibuan</h3>
+                    <h4>Pegawai Swasta</h4>
+                    <div class="stars">
+                      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                     </div>
                   </div>
-                  <div class="col-lg-2 text-center">
-                    <img src="assets/img/testimonials/testimonials-2.jpg" class="img-fluid testimonial-img" alt="">
-                  </div>
+                </div>
+                <div class="col-lg-2 text-center">
+                  <img src="assets/img/testimonials/testimonials-2.jpg" class="img-fluid testimonial-img" alt="">
                 </div>
               </div>
-            </div><!-- End testimonial item -->
+            </div>
+          </div><!-- End testimonial item -->
 
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="row gy-4 justify-content-center">
-                  <div class="col-lg-6">
-                    <div class="testimonial-content">
-                      <p>
-                        <i class="bi bi-quote quote-icon-left"></i>
-                        <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
-                        <i class="bi bi-quote quote-icon-right"></i>
-                      </p>
-                      <h3>Jena Karlis</h3>
-                      <h4>Store Owner</h4>
-                      <div class="stars">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                      </div>
+          <div class="swiper-slide">
+            <div class="testimonial-item">
+              <div class="row gy-4 justify-content-center">
+                <div class="col-lg-6">
+                  <div class="testimonial-content">
+                    <p>
+                      <i class="bi bi-quote quote-icon-left"></i>
+                      <span>Saya sering mengajak jamaah untuk peduli sesama. Mubazir memudahkan saya menyalurkan donasi ke yang membutuhkan secara amanah.</span>
+                      <i class="bi bi-quote quote-icon-right"></i>
+                    </p>
+                    <h3>Dio Ananda</h3>
+                    <h4>Pendakwah</h4>
+                    <div class="stars">
+                      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                     </div>
                   </div>
-                  <div class="col-lg-2 text-center">
-                    <img src="assets/img/testimonials/testimonials-3.jpg" class="img-fluid testimonial-img" alt="">
-                  </div>
+                </div>
+                <div class="col-lg-2 text-center">
+                  <img src="assets/img/testimonials/testimonials-3.jpg" class="img-fluid testimonial-img" alt="">
                 </div>
               </div>
-            </div><!-- End testimonial item -->
+            </div>
+          </div><!-- End testimonial item -->
 
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="row gy-4 justify-content-center">
-                  <div class="col-lg-6">
-                    <div class="testimonial-content">
-                      <p>
-                        <i class="bi bi-quote quote-icon-left"></i>
-                        <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>
-                        <i class="bi bi-quote quote-icon-right"></i>
-                      </p>
-                      <h3>John Larson</h3>
-                      <h4>Entrepreneur</h4>
-                      <div class="stars">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                      </div>
+          <div class="swiper-slide">
+            <div class="testimonial-item">
+              <div class="row gy-4 justify-content-center">
+                <div class="col-lg-6">
+                  <div class="testimonial-content">
+                    <p>
+                      <i class="bi bi-quote quote-icon-left"></i>
+                      <span>Awalnya saya ragu, tapi ternyata platform ini benar-benar bermanfaat. Saya lihat sendiri makanan sampai ke yang membutuhkan.</span>
+                      <i class="bi bi-quote quote-icon-right"></i>
+                    </p>
+                    <h3>Ilhamudin</h3>
+                    <h4>Satpam</h4>
+                    <div class="stars">
+                      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                     </div>
                   </div>
-                  <div class="col-lg-2 text-center">
-                    <img src="assets/img/testimonials/testimonials-4.jpg" class="img-fluid testimonial-img" alt="">
-                  </div>
+                </div>
+                <div class="col-lg-2 text-center">
+                  <img src="assets/img/testimonials/testimonials-4.jpg" class="img-fluid testimonial-img" alt="">
                 </div>
               </div>
-            </div><!-- End testimonial item -->
+            </div>
+          </div><!-- End testimonial item -->
 
           </div>
           <div class="swiper-pagination"></div>
@@ -771,8 +388,8 @@
 
     </section><!-- /Testimonials Section -->
 
-    <!-- Chefs Section -->
-    <section id="chefs" class="chefs section">
+    <!-- Donatur Section -->
+    <section id="donatur" class="donatur section">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
@@ -787,7 +404,7 @@
           <div class="col-lg-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
             <div class="team-member">
               <div class="member-img">
-                <img src="assets/img/chefs/chefs-1.png" class="img-fluid" alt="">
+                <img src="assets/img/donatur/donatur-1.png" class="img-fluid" alt="">
                 <div class="social">
                   <a href=""><i class="bi bi-twitter-x"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>
@@ -800,12 +417,12 @@
                 <p>"Telah berkontribusi besar dalam berbagi kebaikan tanpa henti. Sosok Pahlawan yang menginspirasi banyak orang untuk tidak membiarkan makanan terbuang sia-sia."</p>
               </div>
             </div>
-          </div><!-- End Chef Team Member -->
+          </div><!-- End Donatur Member -->
 
           <div class="col-lg-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
             <div class="team-member">
               <div class="member-img">
-                <img src="assets/img/chefs/chefs-2.png" class="img-fluid" alt="">
+                <img src="assets/img/donatur/donatur-2.png" class="img-fluid" alt="">
                 <div class="social">
                   <a href=""><i class="bi bi-twitter-x"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>
@@ -818,12 +435,12 @@
                 <p>"Selalu hadir dengan hati tulus untuk berbagi. Dermawan yang tak hanya memberi, tetapi juga menebarkan semangat kepedulian di sekitarnya."</p>
               </div>
             </div>
-          </div><!-- End Chef Team Member -->
+          </div><!-- End Donatur Member -->
 
           <div class="col-lg-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
             <div class="team-member">
               <div class="member-img">
-                <img src="assets/img/chefs/chefs-3.png" class="img-fluid" alt="">
+                <img src="assets/img/donatur/donatur-3.png" class="img-fluid" alt="">
                 <div class="social">
                   <a href=""><i class="bi bi-twitter-x"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>
@@ -836,13 +453,13 @@
                 <p>"Menjadi contoh nyata bahwa berbagi bisa sederhana namun berdampak besar. Inspirator yang memotivasi orang lain untuk ikut serta dalam kebaikan."</p>
               </div>
             </div>
-          </div><!-- End Chef Team Member -->
+          </div><!-- End Donatur Member -->
 
         </div>
 
       </div>
 
-    </section><!-- /Chefs Section -->
+    </section><!-- /Donatur Section -->
 
     <!-- Gallery Section -->
     <section id="gallery" class="gallery section light-background">
@@ -923,17 +540,22 @@
 
         <div class="row gy-4">
 
-          <div class="col-md-6">
+         <div class="col-md-6">
+          <a href="https://www.google.com/maps/dir//UINSU+Medan+Tuntungan+Kampus+IV+Jl.+Lap.+Golf+No.120+Kp.+Tengah+Kec.+Pancur+Batu,+Kabupaten+Deli+Serdang,+Sumatera+Utara+20353/@3.4937206,98.5877654,14z/data=!4m8!4m7!1m0!1m5!1m1!1s0x303125197f331eeb:0x1c418b38fc4ea5e!2m2!1d98.5877654!2d3.4937206?entry=ttu&g_ep=EgoyMDI1MDkyMy4wIKXMDSoASAFQAw%3D%3D" 
+            target="_blank" 
+            class="text-decoration-none text-dark">
             <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="200">
               <i class="icon bi bi-geo-alt flex-shrink-0"></i>
               <div>
                 <h3>Alamat</h3>
-                <p>Jl. Lap Golf, Kp. Tengah, Kec. Pancur Batu, Kabupaten Deli Serdang 20353, Sumatera Utara – Indonesia</p>
+                <p>Jl. Lap Golf, Kp. Tengah, Kec. Pancur Batu, Kabupaten Deli Serdang 20353, Sumatera Utara – Indonesia</p>
               </div>
             </div>
-          </div><!-- End Info Item -->
+          </a>
+        </div><!-- End Info Item -->
 
-          <div class="col-md-6">
+        <div class="col-md-6">
+          <a href="tel:+62616615683" class="text-decoration-none text-dark">
             <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="300">
               <i class="icon bi bi-telephone flex-shrink-0"></i>
               <div>
@@ -941,9 +563,11 @@
                 <p>(+6261) 6615683, 6622925</p>
               </div>
             </div>
-          </div><!-- End Info Item -->
+          </a>
+        </div><!-- End Info Item -->
 
-          <div class="col-md-6">
+        <div class="col-md-6">
+          <a href="mailto:ilkomp@uinsu.ac.id" class="text-decoration-none text-dark">
             <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="400">
               <i class="icon bi bi-envelope flex-shrink-0"></i>
               <div>
@@ -951,7 +575,8 @@
                 <p>ilkomp@uinsu.ac.id</p>
               </div>
             </div>
-          </div><!-- End Info Item -->
+          </a>
+        </div><!-- End Info Item -->
 
           <div class="col-md-6">
             <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="500">
@@ -965,35 +590,48 @@
 
         </div>
 
-        <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="600">
+        <form id="testimonialForm" class="php-email-form" action="javascript:void(0)" data-aos="fade-up" data-aos-delay="600">
           <div class="row gy-4">
 
             <div class="col-md-6">
-              <input type="text" name="name" class="form-control" placeholder="Nama" required="">
+              <input type="text" name="name" class="form-control" placeholder="Nama" required>
             </div>
 
-            <div class="col-md-6 ">
-              <input type="email" class="form-control" name="email" placeholder="Email" required="">
-            </div>
-
-            <div class="col-md-12">
-              <input type="text" class="form-control" name="subject" placeholder="Subjek" required="">
+            <div class="col-md-6">
+              <input type="text" name="profession" class="form-control" placeholder="Profesi" required>
             </div>
 
             <div class="col-md-12">
-              <textarea class="form-control" name="message" rows="6" placeholder="Pesan" required=""></textarea>
+              <textarea class="form-control" name="message" rows="6" placeholder="Pesan" required></textarea>
+            </div>
+
+            <div class="col-md-12">
+              <label class="form-label">Upload Foto Diri</label>
+              <input type="file" name="photo" class="form-control" accept="image/*" required>
+            </div>
+
+            <div class="col-md-12">
+              <label class="form-label d-block">Rating</label>
+              <div id="ratingStars" class="stars">
+                <i class="bi bi-star" data-value="1"></i>
+                <i class="bi bi-star" data-value="2"></i>
+                <i class="bi bi-star" data-value="3"></i>
+                <i class="bi bi-star" data-value="4"></i>
+                <i class="bi bi-star" data-value="5"></i>
+              </div>
+              <input type="hidden" name="rating" required>
             </div>
 
             <div class="col-md-12 text-center">
               <div class="loading">Loading</div>
               <div class="error-message"></div>
-              <div class="sent-message">Pesan Kamu Terkirim. Terimakasih!</div>
+              <div class="sent-message">Testimoni kamu sudah terkirim. Terima kasih!</div>
 
-              <button type="submit">Kirim Pesan</button>
+              <button type="submit">Kirim Testimoni</button>
             </div>
 
           </div>
-        </form><!-- End Contact Form -->
+        </form>
 
       </div>
 
@@ -1052,10 +690,6 @@
     <div class="container copyright text-center mt-4">
       <p>© <span>Copyright</span> <strong class="px-1 sitename">UIN Sumatera Utara</strong></p>
       <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
         Designed by <a href="https://bootstrapmade.com/">KD2</a>
       </div>
     </div>
@@ -1078,6 +712,17 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    // Kalau sudah login sebagai donatur → langsung ke dashboard
+    if (user && user.role === "donatur") {
+      window.location.href = "donatur.html";
+    }
+  });
+</script>
 
 </body>
 

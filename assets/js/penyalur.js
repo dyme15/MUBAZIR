@@ -97,9 +97,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     btnDonasi.addEventListener("click", () => {
       if (loginStatus === "true") {
-        window.location.href = "dashboard_donatur.html";
+        window.location.href = "donatur.html";
       } else {
-        window.location.href = "login_donatur.html";
+        window.location.href = "login.html";
       }
     });
   });

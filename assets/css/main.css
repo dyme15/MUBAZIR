@@ -1,16 +1,3 @@
-/**
-* Template Name: Yummy
-* Template URL: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/
-* Updated: Aug 07 2024 with Bootstrap v5.3.3
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
-
-/*--------------------------------------------------------------
-# Font & Color Variables
-# Help: https://bootstrapmade.com/color-system/
---------------------------------------------------------------*/
-/* Fonts */
 :root {
   --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --heading-font: "Amatic SC",  sans-serif;
@@ -211,6 +198,23 @@ h6 {
   animation: php-email-form-loading 1s linear infinite;
 }
 
+/* Custom override untuk form testimoni */
+.php-email-form .loading,
+.php-email-form .error-message,
+.php-email-form .sent-message {
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.php-email-form .error-message {
+  background: #dc3545; /* merah bootstrap */
+}
+
+.php-email-form .sent-message {
+  background: #198754; /* hijau bootstrap */
+}
+
+
 @keyframes php-email-form-loading {
   0% {
     transform: rotate(0deg);
@@ -301,6 +305,34 @@ h6 {
 
 .scrolled .header {
   box-shadow: 0px 0 18px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 576px) {
+  .header {
+    flex-wrap: wrap;
+    padding: 10px 16px;   /* agak lega */
+  }
+
+  .header .logo img {
+    transform: scale(1.8);   /* sedikit lebih besar */
+    max-height: 48px;        /* tinggi logo lebih pas */
+    margin-top: 2px;
+  }
+
+  .header .btn-getstarted {
+    font-size: 11px;       /* ukuran teks pas untuk HP */
+    padding: 6px 16px;     /* tombol lebih tebal */
+    margin-top: 7.5px;       /* tetap turun biar sejajar */
+    margin-right: 12px;    /* jarak aman ke kanan */
+    align-self: flex-start;
+    border-radius: 30px;   /* tombol lebih modern */
+  }
+
+  .header .navmenu {
+    order: 3;
+    margin-right: -10px;   /* dikoreksi biar hamburger tetap di kanan */
+  }
+
 }
 
 /*--------------------------------------------------------------
@@ -900,6 +932,13 @@ section,
   .hero .btn-watch-video {
     font-size: 13px;
   }
+
+  .iconawal img {
+  width: 100%;          /* sama seperti .img-fluid: penuh sesuai parent */
+  margin-top: -80px;
+  height: auto;         /* tinggi otomatis */
+  display: block;       /* hilangin inline gap */
+  }
 }
 
 @keyframes up-down {
@@ -1406,9 +1445,9 @@ section,
 }
 
 /*--------------------------------------------------------------
-# Chefs Section
+# Donatur Section
 --------------------------------------------------------------*/
-.chefs .team-member {
+.donatur .team-member {
   background-color: var(--surface-color);
   box-shadow: 0px 0 30px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -1417,12 +1456,12 @@ section,
   transition: 0.3s;
 }
 
-.chefs .team-member .member-img {
+.donatur .team-member .member-img {
   position: relative;
   overflow: hidden;
 }
 
-.chefs .team-member .member-img:after {
+.donatur .team-member .member-img:after {
   position: absolute;
   content: "";
   left: -1px;
@@ -1437,7 +1476,7 @@ section,
   z-index: 1;
 }
 
-.chefs .team-member .social {
+.donatur .team-member .social {
   position: absolute;
   right: -100%;
   top: 30px;
@@ -1448,7 +1487,7 @@ section,
   z-index: 2;
 }
 
-.chefs .team-member .social a {
+.donatur .team-member .social a {
   transition: color 0.3s;
   color: color-mix(in srgb, var(--default-color), transparent 50%);
   margin: 15px 12px;
@@ -1457,33 +1496,33 @@ section,
   text-align: center;
 }
 
-.chefs .team-member .social a:hover {
+.donatur .team-member .social a:hover {
   color: var(--default-color);
 }
 
-.chefs .team-member .social i {
+.donatur .team-member .social i {
   font-size: 18px;
 }
 
-.chefs .team-member .member-info {
+.donatur .team-member .member-info {
   padding: 10px 15px 20px 15px;
 }
 
-.chefs .team-member .member-info h4 {
+.donatur .team-member .member-info h4 {
   font-weight: 700;
   margin-bottom: 5px;
   font-size: 20px;
   font-family: var(--default-font);
 }
 
-.chefs .team-member .member-info span {
+.donatur .team-member .member-info span {
   display: block;
   font-size: 14px;
   font-weight: 400;
   color: color-mix(in srgb, var(--default-color), transparent 50%);
 }
 
-.chefs .team-member .member-info p {
+.donatur .team-member .member-info p {
   font-style: italic;
   font-size: 14px;
   padding-top: 15px;
@@ -1491,83 +1530,14 @@ section,
   color: color-mix(in srgb, var(--default-color), transparent 30%);
 }
 
-.chefs .team-member:hover {
+.donatur .team-member:hover {
   transform: scale(1.08);
   box-shadow: 0px 0 30px rgba(0, 0, 0, 0.1);
 }
 
-.chefs .team-member:hover .social {
+.donatur .team-member:hover .social {
   right: 8px;
   opacity: 1;
-}
-
-/*--------------------------------------------------------------
-# Book A Table Section
---------------------------------------------------------------*/
-.book-a-table .reservation-img {
-  min-height: 500px;
-  background-size: cover;
-  background-position: center;
-}
-
-.book-a-table .reservation-form-bg {
-  background: color-mix(in srgb, var(--default-color), transparent 97%);
-}
-
-.book-a-table .php-email-form {
-  padding: 30px;
-}
-
-@media (max-width: 575px) {
-  .book-a-table .php-email-form {
-    padding: 20px;
-  }
-}
-
-.book-a-table .php-email-form input[type=text],
-.book-a-table .php-email-form input[type=email],
-.book-a-table .php-email-form input[type=number],
-.book-a-table .php-email-form input[type=date],
-.book-a-table .php-email-form input[type=time],
-.book-a-table .php-email-form textarea {
-  font-size: 14px;
-  padding: 10px 15px;
-  box-shadow: none;
-  border-radius: 0;
-  color: var(--default-color);
-  background-color: color-mix(in srgb, var(--background-color), transparent 20%);
-  border-color: color-mix(in srgb, var(--default-color), transparent 80%);
-}
-
-.book-a-table .php-email-form input[type=text]:focus,
-.book-a-table .php-email-form input[type=email]:focus,
-.book-a-table .php-email-form input[type=number]:focus,
-.book-a-table .php-email-form input[type=date]:focus,
-.book-a-table .php-email-form input[type=time]:focus,
-.book-a-table .php-email-form textarea:focus {
-  border-color: var(--accent-color);
-}
-
-.book-a-table .php-email-form input[type=text]::placeholder,
-.book-a-table .php-email-form input[type=email]::placeholder,
-.book-a-table .php-email-form input[type=number]::placeholder,
-.book-a-table .php-email-form input[type=date]::placeholder,
-.book-a-table .php-email-form input[type=time]::placeholder,
-.book-a-table .php-email-form textarea::placeholder {
-  color: color-mix(in srgb, var(--default-color), transparent 70%);
-}
-
-.book-a-table .php-email-form button[type=submit] {
-  color: var(--contrast-color);
-  background: var(--accent-color);
-  border: 0;
-  padding: 14px 60px;
-  transition: 0.4s;
-  border-radius: 4px;
-}
-
-.book-a-table .php-email-form button[type=submit]:hover {
-  background: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
 
 /*--------------------------------------------------------------
@@ -1687,6 +1657,33 @@ section,
 }
 
 @media (max-width: 575px) {
+  /* Target khusus Section Title di bagian kontak */
+#contact .section-title p {
+  font-size: 20px;
+  font-weight: 500;
+  color: #444;
+  margin-top: 10px;
+  margin-bottom: 0;   /* hilangkan gap bawah */
+}
+
+#contact .section-title p span {
+  display: inline;    /* rapat, tidak ada blok terpisah */
+  margin: 0;          /* hilangkan jarak antar span */
+  padding: 0;
+}
+
+#contact .section-title p span:first-child {
+  color: #386641;     /* hijau */
+  font-weight: 600;
+  font-size: 30px;
+}
+
+#contact .section-title p .description-title {
+  color: #BC4749;     /* merah */
+  font-weight: 700;
+  font-size: 30px;
+}
+
   .contact .php-email-form {
     padding: 20px;
   }
@@ -1742,8 +1739,243 @@ section,
 }
 
 /*--------------------------------------------------------------
-# Starter Section Section
+# Auth Form 
 --------------------------------------------------------------*/
-.starter-section {
-  /* Add your styles here */
+/* ====== AUTH CARD STYLING ====== */
+/* Auth Card Fix */
+ .auth-card {
+      width: 380px;
+      height: 520px;
+      perspective: 1200px;
+    }
+    .auth-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.8s ease-in-out;
+    }
+    .auth-card.flipped .auth-inner {
+      transform: rotateY(180deg);
+    }
+    .auth-face {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  
+  /* transparan + blur */
+  background: rgba(255, 255, 255, 0.15);  /* putih transparan */
+  backdrop-filter: blur(12px);            /* efek blur kaca */
+  -webkit-backdrop-filter: blur(12px);    /* untuk Safari */
+
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.3); /* garis tipis kaca */
+}
+    .auth-face form {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 5px;
+    }
+    .auth-face img {
+      max-height: 60px;
+    }
+    .auth-face h3 {
+      font-size: 20px;
+      margin: 10px 0;
+    }
+    /* Input & Button Compact */
+    .auth-form .form-control {
+      font-size: 14px;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .auth-form label {
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+    .auth-form button {
+      font-size: 14px;
+      padding: 8px;
+      border-radius: 8px;
+    }
+    /* Back face */
+    .auth-back {
+      transform: rotateY(180deg);
+    }
+
+.auth-face h3{
+  color: #961f1f; /* abu gelap untuk judul dan teks utama */
+  font-weight: bold;
+}
+
+#toggle-link,
+#toggle-link-back
+ {
+  color:#e2ff28;          /* oranye cerah */
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+#toggle-link:hover,
+#toggle-link-back:hover
+{
+  color:#c0dc08;          /* oranye lebih gelap saat hover */
+  text-decoration: underline;
+}
+
+.auth-face label,
+.auth-face p,
+.auth-face span {
+  color: #f5f5f5; /* abu gelap untuk judul dan teks utama */
+}
+
+.auth-form .form-control {
+  color: #111;                /* isi teks input lebih gelap */
+  background: rgba(255,255,255,0.7); /* input agak putih transparan */
+  border: 1px solid rgba(255,255,255,0.5);
+}
+
+.auth-form .form-control::placeholder {
+  color: rgba(50, 50, 50, 0.6); /* placeholder lebih cerah */
+}
+
+.auth-form button {
+  background: linear-gradient(135deg, #0d6011, #076e24); /* oranye cerah */
+  color: #fff;
+  font-weight: 600;
+  border: none;
+}
+
+.auth-form button:hover {
+  background: linear-gradient(135deg, #ba3944, #871212);
+}
+
+
+@media (max-width: 576px) {
+  .auth-card {
+    width: 90%;          /* jangan fix 380px, biar ikut layar */
+    height: 480px;       /* agak pendek supaya pas di layar HP */
+  }
+
+  .auth-face {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  
+  /* transparan + blur */
+  background: rgba(255, 255, 255, 0.15);  /* putih transparan */
+  backdrop-filter: blur(12px);            /* efek blur kaca */
+  -webkit-backdrop-filter: blur(12px);    /* untuk Safari */
+
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.3); /* garis tipis kaca */
+}
+
+
+.auth-face h3{
+  color: #961f1f !important; /* abu gelap untuk judul dan teks utama */
+  font-weight: bold;
+}
+
+  #toggle-link,
+#toggle-link-back
+ {
+  color:#e2ff28;          /* oranye cerah */
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+#toggle-link:hover,
+#toggle-link-back:hover
+{
+  color:#c0dc08;          /* oranye lebih gelap saat hover */
+  text-decoration: underline;
+}
+
+  .auth-face img {
+    max-height: 45px;    /* logo kecil */
+  }
+
+  .auth-form .form-control {
+    font-size: 13px;
+    padding: 6px 8px;    /* input lebih ramping */
+  }
+
+  .auth-form label {
+    font-size: 12px;
+  }
+
+  .auth-form button {
+    font-size: 13px;
+    padding: 7px;
+  }
+
+  .auth-face p {
+    font-size: 12px;     /* teks toggle kecil */
+  }
+  
+.auth-face h3{
+  color: #f9f9f9; /* abu gelap untuk judul dan teks utama */
+  font-weight: bold;
+}
+
+.auth-face label,
+.auth-face p,
+.auth-face span {
+  color: #ffffff; /* abu gelap untuk judul dan teks utama */
+}
+
+.auth-form .form-control {
+  color: #111;                /* isi teks input lebih gelap */
+  background: rgba(255,255,255,0.7); /* input agak putih transparan */
+  border: 1px solid rgba(255,255,255,0.5);
+}
+
+.auth-form .form-control::placeholder {
+  color: rgba(50, 50, 50, 0.6); /* placeholder lebih cerah */
+}
+
+.auth-form button {
+  background: linear-gradient(135deg, #0d6011, #076e24); /* oranye cerah */
+  color: #fff;
+  font-weight: 600;
+  border: none;
+}
+
+.auth-form button:hover {
+  background: linear-gradient(135deg, #ba3944, #871212);
+}
+}
+
+/*--------------------------------------------------------------
+# Additional Section 
+--------------------------------------------------------------*/
+.logo-kolaborasi {
+  height: 50px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.logo-kolaborasi:hover {
+  transform: scale(1.15) rotateX(8deg) rotateY(8deg);
+  filter: drop-shadow(0 6px 10px rgba(0,0,0,0.4));
+}
+
+@media (max-width: 576px) {
+  .logo-kolaborasi {
+    height: 30px;
+  }
 }

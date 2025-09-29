@@ -1,11 +1,3 @@
-/**
-* Template Name: Yummy
-* Template URL: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/
-* Updated: Aug 07 2024 with Bootstrap v5.3.3
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
-
 (function() {
   "use strict";
 
@@ -15,7 +7,9 @@
   function toggleScrolled() {
     const selectBody = document.querySelector('body');
     const selectHeader = document.querySelector('#header');
-    if (!selectHeader.classList.contains('scroll-up-sticky') && !selectHeader.classList.contains('sticky-top') && !selectHeader.classList.contains('fixed-top')) return;
+    if (!selectHeader.classList.contains('scroll-up-sticky') && 
+        !selectHeader.classList.contains('sticky-top') && 
+        !selectHeader.classList.contains('fixed-top')) return;
     window.scrollY > 100 ? selectBody.classList.add('scrolled') : selectBody.classList.remove('scrolled');
   }
 
@@ -32,7 +26,9 @@
     mobileNavToggleBtn.classList.toggle('bi-list');
     mobileNavToggleBtn.classList.toggle('bi-x');
   }
-  mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
+  if (mobileNavToggleBtn) {
+    mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
+  }
 
   /**
    * Hide mobile nav on same-page/hash links
@@ -43,18 +39,24 @@
         mobileNavToogle();
       }
     });
-
   });
 
   /**
    * Toggle mobile nav dropdowns
    */
-  document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
-    navmenu.addEventListener('click', function(e) {
-      e.preventDefault();
-      this.parentNode.classList.toggle('active');
-      this.parentNode.nextElementSibling.classList.toggle('dropdown-active');
-      e.stopImmediatePropagation();
+  document.querySelectorAll('.navmenu .dropdown > a').forEach(dropdownLink => {
+    dropdownLink.addEventListener('click', function(e) {
+      if (document.body.classList.contains('mobile-nav-active')) {
+        e.preventDefault();
+        let parentLi = this.parentNode;
+        let dropdownMenu = parentLi.querySelector('ul');
+
+        if (dropdownMenu) {
+          dropdownMenu.classList.toggle('dropdown-active');
+        }
+
+        parentLi.classList.toggle('active');
+      }
     });
   });
 
@@ -78,13 +80,15 @@
       window.scrollY > 100 ? scrollTop.classList.add('active') : scrollTop.classList.remove('active');
     }
   }
-  scrollTop.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
+  if (scrollTop) {
+    scrollTop.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     });
-  });
+  }
 
   window.addEventListener('load', toggleScrollTop);
   document.addEventListener('scroll', toggleScrollTop);
@@ -93,42 +97,50 @@
    * Animation on scroll function and init
    */
   function aosInit() {
-    AOS.init({
-      duration: 600,
-      easing: 'ease-in-out',
-      once: true,
-      mirror: false
-    });
+    if (typeof AOS !== "undefined") {
+      AOS.init({
+        duration: 600,
+        easing: 'ease-in-out',
+        once: true,
+        mirror: false
+      });
+    }
   }
   window.addEventListener('load', aosInit);
 
   /**
    * Initiate glightbox
    */
-  const glightbox = GLightbox({
-    selector: '.glightbox'
-  });
+  if (typeof GLightbox !== "undefined") {
+    const glightbox = GLightbox({
+      selector: '.glightbox'
+    });
+  }
 
   /**
    * Initiate Pure Counter
    */
-  new PureCounter();
+  if (typeof PureCounter !== "undefined") {
+    new PureCounter();
+  }
 
   /**
    * Init swiper sliders
    */
   function initSwiper() {
-    document.querySelectorAll(".init-swiper").forEach(function(swiperElement) {
-      let config = JSON.parse(
-        swiperElement.querySelector(".swiper-config").innerHTML.trim()
-      );
+    if (typeof Swiper !== "undefined") {
+      document.querySelectorAll(".init-swiper").forEach(function(swiperElement) {
+        let config = JSON.parse(
+          swiperElement.querySelector(".swiper-config").innerHTML.trim()
+        );
 
-      if (swiperElement.classList.contains("swiper-tab")) {
-        initSwiperWithCustomPagination(swiperElement, config);
-      } else {
-        new Swiper(swiperElement, config);
-      }
-    });
+        if (swiperElement.classList.contains("swiper-tab")) {
+          initSwiperWithCustomPagination(swiperElement, config);
+        } else {
+          new Swiper(swiperElement, config);
+        }
+      });
+    }
   }
 
   window.addEventListener("load", initSwiper);
@@ -136,7 +148,7 @@
   /**
    * Correct scrolling position upon page load for URLs containing hash links.
    */
-  window.addEventListener('load', function(e) {
+  window.addEventListener('load', function() {
     if (window.location.hash) {
       if (document.querySelector(window.location.hash)) {
         setTimeout(() => {
@@ -173,27 +185,172 @@
   window.addEventListener('load', navmenuScrollspy);
   document.addEventListener('scroll', navmenuScrollspy);
 
-})();
+})(); // end IIFE
 
-//cuman tes login
-  document.addEventListener("DOMContentLoaded", () => {
-    const loginStatus = localStorage.getItem("isDonaturLogin");
 
-    const btnAmbil = document.getElementById("btnAmbil");   // untuk penyalur
-    const btnBerbagi = document.getElementById("btnBerbagi"); // untuk donatur
+// =========================
+// Login & Button Handler
+// =========================
+document.addEventListener("DOMContentLoaded", () => {
+  const btnAmbil = document.getElementById("btnAmbil");     // untuk penyalur
+  const btnBerbagi = document.getElementById("btnBerbagi"); // untuk donatur
 
-    // Tombol Ambil Rezeki (penyalur tetap ke penyalur.html)
+  if (btnAmbil) {
     btnAmbil.addEventListener("click", () => {
-      window.location.href = "penyalur.html";
+      window.location.href = "donasi.html";
     });
+  }
 
-    // Tombol Berbagi Rezeki (donatur login/dashboard)
+  if (btnBerbagi) {
     btnBerbagi.addEventListener("click", () => {
-      if (loginStatus === "true") {
-        window.location.href = "dashboard_donatur.html";
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (user && user.role === "donatur") {
+        window.location.href = "donatur.html";
       } else {
-        window.location.href = "login_donatur.html";
+        window.location.href = "login.html";
+      }
+    });
+  }
+});
+
+
+// =========================
+// Testimonial Form Handler
+// =========================
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.querySelector("#testimonialForm");
+  const swiperContainer = document.querySelector("#testimonials .swiper-wrapper");
+
+  if (!form || !swiperContainer) return;
+
+  let savedTestimonials = JSON.parse(localStorage.getItem("testimonials")) || [];
+
+  // Fungsi render testimoni
+  function addTestimonialToSwiper(name, profession, message, photo, rating, save = true) {
+    const newSlide = document.createElement("div");
+    newSlide.classList.add("swiper-slide");
+
+    let starsHtml = "";
+    for (let i = 0; i < rating; i++) {
+      starsHtml += `<i class="bi bi-star-fill"></i>`;
+    }
+
+    newSlide.innerHTML = `
+      <div class="testimonial-item">
+        <div class="row gy-4 justify-content-center">
+          <div class="col-lg-6">
+            <div class="testimonial-content">
+              <p>
+                <i class="bi bi-quote quote-icon-left"></i>
+                <span>${message}</span>
+                <i class="bi bi-quote quote-icon-right"></i>
+              </p>
+              <h3>${name}</h3>
+              <h4>${profession}</h4>
+              <div class="stars">${starsHtml}</div>
+            </div>
+          </div>
+          <div class="col-lg-2 text-center">
+            <img src="${photo}" class="img-fluid testimonial-img" alt="">
+          </div>
+        </div>
+      </div>
+    `;
+
+    swiperContainer.appendChild(newSlide);
+
+    if (save) {
+      savedTestimonials.push({ name, profession, message, photo, rating });
+      localStorage.setItem("testimonials", JSON.stringify(savedTestimonials));
+    }
+
+    // Refresh swiper
+    if (typeof Swiper !== "undefined") {
+      document.querySelectorAll(".init-swiper").forEach(function(swiperElement) {
+        let config = JSON.parse(swiperElement.querySelector(".swiper-config").innerHTML.trim());
+        new Swiper(swiperElement, config);
+      });
+    }
+  }
+
+  // Render semua testimoni dari localStorage
+  function renderTestimonials() {
+    savedTestimonials.forEach(testi => {
+      addTestimonialToSwiper(testi.name, testi.profession, testi.message, testi.photo, testi.rating, false);
+    });
+  }
+  renderTestimonials();
+
+  // Rating handler
+  const stars = document.querySelectorAll("#ratingStars i");
+  const ratingInput = document.querySelector("input[name='rating']");
+
+  stars.forEach(star => {
+    star.addEventListener("click", () => {
+      const rating = star.getAttribute("data-value");
+      ratingInput.value = rating;
+
+      stars.forEach(s => {
+        s.classList.remove("bi-star-fill");
+        s.classList.add("bi-star");
+      });
+
+      for (let i = 0; i < rating; i++) {
+        stars[i].classList.remove("bi-star");
+        stars[i].classList.add("bi-star-fill");
       }
     });
   });
 
+// =========================
+// Disable php-email-form bawaan
+// =========================
+document.addEventListener("DOMContentLoaded", () => {
+  const testiForm = document.querySelector("#testimonialForm");
+  if (testiForm && testiForm.classList.contains("php-email-form")) {
+    testiForm.classList.remove("php-email-form");
+  }
+});
+
+// Submit handler
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const name = form.querySelector('input[name="name"]').value;
+  const profession = form.querySelector('input[name="profession"]').value;
+  const message = form.querySelector('textarea[name="message"]').value;
+  const rating = form.querySelector('input[name="rating"]').value;
+  const photoInput = form.querySelector('input[name="photo"]');
+
+  const loadingEl = form.querySelector(".loading");
+  const successEl = form.querySelector(".sent-message");
+
+  // tampilkan loading
+  loadingEl.style.display = "block";
+  successEl.style.display = "none";
+
+  if (photoInput.files && photoInput.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      const photoBase64 = evt.target.result;
+
+      addTestimonialToSwiper(name, profession, message, photoBase64, rating, true);
+      form.reset();
+
+      // reset bintang
+      stars.forEach(s => {
+        s.classList.remove("bi-star-fill");
+        s.classList.add("bi-star");
+      });
+
+      // tampilkan sukses
+      loadingEl.style.display = "none";
+      successEl.style.display = "block";
+      setTimeout(() => {
+        successEl.style.display = "none";
+      }, 3000);
+    };
+    reader.readAsDataURL(photoInput.files[0]);
+  }
+});
+});

@@ -5,9 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Klaim Donasi - Mubazir</title>
+
+  <!-- Favicons -->
+  <link href="assets/img/extra/logo-M.png" rel="icon">
+  
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/css/donasi.css" rel="stylesheet">
+  <link href="assets/css/klaim.css" rel="stylesheet">
 
   <!-- QRCode.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -17,7 +21,7 @@
   <div class="form-card">
     <div class="form-header text-center">
       <div class="logo-wrapper mb-3">
-        <img src="assets/img/LOGO MUBAZIR-LOMBA (1).png" alt="Logo Mubazir" style="max-height:70px;">
+        <img src="assets/img/extra/LOGO MUBAZIR-LOMBA (1).png" alt="Logo Mubazir" style="max-height:70px;">
       </div>
       <h2>Formulir Klaim Donasi</h2>
       <p>Isi data singkat berikut untuk mengambil donasi 🌱</p>
@@ -107,77 +111,92 @@
   </div>
 
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script>
-    let fotoBase64 = "";
+  <script type="module">
+  import { klaimDonasi } from "./assets/js/database.js";
 
-    // klik tombol kamera → buka input file
-    document.getElementById("btnCamera").addEventListener("click", () => {
-      document.getElementById("foto").click();
-    });
+  let fotoBase64 = "";
 
-    // preview foto
-    document.getElementById("foto").addEventListener("change", function (event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          fotoBase64 = e.target.result;
-          document.getElementById("previewFoto").src = fotoBase64;
-          document.getElementById("previewFoto").style.display = "block";
-        }
-        reader.readAsDataURL(file);
-      }
-    });
+  // tombol kamera
+  document.getElementById("btnCamera").addEventListener("click", () => {
+    document.getElementById("foto").click();
+  });
 
-    // submit form
-    document.getElementById("klaimForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const nama = document.getElementById("nama").value;
-      const hp = document.getElementById("hp").value;
-      const instansi = document.getElementById("instansi").value || "-";
-      const catatan = document.getElementById("catatan").value || "-";
-
-      const klaimTime = new Date();
-      const expireTime = new Date(klaimTime.getTime() + 2 * 60 * 60 * 1000);
-
-      // batas waktu
-      document.getElementById("batasWaktu").innerHTML =
-        `⏳ Batas pengambilan: <strong>${expireTime.toLocaleTimeString("id-ID", { hour: '2-digit', minute: '2-digit' })}</strong> (2 jam dari klaim)`;
-
-      // tampilkan data hasil
-      document.getElementById("resNama").innerText = nama;
-      document.getElementById("resHp").innerText = hp;
-      document.getElementById("resInstansi").innerText = instansi;
-      document.getElementById("resCatatan").innerText = catatan;
-      if (fotoBase64) document.getElementById("resFoto").src = fotoBase64;
-
-      document.getElementById("klaimForm").style.display = "none";
-      document.getElementById("klaimResult").style.display = "block";
-
-      // data QR (hanya nama & hp)
-      const qrData = {
-        claim_id: "CLAIM-" + Date.now(),
-        nama,
-        hp
+  // preview foto
+  document.getElementById("foto").addEventListener("change", function (event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        fotoBase64 = e.target.result;
+        document.getElementById("previewFoto").src = fotoBase64;
+        document.getElementById("previewFoto").style.display = "block";
       };
+      reader.readAsDataURL(file);
+    }
+  });
 
-      // generate QR
-      document.getElementById("qrcode").innerHTML = "";
-      new QRCode(document.getElementById("qrcode"), {
-        text: JSON.stringify(qrData),
-        width: 200,
-        height: 200
-      });
+  // submit form
+  document.getElementById("klaimForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-      // tombol unduh QR
-      setTimeout(() => {
-        const canvas = document.querySelector("#qrcode canvas");
-        if (canvas) {
-          document.getElementById("downloadQR").href = canvas.toDataURL("image/png");
-        }
-      }, 500);
+    const urlParams = new URLSearchParams(window.location.search);
+    const donasiId = urlParams.get("donasiId");
+
+    const nama = document.getElementById("nama").value;
+    const hp = document.getElementById("hp").value;
+    const instansi = document.getElementById("instansi").value || "-";
+    const catatan = document.getElementById("catatan").value || "-";
+
+    const klaimTime = new Date();
+    const expireTime = new Date(klaimTime.getTime() + 2 * 60 * 60 * 1000);
+
+    // generate ID Klaim
+    const claimId = "KLM-" + Date.now().toString(36) + "-" + Math.random().toString(36).substr(2, 5).toUpperCase();
+
+    // simpan ke Firebase
+    const klaimData = {
+      claim_id: claimId,
+      nama, hp,
+      foto: fotoBase64,
+      waktuKlaim: klaimTime.toLocaleString("id-ID"),
+      expire: expireTime.toLocaleString("id-ID"),
+      instansi, catatan
+    };
+
+    await klaimDonasi(donasiId, klaimData);
+
+    // tampilkan hasil klaim (UI sama kayak sebelumnya)
+    document.getElementById("resNama").innerText = nama;
+    document.getElementById("resHp").innerText = hp;
+    document.getElementById("resInstansi").innerText = instansi;
+    document.getElementById("resCatatan").innerText = catatan;
+    document.getElementById("resFoto").src = fotoBase64;
+
+    document.getElementById("claimId").innerText = claimId;
+    document.getElementById("batasWaktu").innerHTML =
+      `⏳ Batas pengambilan: <strong>${expireTime.toLocaleTimeString("id-ID", { hour: '2-digit', minute: '2-digit' })}</strong>`;
+
+    document.getElementById("klaimForm").style.display = "none";
+    document.getElementById("klaimResult").style.display = "block";
+
+    // generate QR
+    document.getElementById("qrcode").innerHTML = "";
+    new QRCode(document.getElementById("qrcode"), {
+      text: JSON.stringify({
+        claim_id: claimId,
+        nama, hp, foto: fotoBase64
+      }),
+      width: 200,
+      height: 200
     });
-  </script>
+
+    setTimeout(() => {
+      const canvas = document.querySelector("#qrcode canvas");
+      if (canvas) {
+        document.getElementById("downloadQR").href = canvas.toDataURL("image/png");
+      }
+    }, 500);
+  });
+</script>
 </body>
 </html>
