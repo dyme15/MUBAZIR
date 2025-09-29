@@ -1,7 +1,9 @@
-// database.js
+//import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+//import { getDatabase, ref, push, set, get, child, onValue } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+// assets/js/database.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-import { getDatabase, ref, push, set, get, child, onValue } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
-
+// Tambahkan query, orderByChild, dan equalTo
+import { getDatabase, ref, push, set, get, child, onValue, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 // =====================
 // Konfigurasi Firebase
 // =====================
@@ -83,12 +85,19 @@ export async function getDonasiById(id) {
   return snapshot.exists() ? { id, ...snapshot.val() } : null;
 }
 
-// Dengarkan perubahan realtime pada donasi
-export function listenDonasi(callback) {
+// FUNGSI BARU: Dengarkan donasi HANYA milik donatur tertentu
+export function listenDonasiByDonaturId(donaturId, callback) {
   const donasiRef = ref(db, "donasi");
-  onValue(donasiRef, (snapshot) => {
+  // Buat query: filter donasi berdasarkan donaturId
+  const donasiQuery = query(
+    donasiRef,
+    orderByChild("donaturId"),
+    equalTo(donaturId)
+  );
+
+  onValue(donasiQuery, (snapshot) => {
     const data = snapshot.exists() ? snapshot.val() : {};
-    // ubah ke array
+    // ubah ke array dan jalankan callback
     callback(Object.entries(data).map(([id, donasi]) => ({ id, ...donasi })));
   });
 }
