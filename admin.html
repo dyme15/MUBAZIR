@@ -1,113 +1,228 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Mubazir</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Admin - Mubazir</title>
 
-    <!-- Favicons -->
-    <link href="assets/img/extra/logo-M.png" rel="icon">
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com" rel="preconnect">
-    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
-	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <!-- Favicons -->
+  <link href="assets/img/extra/logo-M.png" rel="icon">
 
-    <!-- Vendor CSS Files -->
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <!-- Vendor CSS -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 
-     <!-- CSS Utama -->
-    <link href="assets/css/main.css" rel="stylesheet">
-	<link href="assets/js/admin.js" rel="stylesheet">
-    <!-- CSS Khusus Admin -->
-    <link href="assets/css/admin.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { overflow-x: hidden; background: #f5f7fa; font-family: 'Segoe UI', sans-serif; }
+
+    /* Sidebar Admin */
+    #sidebar { min-width: 240px; max-width: 240px; background: linear-gradient(180deg, #dc3545 0%, #b02a37 100%); color: #fff; transition: all 0.3s ease; box-shadow: 5px 0 15px rgba(0,0,0,0.2); z-index: 1000; }
+    #sidebar.collapsed { margin-left: -240px; }
+    #profilePic { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; border: 3px solid #fff; margin: 10px 0; display: block; background: #ccc; }
+    #sidebar .user-info { text-align: left; margin-bottom: 20px; }
+    #sidebar .user-info h5 { margin: 0; font-size: 1rem; }
+    #sidebar .user-info small { font-size: 0.85rem; color: #e0e0e0; }
+    #sidebar .nav-link { color: #fff; padding: 10px 15px; margin: 4px 0; border-radius: 6px; transition: 0.3s; font-weight: 500; text-align: left; }
+    #sidebar .nav-link.active, #sidebar .nav-link:hover { background: rgba(255, 255, 255, 0.2); transform: translateX(6px); }
+
+    /* Content */
+    #content { margin-left: 240px; transition: margin-left 0.3s ease; }
+    #content.expanded { margin-left: 0; }
+
+    /* Topbar */
+    .navbar { background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
+    #toggleSidebar { margin-right: 15px; border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 6px rgba(0,0,0,0.2); transition: 0.3s; }
+    #toggleSidebar:hover { transform: rotate(90deg) scale(1.1); background: #dc3545; color: #fff; }
+
+    /* Card */
+    .card { border: none; border-radius: 16px; background: #fff; box-shadow: 0 6px 16px rgba(0,0,0,0.1); transition: 0.3s; }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+    .page-section { display: none; }
+    .page-section.active { display: block; }
+  </style>
 </head>
 <body>
-    <!-- SIDEBAR -->
-	<section id="sidebar">
-		<a href="#" class="brand">
-			<i class='bx bxs-smile'></i>
-			<span class="text">Mubazir></span>
-		</a>
-		<ul class="side-menu top">
-			<li class="active">
-				<a href="#">
-					<i class='bx bxs-dashboard' ></i>
-					<span class="text">Dashboard</span>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<i class='bx bxs-shopping-bag-alt' ></i>
-					<span class="text">Akun Center</span>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<i class='bx bxs-doughnut-chart' ></i>
-					<span class="text">Verifikasi Donatur</span>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<i class='bx bxs-message-dots' ></i>
-					<span class="text">Poin Berkah</span>
-				</a>
-			</li>
-	</section>
-	<!-- SIDEBAR -->
+<div class="d-flex">
+  <!-- Sidebar -->
+  <nav id="sidebar" class="d-flex flex-column p-3 vh-100 position-fixed">
+    <img id="profilePic" src="assets/img/default-avatar.png" alt="Foto Profil">
+    <div class="user-info">
+      <h5 id="namaSidebar">Admin</h5>
+      <small id="usernameSidebar">@admin</small>
+    </div>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li><a class="nav-link active" data-section="dashboard"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
+      <li><a class="nav-link" data-section="akun"><i class="bi bi-people me-2"></i> Manajemen Akun</a></li>
+      <li><a class="nav-link" data-section="verifikasi"><i class="bi bi-check-circle me-2"></i> Verifikasi Donasi</a></li>
+      <li><a class="nav-link" data-section="monitor"><i class="bi bi-graph-up me-2"></i> Monitoring</a></li>
+      <li><a class="nav-link" data-section="laporan"><i class="bi bi-file-earmark-text me-2"></i> Laporan</a></li>
+      <li><button id="logoutBtn" class="btn btn-outline-light mt-3 w-100"><i class="bi bi-box-arrow-right"></i> Logout</button></li>
+    </ul>
+  </nav>
 
+  <!-- Content -->
+  <div id="content" class="flex-grow-1">
+    <!-- Topbar -->
+    <nav class="navbar navbar-light shadow-sm">
+      <div class="container-fluid d-flex align-items-center">
+        <button id="toggleSidebar" class="btn btn-outline-danger me-3"><i class="bi bi-grid"></i></button>
+        <img src="assets/img/extra/LOGO MUBAZIR-LOMBA (1).png" alt="Logo Mubazir" style="height:50px; width:50px;">
+        <span class="ms-auto badge bg-danger fs-6 shadow-sm"><i class="bi bi-shield-lock"></i> Admin Mode</span>
+      </div>
+    </nav>
 
+    <div class="container my-4">
+      <!-- Dashboard -->
+      <div id="dashboard" class="page-section active">
+        <div class="card p-4 mb-4">
+          <h3>Selamat Datang, <span id="namaDashboard">Admin!</span></h3>
+          <p class="text-muted">Gunakan menu di samping untuk mengelola sistem Mubazir.</p>
+        </div>
+      </div>
 
-	<!-- CONTENT -->
-	<section id="content">
-		<!-- NAVBAR -->
-		<nav>
-			<i class='bx bx-menu' ></i>
-			<a href="#" class="nav-link">Categories</a>
-			<form action="#">
-				<div class="form-input">
-					<input type="search" placeholder="Search...">
-					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+      <!-- Section lain bisa disesuaikan -->
+      <div id="akun" class="page-section">
+		<div class="card p-4">
+			<h4>👥 Manajemen Akun</h4>
+			<table class="table table-hover mt-3">
+			<thead class="table-danger">
+				<tr>
+				<th>Nama</th>
+				<th>Email</th>
+				<th>Role</th>
+				<th>Aksi</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+				<td>Budi Santoso</td>
+				<td>budi@example.com</td>
+				<td>Donatur</td>
+				<td>
+					<button class="btn btn-sm btn-outline-primary">Edit</button>
+					<button class="btn btn-sm btn-outline-danger">Hapus</button>
+				</td>
+				</tr>
+				<tr>
+				<td>Yayasan ABC</td>
+				<td>yayasanabc@example.com</td>
+				<td>Penyalur</td>
+				<td>
+					<button class="btn btn-sm btn-outline-primary">Edit</button>
+					<button class="btn btn-sm btn-outline-danger">Hapus</button>
+				</td>
+				</tr>
+			</tbody>
+			</table>
+		</div>
+		</div>
+
+		<div id="verifikasi" class="page-section">
+		<div class="card p-4">
+			<h4>✅ Verifikasi Donasi</h4>
+			<table class="table table-bordered mt-3">
+			<thead class="table-danger">
+				<tr>
+				<th>Jenis Donasi</th>
+				<th>Jumlah</th>
+				<th>Lokasi</th>
+				<th>Bukti Foto</th>
+				<th>Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+				<td>Nasi Kotak</td>
+				<td>50 Porsi</td>
+				<td>Medan</td>
+				<td><img src="assets/img/sample-food.jpg" alt="foto" style="width:60px;border-radius:6px;"></td>
+				<td><span class="badge bg-warning">Menunggu</span></td>
+				</tr>
+				<tr>
+				<td>Roti</td>
+				<td>100 Buah</td>
+				<td>Binjai</td>
+				<td><img src="assets/img/sample-food2.jpg" alt="foto" style="width:60px;border-radius:6px;"></td>
+				<td><span class="badge bg-success">Disetujui</span></td>
+				</tr>
+			</tbody>
+			</table>
+		</div>
+		</div>
+
+		<div id="monitor" class="page-section">
+		<div class="card p-4">
+			<h4>📊 Monitoring</h4>
+			<div class="row">
+			<div class="col-md-6 mb-3">
+				<div class="card p-3 shadow-sm text-center">
+				<h5>Total Donasi</h5>
+				<h2 class="text-danger">1.250</h2>
 				</div>
-			</form>
-			<a href="#" class="notification">
-				<i class='bx bxs-bell' ></i>
-				<span class="num">8</span>
-			</a>
-			<a href="#" class="logout">
-					<i class='bx bxs-log-out-circle' ></i>
-					<span class="text">Logout</span>
-				</a>
-		</nav>
-		<!-- NAVBAR -->
-
-		<!-- MAIN -->
-		<main>
-			<div class="head-title">
-				<div class="left">
-					<h1>Dashboard</h1>
-					<ul class="breadcrumb">
-						<li>
-							<a href="#">Dashboard</a>
-						</li>
-						<li><i class='bx bx-chevron-right' ></i></li>
-						<li>
-							<a class="active" href="#">Home</a>
-						</li>
-					</ul>
+			</div>
+			<div class="col-md-6 mb-3">
+				<div class="card p-3 shadow-sm text-center">
+				<h5>Total Pengguna</h5>
+				<h2 class="text-danger">430</h2>
 				</div>
-			
+			</div>
+			</div>
+			<p class="text-muted mt-3">📌 Grafik distribusi makanan akan ditampilkan di sini.</p>
+		</div>
+		</div>
 
-	<script src="script.js"></script>
+		<div id="laporan" class="page-section">
+		<div class="card p-4">
+			<h4>📑 Laporan</h4>
+			<p class="text-muted">Admin dapat mengunduh data donasi, pengguna, atau distribusi untuk keperluan evaluasi.</p>
+			<button class="btn btn-outline-danger"><i class="bi bi-download"></i> Unduh Laporan Donasi</button>
+			<button class="btn btn-outline-danger ms-2"><i class="bi bi-download"></i> Unduh Laporan Pengguna</button>
+		</div>
+		</div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="module">
+document.addEventListener("DOMContentLoaded", () => {
+  // =====================
+  // Proteksi Admin
+  // =====================
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (!user || user.role !== "admin") {
+    window.location.replace("login.html");
+    return;
+  }
+
+  // Set Info User
+  document.getElementById("namaSidebar").textContent = user.nama || "Admin";
+  document.getElementById("namaDashboard").textContent = user.nama || "Admin";
+  document.getElementById("usernameSidebar").textContent = "@" + (user.email?.split("@")[0] || "admin");
+
+  // Logout
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("user");
+    window.location.href = "login.html";
+  });
+
+  // Sidebar Toggle
+  document.getElementById("toggleSidebar").addEventListener("click", () => {
+    document.getElementById("sidebar").classList.toggle("collapsed");
+    document.getElementById("content").classList.toggle("expanded");
+  });
+
+  // Navigasi Sidebar
+  document.querySelectorAll("#sidebar .nav-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      document.querySelectorAll("#sidebar .nav-link").forEach((l) => l.classList.remove("active"));
+      document.querySelectorAll(".page-section").forEach((sec) => sec.classList.remove("active"));
+      link.classList.add("active");
+      const sectionId = link.getAttribute("data-section");
+      if (sectionId) document.getElementById(sectionId).classList.add("active");
+    });
+  });
+});
+</script>
 </body>
 </html>
