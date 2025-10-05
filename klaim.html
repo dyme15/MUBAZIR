@@ -6,14 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Klaim Donasi - Mubazir</title>
 
-  <!-- Favicons -->
   <link href="assets/img/extra/logo-M.png" rel="icon">
-  
+
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/css/klaim.css" rel="stylesheet">
 
-  <!-- QRCode.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 
@@ -27,7 +25,6 @@
       <p>Isi data singkat berikut untuk mengambil donasi 🌱</p>
     </div>
 
-    <!-- Form Klaim -->
     <form id="klaimForm" class="row g-4">
       <div class="col-12">
         <label for="nama" class="form-label">Nama Penerima</label>
@@ -40,19 +37,32 @@
       </div>
 
       <div class="col-12">
-        <label for="instansi" class="form-label">Instansi / Komunitas (opsional)</label>
+        <label for="instansi" class="form-label">Instansi/Komunitas/Individu (Pilih salah satu yang mewakili)</label>
         <input type="text" id="instansi" name="instansi" class="form-control"
-          placeholder="Misal: Panti Asuhan Amanah">
+          placeholder="Misal: Panti Asuhan Amanah, Komunitas Peduli Umat, dsb.">
       </div>
 
-      <!-- Upload Foto -->
       <div class="col-12">
-        <label class="form-label">Ambil Foto (langsung kamera)</label>
-        <input type="file" id="foto" name="foto" accept="image/*" capture="camera" style="display:none;" required>
-        <button type="button" id="btnCamera" class="btn btn-outline-primary">
-          <i class="bi bi-camera"></i> Ambil Foto
-        </button>
-        <small class="text-muted d-block mt-1">Gunakan kamera HP untuk ambil foto terbaru</small>
+        <label for="alamat" class="form-label">Alamat Lengkap</label>
+        <input type="text" id="alamat" name="alamat" class="form-control"
+          placeholder="Misal: Jl. Gatot Subroto No. 123, Medan Kota" required>
+      </div>
+
+      <div class="col-12">
+        <label for="fasilitatorPendamping" class="form-label">Pilih Fasilitator Pendamping</label>
+        <select id="fasilitatorPendamping" name="fasilitatorPendamping" class="form-select" required>
+          <option value="" disabled selected>-- Pilih salah satu fasilitator --</option>
+          <option value="Puskesmas Medan Area Selatan (Jl. Medan Area Selatan, Kec. Medan Area) - (061) 7350214">Puskesmas Medan Area Selatan (Jl. Medan Area Selatan, Kec. Medan Area) - (061) 7350214</option>
+          <option value="Puskesmas Medan Denai (Jl. Jermal XV, Kec. Medan Denai) - (061) 7853967">Puskesmas Medan Denai (Jl. Jermal XV, Kec. Medan Denai) - (061) 7853967</option>
+          <option value="Puskesmas Padang Bulan (Jl. Jamin Ginting, Medan Baru) - (061) 8223282">Puskesmas Padang Bulan (Jl. Jamin Ginting, Medan Baru) - (061) 8223282</option>
+        </select>
+      </div>
+
+      <div class="col-12">
+        <label for="foto" class="form-label">Unggah File Foto Diri</label>
+        <input type="file" id="foto" name="foto" accept="image/*" class="form-control" required>
+        <small class="text-muted d-block mt-1">Pilih file foto dari galeri/komputer Anda untuk verifikasi data
+          penyalur</small>
         <div class="mt-3 text-center">
           <img id="previewFoto" src="" alt="Preview Foto"
             style="max-width: 200px; display: none; border-radius: 8px; border:1px solid #ddd;">
@@ -62,7 +72,7 @@
       <div class="col-12">
         <label for="catatan" class="form-label">Catatan Tambahan (opsional)</label>
         <textarea id="catatan" name="catatan" rows="3" class="form-control"
-          placeholder="Misal: datang sore hari, atau minta dibungkus terpisah..."></textarea>
+          placeholder="Masukkan catatan tambahan jika ada..."></textarea>
       </div>
 
       <div class="col-12 text-center mt-3">
@@ -70,7 +80,6 @@
       </div>
     </form>
 
-    <!-- Hasil Klaim -->
     <div id="klaimResult" style="display:none;" class="mt-4">
       <h4 class="text-center mb-3">✅ Donasi berhasil diklaim</h4>
 
@@ -78,6 +87,8 @@
         <li class="list-group-item"><strong>Nama:</strong> <span id="resNama"></span></li>
         <li class="list-group-item"><strong>Nomor HP:</strong> <span id="resHp"></span></li>
         <li class="list-group-item"><strong>Instansi:</strong> <span id="resInstansi">-</span></li>
+        <li class="list-group-item"><strong>Fasilitas Pendamping:</strong> <span id="resFasilitas">-</span></li>
+        <li class="list-group-item"><strong>Alamat Lengkap:</strong> <span id="resAlamat">-</span></li>
         <li class="list-group-item"><strong>Catatan:</strong> <span id="resCatatan">-</span></li>
       </ul>
 
@@ -86,7 +97,6 @@
           style="max-width: 200px; border-radius:8px; border:1px solid #ddd;">
       </div>
 
-      <!-- Lokasi -->
       <div class="mb-3">
         <label class="form-label">Lokasi Penjemputan</label>
         <input type="text" class="form-control mb-2" value="Jl. Gatot Subroto No. 123, Medan" readonly>
@@ -99,7 +109,6 @@
 
       <div class="alert alert-warning text-center p-2" id="batasWaktu"></div>
 
-      <!-- QR Code -->
       <div id="qrSection" class="text-center mt-4">
         <h5>🎟️ Kode Klaim Anda:</h5>
         <div id="qrcode" style="margin:10px auto;"></div>
@@ -112,91 +121,93 @@
 
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script type="module">
-  import { klaimDonasi } from "./assets/js/database.js";
+    import { klaimDonasi } from "./assets/js/database.js";
 
-  let fotoBase64 = "";
+    let fotoBase64 = "";
 
-  // tombol kamera
-  document.getElementById("btnCamera").addEventListener("click", () => {
-    document.getElementById("foto").click();
-  });
-
-  // preview foto
-  document.getElementById("foto").addEventListener("change", function (event) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = e => {
-        fotoBase64 = e.target.result;
-        document.getElementById("previewFoto").src = fotoBase64;
-        document.getElementById("previewFoto").style.display = "block";
-      };
-      reader.readAsDataURL(file);
-    }
-  });
-
-  // submit form
-  document.getElementById("klaimForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const donasiId = urlParams.get("donasiId");
-
-    const nama = document.getElementById("nama").value;
-    const hp = document.getElementById("hp").value;
-    const instansi = document.getElementById("instansi").value || "-";
-    const catatan = document.getElementById("catatan").value || "-";
-
-    const klaimTime = new Date();
-    const expireTime = new Date(klaimTime.getTime() + 2 * 60 * 60 * 1000);
-
-    // generate ID Klaim
-    const claimId = "KLM-" + Date.now().toString(36) + "-" + Math.random().toString(36).substr(2, 5).toUpperCase();
-
-    // simpan ke Firebase
-    const klaimData = {
-      claim_id: claimId,
-      nama, hp,
-      foto: fotoBase64,
-      waktuKlaim: klaimTime.toLocaleString("id-ID"),
-      expire: expireTime.toLocaleString("id-ID"),
-      instansi, catatan
-    };
-
-    await klaimDonasi(donasiId, klaimData);
-
-    // tampilkan hasil klaim (UI sama kayak sebelumnya)
-    document.getElementById("resNama").innerText = nama;
-    document.getElementById("resHp").innerText = hp;
-    document.getElementById("resInstansi").innerText = instansi;
-    document.getElementById("resCatatan").innerText = catatan;
-    document.getElementById("resFoto").src = fotoBase64;
-
-    document.getElementById("claimId").innerText = claimId;
-    document.getElementById("batasWaktu").innerHTML =
-      `⏳ Batas pengambilan: <strong>${expireTime.toLocaleTimeString("id-ID", { hour: '2-digit', minute: '2-digit' })}</strong>`;
-
-    document.getElementById("klaimForm").style.display = "none";
-    document.getElementById("klaimResult").style.display = "block";
-
-    // generate QR
-    document.getElementById("qrcode").innerHTML = "";
-    new QRCode(document.getElementById("qrcode"), {
-      text: JSON.stringify({
-        claim_id: claimId,
-        nama, hp, foto: fotoBase64
-      }),
-      width: 200,
-      height: 200
+    // Logika tombol kamera telah dihapus, input file sekarang diklik langsung.
+    // Event listener untuk preview foto tetap berfungsi untuk file yang diunggah.
+    document.getElementById("foto").addEventListener("change", function (event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          fotoBase64 = e.target.result;
+          document.getElementById("previewFoto").src = fotoBase64;
+          document.getElementById("previewFoto").style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      }
     });
 
-    setTimeout(() => {
-      const canvas = document.querySelector("#qrcode canvas");
-      if (canvas) {
-        document.getElementById("downloadQR").href = canvas.toDataURL("image/png");
-      }
-    }, 500);
-  });
-</script>
+    // submit form
+    document.getElementById("klaimForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const donasiId = urlParams.get("donasiId");
+
+      const nama = document.getElementById("nama").value;
+      const hp = document.getElementById("hp").value;
+      const instansi = document.getElementById("instansi").value || "-";
+      const alamat = document.getElementById("alamat").value;
+      const fasilitasPendamping = document.getElementById("fasilitasPendamping").value;
+      const catatan = document.getElementById("catatan").value || "-";
+
+      const klaimTime = new Date();
+      const expireTime = new Date(klaimTime.getTime() + 2 * 60 * 60 * 1000);
+
+      // generate ID Klaim
+      const claimId = "KLM-" + Date.now().toString(36) + "-" + Math.random().toString(36).substr(2, 5).toUpperCase();
+
+      // simpan ke Firebase
+      const klaimData = {
+        claim_id: claimId,
+        nama, hp,
+        foto: fotoBase64,
+        waktuKlaim: klaimTime.toLocaleString("id-ID"),
+        expire: expireTime.toLocaleString("id-ID"),
+        instansi, catatan,
+        alamat, fasilitasPendamping
+      };
+
+      await klaimDonasi(donasiId, klaimData);
+
+      // tampilkan hasil klaim
+      document.getElementById("resNama").innerText = nama;
+      document.getElementById("resHp").innerText = hp;
+      document.getElementById("resInstansi").innerText = instansi;
+      document.getElementById("resFasilitas").innerText = fasilitasPendamping;
+      document.getElementById("resAlamat").innerText = alamat;
+      document.getElementById("resCatatan").innerText = catatan;
+      document.getElementById("resFoto").src = fotoBase64;
+
+      document.getElementById("claimId").innerText = claimId;
+      document.getElementById("batasWaktu").innerHTML =
+        `⏳ Batas pengambilan: <strong>${expireTime.toLocaleTimeString("id-ID", { hour: '2-digit', minute: '2-digit' })}</strong>`;
+
+      document.getElementById("klaimForm").style.display = "none";
+      document.getElementById("klaimResult").style.display = "block";
+
+      // generate QR
+      document.getElementById("qrcode").innerHTML = "";
+      new QRCode(document.getElementById("qrcode"), {
+        text: JSON.stringify({
+          claim_id: claimId,
+          nama, hp, foto: fotoBase64
+        }),
+        width: 200,
+        height: 200
+      });
+
+      setTimeout(() => {
+        const canvas = document.querySelector("#qrcode canvas");
+        if (canvas) {
+          document.getElementById("downloadQR").href = canvas.toDataURL("image/png");
+        }
+      }, 500);
+    });
+  </script>
 </body>
+
 </html>
