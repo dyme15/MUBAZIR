@@ -1,7 +1,8 @@
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
 import {
-  getDatabase, ref, push, set, get, child, onValue, 
-  query, orderByChild, equalTo
+  getDatabase, ref, push, set, get, child, onValue,
+  query, orderByChild, equalTo, update
 } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 
 // =====================
@@ -57,7 +58,6 @@ export async function tambahDonatur(data) {
   return newRef.key;
 }
 
-
 export async function getDonatur() {
   const snapshot = await get(child(ref(db), "donatur"));
   const data = snapshot.exists() ? snapshot.val() : {};
@@ -75,13 +75,13 @@ export async function getDonaturById(id) {
 export async function tambahDonasi(data) {
   const newRef = push(ref(db, "donasi"));
   await set(newRef, {
-    nama_donasi: data.nama,  // Menggunakan 'nama_donasi' untuk donasi
+    nama_donasi: data.nama,
     kategori: data.kategori,
     jumlah: data.jumlah,
     satuan: data.satuan,
     masaKadaluarsa: data.masaKadaluarsa,
     lokasi: data.lokasi,
-    status: data.status || "Tersedia",
+    status: data.status || "pending",
     donaturId: data.donaturId,
     foto: data.foto,
     dibuat: new Date().toISOString()
@@ -89,7 +89,6 @@ export async function tambahDonasi(data) {
   return newRef.key;
 }
 
-// Mengembalikan array untuk loop mudah
 export async function getDonasi() {
   const snapshot = await get(child(ref(db), "donasi"));
   const data = snapshot.exists() ? snapshot.val() : {};
@@ -101,10 +100,8 @@ export async function getDonasiById(id) {
   return snapshot.exists() ? { id, ...snapshot.val() } : null;
 }
 
-// FUNGSI BARU: Dengarkan donasi HANYA milik donatur tertentu
 export function listenDonasiByDonaturId(donaturId, callback) {
   const donasiRef = ref(db, "donasi");
-  // Buat query: filter donasi berdasarkan donaturId
   const donasiQuery = query(
     donasiRef,
     orderByChild("donaturId"),
@@ -113,7 +110,6 @@ export function listenDonasiByDonaturId(donaturId, callback) {
 
   onValue(donasiQuery, (snapshot) => {
     const data = snapshot.exists() ? snapshot.val() : {};
-    // ubah ke array dan jalankan callback
     callback(Object.entries(data).map(([id, donasi]) => ({ id, ...donasi })));
   });
 }
@@ -121,13 +117,15 @@ export function listenDonasiByDonaturId(donaturId, callback) {
 // =====================
 // KLAIM
 // =====================
-export async function tambahKlaim(donasiId, dataKlaim) {
-  const newRef = push(ref(db, `klaim/${donasiId}`));
-  await set(newRef, {
-    ...dataKlaim,
-    waktu: new Date().toISOString()
-  });
-  return newRef.key;
+export async function klaimDonasi(donasiId, klaimData) {
+  try {
+    const newRef = push(ref(db, `klaim/${donasiId}`));
+    await set(newRef, klaimData);
+    return newRef.key;
+  } catch (error) {
+    console.error("Error saving claim:", error);
+    throw new Error("Gagal menyimpan klaim");
+  }
 }
 
 export async function getKlaimByDonasi(donasiId) {
@@ -141,14 +139,12 @@ export async function getKlaimById(donasiId, klaimId) {
   return snapshot.exists() ? { id: klaimId, ...snapshot.val() } : null;
 }
 
-// Cek apakah nomor HP sudah klaim hari ini
 export async function cekKlaimHariIni(noHp) {
   const today = new Date().toISOString().split("T")[0];
   const snapshot = await get(child(ref(db), `klaim_by_hp/${noHp}/${today}`));
   return snapshot.exists();
 }
 
-// Tambah klaim dengan validasi
 export async function tambahKlaimDenganValidasi(donasiId, dataKlaim) {
   const today = new Date().toISOString().split("T")[0];
   const noHp = dataKlaim.hpPenerima;
@@ -167,3 +163,18 @@ export async function tambahKlaimDenganValidasi(donasiId, dataKlaim) {
 
   return newRef.key;
 }
+
+// =====================
+// UPDATE STATUS DONASI (BARU)
+// =====================
+export async function updateDonasiStatus(donasiId, statusBaru) {
+  try {
+    const donasiRef = ref(db, `donasi/${donasiId}`);
+    await update(donasiRef, { status: statusBaru });
+    console.log(`✅ Status donasi ${donasiId} diperbarui menjadi ${statusBaru}`);
+  } catch (err) {
+    console.error("Gagal update status donasi:", err);
+    throw err;
+  }
+}
+

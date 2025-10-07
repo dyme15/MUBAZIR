@@ -117,7 +117,7 @@
                         <p><strong>Kadaluarsa:</strong> <span id="hasilKadaluarsa"></span></p>
                         <p><strong>Lokasi:</strong> <span id="hasilLokasi"></span></p>
                         
-                        <button id="scanBtn" class="btn btn-outline-primary mt-2"><i class="bi bi-upload"></i> Unggah Kode Penyalur</button>
+                        <button id="scanBtn" class="btn btn-outline-primary mt-2"><i class="bi bi-upload"></i> Scan Kode Penyalur</button>
                         
                         <input type="file" id="qrFileInput" accept=".txt, .json, .png" style="display: none;">
                         
@@ -168,7 +168,10 @@
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="assets/js/donatur.js"></script>
     <script type="module">
-        import { tambahDonasi, listenDonasiByDonaturId } from "./assets/js/database.js";
+        import { tambahDonasi, listenDonasiByDonaturId, updateDonasiStatus } from "./assets/js/database.js";
+
+let currentDonasiId = null; // simpan ID donasi terakhir
+
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -270,6 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         foto: fotoBase64
                     };
                     const donasiId = await tambahDonasi(data);
+currentDonasiId = donasiId; // simpan ID donasi yang baru dibuat
 
                     // Update Hasil Donasi Display
                     document.getElementById("hasilKategori").textContent = kategori;
@@ -295,6 +299,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // =====================
     // QR SCANNER SIMULATION (UPLOAD FILE)
     // =====================
+
+    
     const scanBtn = document.getElementById("scanBtn");
     const qrFileInput = document.getElementById("qrFileInput");
     const scanResultEl = document.getElementById("scanResult");
@@ -305,22 +311,35 @@ document.addEventListener("DOMContentLoaded", () => {
             qrFileInput.click();
         });
 
-        qrFileInput.addEventListener("change", (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const simulatedCode = `CODE-${file.name.substring(0, 10)}`;
+qrFileInput.addEventListener("change", async (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    const simulatedCode = `CODE-${file.name.substring(0, 10)}`;
 
-                scanResultEl.classList.remove("d-none", "alert-info", "alert-danger");
-                scanResultEl.classList.add("alert-success");
-                scanResultEl.innerHTML = `<i class="bi bi-check-circle-fill"></i> Kode berhasil diunggah! Kode: <strong>${simulatedCode}</strong>.`;
+    scanResultEl.classList.remove("d-none", "alert-info", "alert-danger");
+    scanResultEl.classList.add("alert-success");
+    scanResultEl.innerHTML = `<i class="bi bi-check-circle-fill"></i> Donasi berhasil diambil <strong>${simulatedCode}</strong>.`;
 
-                console.log(`Simulasi Kode Penyalur Terunggah: ${simulatedCode}`);
-            } else {
-                scanResultEl.classList.remove("d-none", "alert-success", "alert-danger");
-                scanResultEl.classList.add("alert-info");
-                scanResultEl.textContent = "Unggahan dibatalkan.";
-            }
-        });
+    console.log(`Simulasi Kode Penyalur Terunggah: ${simulatedCode}`);
+
+    // 🟢 Langsung ubah status donasi menjadi 'diambil'
+    if (currentDonasiId) {
+      try {
+        await updateDonasiStatus(currentDonasiId, "diambil");
+        alert("✅ Donasi berhasil ditandai sebagai telah diambil oleh penyalur!");
+      } catch (err) {
+        console.error("Gagal memperbarui status donasi:", err);
+        alert("Terjadi kesalahan saat memperbarui status donasi.");
+      }
+    }
+  } else {
+    scanResultEl.classList.remove("d-none", "alert-success", "alert-danger");
+    scanResultEl.classList.add("alert-info");
+    scanResultEl.textContent = "Unggahan dibatalkan.";
+  }
+});
+
+
     }
 
     // =====================

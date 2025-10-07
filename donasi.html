@@ -162,10 +162,12 @@
     postContainer.innerHTML = "";
 
     let filtered = semuaDonasi.filter(d => {
-      const cocokKategori = kategoriAktif === "all" || d.kategori === kategoriAktif;
-      const cocokSearch = Object.values(d).join(" ").toLowerCase().includes(searchKeyword);
-      return cocokKategori && cocokSearch;
-    });
+  const cocokStatus = d.status === "approved"; // hanya donasi yang disetujui
+  const cocokKategori = kategoriAktif === "all" || d.kategori === kategoriAktif;
+  const cocokSearch = Object.values(d).join(" ").toLowerCase().includes(searchKeyword);
+  return cocokStatus && cocokKategori && cocokSearch;
+});
+
 
     const selectedItem = document.querySelector(`.dropdown-menu .dropdown-item[data-value="${kategoriAktif}"]`);
     judulFeed.textContent = selectedItem ? selectedItem.textContent : "Semua Donasi";
