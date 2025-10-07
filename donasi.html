@@ -19,7 +19,7 @@
   <link href="assets/css/main.css" rel="stylesheet">
   <link href="assets/css/donasi.css" rel="stylesheet">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
   <!-- ======= Header ======= -->
   <header id="header" class="header d-flex align-items-center sticky-top">
@@ -47,52 +47,41 @@
   </header>
   <!-- End Header -->
 
-  <!-- ======= Feed Random (utama) ======= -->
-  <section id="feed" class="feed section">
-    <div class="container">
-      <h2 class="mb-4">Semua Donasi</h2>
+  <!-- ======= Feed Donasi ======= -->
+  <main class="flex-grow-1">
+    <section id="feed" class="feed section">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 id="judulFeed" class="mb-0" style="font-weight: bold;">Semua Donasi</h2>
+          <div class="d-flex gap-2" style="max-width: 600px; width:100%;">
+            <!-- Search Input -->
+            <input type="text" id="searchInput" class="form-control flex-grow-1" placeholder="Cari donasi...">
 
-      <div class="search-bar mb-4">
-        <input type="text" id="searchInput" class="form-control" placeholder="Cari donasi...">
+            <!-- Dropdown dengan ikon filter -->
+            <div class="dropdown">
+              <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownKategori" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-funnel"></i>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownKategori">
+                <li><a class="dropdown-item" href="#" data-value="all">Semua Donasi</a></li>
+                <li><a class="dropdown-item" href="#" data-value="makanan">Makanan</a></li>
+                <li><a class="dropdown-item" href="#" data-value="snack">Snack & Roti</a></li>
+                <li><a class="dropdown-item" href="#" data-value="minuman">Minuman</a></li>
+                <li><a class="dropdown-item" href="#" data-value="buah">Buah & Hidangan Penutup</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="row gy-4" id="postContainer">
+          <!-- Data donasi akan di-load dari database.js -->
+        </div>
       </div>
-
-      <div class="row gy-4" id="postContainer">
-        <!-- Data donasi akan di-load dari database.js -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ======= Kategori ======= -->
-  <section id="makanan" class="feed section">
-    <div class="container">
-      <h2 class="mb-4">Makanan</h2>
-      <div class="row gy-4" id="makananContainer"></div>
-    </div>
-  </section>
-
-  <section id="snack" class="feed section">
-    <div class="container">
-      <h2 class="mb-4">Snack & Roti</h2>
-      <div class="row gy-4" id="snackContainer"></div>
-    </div>
-  </section>
-
-  <section id="minuman" class="feed section">
-    <div class="container">
-      <h2 class="mb-4">Minuman</h2>
-      <div class="row gy-4" id="minumanContainer"></div>
-    </div>
-  </section>
-
-  <section id="buah" class="feed section">
-    <div class="container">
-      <h2 class="mb-4">Buah & Hidangan Penutup</h2>
-      <div class="row gy-4" id="buahContainer"></div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer dark-background">
+  <footer id="footer" class="footer dark-background mt-auto">
     <div class="container">
       <div class="row gy-3">
         <div class="col-lg-3 col-md-6 d-flex">
@@ -155,74 +144,93 @@
   <!-- Main JS -->
   <script src="assets/js/main.js"></script>
   <script type="module">
-    import { getDonasi, getDonaturById } from "./assets/js/database.js";
+  import { getDonasi, getDonaturById } from "./assets/js/database.js";
 
-    async function loadDonasi() {
-      const donasiList = await getDonasi();
+  let semuaDonasi = [];
+  let kategoriAktif = "all";
 
-      const postContainer = document.getElementById("postContainer");
-      const makananContainer = document.getElementById("makananContainer");
-      const snackContainer = document.getElementById("snackContainer");
-      const minumanContainer = document.getElementById("minumanContainer");
-      const buahContainer = document.getElementById("buahContainer");
+  async function loadDonasi() {
+    semuaDonasi = await getDonasi();
+    renderDonasi();
+  }
 
-      [postContainer, makananContainer, snackContainer, minumanContainer, buahContainer].forEach(c => c.innerHTML = "");
+  async function renderDonasi() {
+    const postContainer = document.getElementById("postContainer");
+    const judulFeed = document.getElementById("judulFeed");
+    const searchKeyword = document.getElementById("searchInput").value.toLowerCase();
 
-      for (const d of donasiList) {
-        let donaturNama = "Anonim";
-        let fotoDonatur = "assets/img/default-avatar.png";
+    postContainer.innerHTML = "";
 
-        if (d.donaturId) {
-          const user = await getDonaturById(d.donaturId);
-          if (user) {
-            donaturNama = user.nama || "Anonim";
-            if (user.fotoProfil) fotoDonatur = user.fotoProfil;
-          }
-        }
+    let filtered = semuaDonasi.filter(d => {
+      const cocokKategori = kategoriAktif === "all" || d.kategori === kategoriAktif;
+      const cocokSearch = Object.values(d).join(" ").toLowerCase().includes(searchKeyword);
+      return cocokKategori && cocokSearch;
+    });
 
-        const card = document.createElement("div");
-        card.className = "col-lg-6";
-        card.innerHTML = `
-          <div class="feed-card">
-            <div class="feed-header d-flex align-items-center mb-2">
-              <img src="${fotoDonatur}" alt="Profil" style="width:40px;height:40px;border-radius:50%;margin-right:10px;">
-              <h5 class="mb-0">Donatur: ${donaturNama}</h5>
-            </div>
-            <div class="feed-gallery mb-2">
-              <img src="${d.foto || 'assets/img/default-food.jpg'}" alt="${d.jenis}" class="main-img w-100" style="border-radius:10px;">
-            </div>
-            <div class="feed-body">
-              <p><strong>Jenis:</strong> ${d.jenis}</p>
-              <p><strong>Jumlah:</strong> ${d.jumlah} ${d.satuan || ""}</p>
-              <p><strong>Lokasi:</strong> ${d.lokasi}</p>
-            </div>
-            <div class="feed-footer mt-2">
-              <a href="klaim.html?donasiId=${d.id}" class="btn btn-success btn-sm">Ambil Donasi</a>
-            </div>
-          </div>`;
+    const selectedItem = document.querySelector(`.dropdown-menu .dropdown-item[data-value="${kategoriAktif}"]`);
+    judulFeed.textContent = selectedItem ? selectedItem.textContent : "Semua Donasi";
 
-        // feed utama
-        postContainer.appendChild(card.cloneNode(true));
-
-        // kategori
-        if (d.kategori === "makanan") makananContainer.appendChild(card);
-        else if (d.kategori === "snack") snackContainer.appendChild(card);
-        else if (d.kategori === "minuman") minumanContainer.appendChild(card);
-        else if (d.kategori === "buah") buahContainer.appendChild(card);
-      }
+    if (filtered.length === 0) {
+      postContainer.innerHTML = "<p class='text-center text-muted'>Tidak ada donasi ditemukan.</p>";
+      return;
     }
 
-    loadDonasi();
+    for (const d of filtered) {
+      let donaturNama = "Anonim";
+      let fotoDonatur = "assets/img/default-avatar.png";
 
-    // ======= Search Filter =======
-    const searchInput = document.getElementById("searchInput");
-    searchInput.addEventListener("input", () => {
-      const keyword = searchInput.value.toLowerCase();
-      document.querySelectorAll(".feed-card").forEach(card => {
-        const text = card.innerText.toLowerCase();
-        card.style.display = text.includes(keyword) ? "" : "none";
-      });
+      if (d.donaturId) {
+        const user = await getDonaturById(d.donaturId);
+        if (user) {
+          donaturNama = user.nama || "Anonim";
+          if (user.fotoProfil) fotoDonatur = user.fotoProfil;
+        }
+      }
+
+      const card = document.createElement("div");
+      card.className = "col-lg-6";
+      card.innerHTML = `
+        <div class="feed-card">
+          <div class="feed-header d-flex align-items-center mb-2">
+            <img src="${fotoDonatur}" alt="Profil" style="width:40px;height:40px;border-radius:50%;margin-right:10px;">
+            <h5 class="mb-0">${donaturNama}</h5>
+          </div>
+          <div class="feed-gallery mb-2">
+            <img src="${d.foto || 'assets/img/default-food.jpg'}" alt="${d.nama}" class="main-img w-100" style="border-radius:10px;">
+          </div>
+          <div class="feed-body">
+            <p><strong>Nama Donasi:</strong> ${d.nama}</p>
+            <p><strong>Jumlah:</strong> ${d.jumlah} ${d.satuan || ""}</p>
+            <p><strong>Lokasi:</strong> ${d.lokasi}</p>
+          </div>
+          <div class="feed-footer mt-2">
+            <a href="klaim.html?donasiId=${d.id}" class="btn btn-success btn-sm">Ambil Donasi</a>
+          </div>
+        </div>`;
+      postContainer.appendChild(card);
+    }
+  }
+
+  loadDonasi();
+
+  function debounce(func, delay) {
+    let timeout;
+    return (...args) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), delay);
+    };
+  }
+
+  document.getElementById("searchInput")
+    .addEventListener("input", debounce(renderDonasi, 300));
+
+  document.querySelectorAll(".dropdown-menu .dropdown-item").forEach(item => {
+    item.addEventListener("click", e => {
+      e.preventDefault();
+      kategoriAktif = item.getAttribute("data-value");
+      renderDonasi();
     });
-  </script>
+  });
+</script>
 </body>
 </html>

@@ -98,4 +98,19 @@
   border-radius: 8px;
   background-color: #f8f8f8;
 }
-  
+
+.filter-wrapper {
+    position: relative;
+  }
+  .filter-wrapper .filter-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: #6c757d;
+    pointer-events: none;
+  }
+  .filter-wrapper select {
+    padding-left: 2rem; /* biar teks ga numpuk sama ikon */
+  }

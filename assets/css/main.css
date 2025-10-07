@@ -922,6 +922,11 @@ section,
     line-height: 36px;
   }
 
+  h2 {
+    font-size: 20px;
+    margin-right: 20px;
+  }
+
   .hero p {
     font-size: 18px;
     line-height: 24px;
