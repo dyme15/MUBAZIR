@@ -25,7 +25,6 @@
                 <li><a class="nav-link active" data-section="dashboard"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
                 <li><a class="nav-link" data-section="buatDonasi"><i class="bi bi-plus-circle me-2"></i> Buat Donasi</a></li>
                 <li><a class="nav-link" data-section="riwayat"><i class="bi bi-clock-history me-2"></i> Riwayat</a></li>
-                <li><a class="nav-link" data-section="akun"><i class="bi bi-person-circle me-2"></i> Pengaturan Akun</a></li>
                 <li><button id="logoutBtn" class="btn btn-outline-light mt-3 w-100"><i class="bi bi-box-arrow-right"></i> Logout</button></li>
             </ul>
         </nav>
@@ -49,54 +48,60 @@
                 </div>
 
                 <div id="buatDonasi" class="page-section">
-                    <div class="card p-4">
-                        <h4>Buat Donasi Baru</h4>
-                        <form id="formDonasi" class="row g-3 mt-2">
-                            <div class="col-md-12">
-                                <label class="form-label">Kategori Donasi</label>
-                                <select id="kategoriDonasi" class="form-select" required>
-                                    <option value="" disabled selected>-- Pilih Kategori --</option>
-                                    <option value="makanan">Makanan</option>
-                                    <option value="snack">Snack & Roti</option>
-                                    <option value="minuman">Minuman</option>
-                                    <option value="buah">Buah & Hidangan Penutup</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Nama Donasi</label>
-                                <input id="namaDonasi" type="text" class="form-control" placeholder="Contoh: Nasi Kotak 5 porsi" required>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">Jumlah</label>
-                                <input id="jumlahDonasi" type="number" class="form-control" required>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">Satuan</label>
-                                <select id="satuanDonasi" class="form-select">
-                                    <option>Porsi</option>
-                                    <option>Buah</option>
-                                    <option>Botol</option>
-                                </select>
-                            </div>
-                            <div class="col-md-12">
-                                <label class="form-label">Masa Kadaluarsa/Kualitas Makanan</label>
-                                <input id="masaKadaluarsa" type="text" class="form-control" 
-                                    placeholder="Contoh: Baik hingga 5 jam ke depan / Exp. 2025-12-31" required>
-                            </div>
-                            <div class="col-md-12">
-                                <label class="form-label">Lokasi Penjemputan</label>
-                                <input id="lokasi" type="text" class="form-control mb-2" 
-                                    placeholder="Masukkan alamat penjemputan donasi (Misal: Jl. Utama No. 12, Medan)" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Upload Foto</label>
-                                <input type="file" class="form-control" id="fotoDonasi">
-                            </div>
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-success">Buat Donasi</button>
-                            </div>
-                        </form>
-                    </div>
+  <div class="card p-4">
+    <h4>Buat Donasi Baru</h4>
+    <form id="formDonasi" class="row g-3 mt-2">
+      <div class="col-md-12">
+        <label class="form-label">Kategori Donasi</label>
+        <select id="kategoriDonasi" class="form-select" required>
+          <option value="" disabled selected>-- Pilih Kategori --</option>
+          <option value="makanan">Makanan</option>
+          <option value="snack">Snack & Roti</option>
+          <option value="minuman">Minuman</option>
+          <option value="buah">Buah & Hidangan Penutup</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Nama Donasi</label>
+        <input id="namaDonasi" type="text" class="form-control" placeholder="Contoh: Nasi Kotak 5 porsi" required>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Jumlah</label>
+        <input id="jumlahDonasi" type="number" class="form-control" required>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Satuan</label>
+        <select id="satuanDonasi" class="form-select">
+          <option>Porsi</option>
+          <option>Buah</option>
+          <option>Botol</option>
+        </select>
+      </div>
+      <div class="col-md-12">
+        <label class="form-label">Masa Kadaluarsa</label>
+        <select id="masaKadaluarsa" class="form-select" required>
+          <option value="" disabled selected>-- Pilih Waktu Kadaluarsa --</option>
+          <option value="1">1 Jam</option>
+          <option value="2">2 Jam</option>
+          <option value="3">3 Jam</option>
+          <option value="4">4 Jam</option>
+          <option value="5">5 Jam</option>
+        </select>
+      </div>
+      <div class="col-md-12">
+        <label class="form-label">Lokasi Penjemputan</label>
+        <input id="lokasi" type="text" class="form-control mb-2" placeholder="Masukkan alamat penjemputan donasi (Misal: Jl. Utama No. 12, Medan)" required>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Upload Foto</label>
+        <input type="file" class="form-control" id="fotoDonasi">
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-success">Buat Donasi</button>
+      </div>
+    </form>
+  </div>
+</div>
 
                     <div id="hasilDonasi" class="card p-4 mt-4 d-none">
                         <div class="alert alert-success text-center" role="alert">
@@ -139,36 +144,6 @@
                     </div>
                 </div>
 
-                <div id="akun" class="page-section">
-                    <div class="card p-4">
-                        <h4>Pengaturan Akun</h4>
-                        <form id="formAkun">
-                        <!-- Tidak bisa diganti -->
-                        <div class="mb-3">
-                            <label for="namaDonatur" class="form-label">Nama</label>
-                            <input type="text" class="form-control" id="namaDonatur" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <label for="emailDonatur" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="emailDonatur" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <label for="noHpDonatur" class="form-label">No HP</label>
-                            <input type="text" class="form-control" id="noHpDonatur" readonly>
-                        </div>
-
-                        <!-- Bisa diganti -->
-                        <div class="mb-3">
-                            <label for="passwordBaru" class="form-label">Password Baru</label>
-                            <input type="password" class="form-control" id="passwordBaru" placeholder="Kosongkan jika tidak ganti">
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                    </form>
-
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
@@ -190,258 +165,254 @@
         </div>
     </div>
 
-
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="assets/js/donatur.js"></script>
     <script type="module">
-        import {
-            tambahDonasi,
-            listenDonasiByDonaturId
-        } from "./assets/js/database.js";
+        import { tambahDonasi, listenDonasiByDonaturId } from "./assets/js/database.js";
 
-        document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
 
-            // =====================
-            // Proteksi Donatur
-            // =====================
-            const user = JSON.parse(localStorage.getItem("user"));
-            if (!user || user.role !== "donatur") {
-                window.location.replace("login.html");
-                return;
-            }
-            const userId = user.id;
+    // =====================
+    // Proteksi Donatur
+    // =====================
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user || user.role !== "donatur") {
+        window.location.replace("login.html");  // Redirect ke halaman login jika bukan donatur
+        return;
+    }
+    const userId = user.id;
 
-            // =====================
-            // Set Info User di Sidebar & Dashboard
-            // =====================
-            const namaSidebarEl = document.getElementById("namaSidebar");
-            const namaDashboardEl = document.getElementById("namaDashboard");
-            const usernameSidebarEl = document.getElementById("donaturEmail");
-            const profilePicEl = document.getElementById("profilePic");
+    // =====================
+    // Set Info User di Sidebar & Dashboard
+    // =====================
+    const namaSidebarEl = document.getElementById("namaSidebar");
+    const namaDashboardEl = document.getElementById("namaDashboard");
+    const usernameSidebarEl = document.getElementById("donaturEmail");
 
-            namaSidebarEl.textContent = user.nama;
-            namaDashboardEl.textContent = user.nama;
-            usernameSidebarEl.textContent = "@" + (user.email.split("@")[0] || "donatur");
+    namaSidebarEl.textContent = user.nama;
+    namaDashboardEl.textContent = user.nama;
+    usernameSidebarEl.textContent = "@" + (user.email.split("@")[0] || "donatur");
 
-            // =====================
-            // Logout
-            // =====================
-            const logoutBtn = document.getElementById("logoutBtn");
-            if (logoutBtn) {
-                logoutBtn.addEventListener("click", () => {
-                    localStorage.removeItem("user");
-                    window.location.href = "login.html";
-                });
-            }
+    // =====================
+    // Logout
+    // =====================
+    const logoutBtn = document.getElementById("logoutBtn");
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", () => {
+            localStorage.removeItem("user");
+            window.location.href = "login.html";  // Redirect ke halaman login
+        });
+    }
 
-            // =====================
-            // Sidebar Toggle
-            // =====================
-            const toggleSidebar = document.getElementById("toggleSidebar");
-            if (toggleSidebar) {
-                toggleSidebar.addEventListener("click", () => {
-                    document.getElementById("sidebar").classList.toggle("collapsed");
-                    document.getElementById("content").classList.toggle("expanded");
-                });
-            }
+    // =====================
+    // Sidebar Toggle
+    // =====================
+    const toggleSidebar = document.getElementById("toggleSidebar");
+    if (toggleSidebar) {
+        toggleSidebar.addEventListener("click", () => {
+            document.getElementById("sidebar").classList.toggle("collapsed");
+            document.getElementById("content").classList.toggle("expanded");
+        });
+    }
 
-            // =====================
-            // Navigasi Sidebar
-            // =====================
-            document.querySelectorAll("#sidebar .nav-link").forEach((link) => {
-                link.addEventListener("click", () => {
-                    document.querySelectorAll("#sidebar .nav-link").forEach((l) => l.classList.remove("active"));
-                    document.querySelectorAll(".page-section").forEach((sec) => sec.classList.remove("active"));
-                    link.classList.add("active");
-                    const sectionId = link.getAttribute("data-section");
-                    if (sectionId) document.getElementById(sectionId).classList.add("active");
-                });
-            });
+    // =====================
+    // Navigasi Sidebar
+    // =====================
+    document.querySelectorAll("#sidebar .nav-link").forEach((link) => {
+        link.addEventListener("click", () => {
+            document.querySelectorAll("#sidebar .nav-link").forEach((l) => l.classList.remove("active"));
+            document.querySelectorAll(".page-section").forEach((sec) => sec.classList.remove("active"));
+            link.classList.add("active");
+            const sectionId = link.getAttribute("data-section");
+            if (sectionId) document.getElementById(sectionId).classList.add("active");
+        });
+    });
 
-            // =====================
-            // Form Donasi
-            // =====================
-            const formDonasi = document.getElementById("formDonasi");
-            if (formDonasi) {
-                formDonasi.addEventListener("submit", async (e) => {
-                    e.preventDefault();
+    // =====================
+    // Form Donasi
+    // =====================
+    const formDonasi = document.getElementById("formDonasi");
+    if (formDonasi) {
+        formDonasi.addEventListener("submit", async (e) => {
+            e.preventDefault();
 
-                    const kategori = document.getElementById("kategoriDonasi").value;
-                    const namaDonasi = document.getElementById("namaDonasi").value;
-                    const jumlah = document.getElementById("jumlahDonasi").value;
-                    const satuan = document.getElementById("satuanDonasi").value;
-                    const masaKadaluarsa = document.getElementById("masaKadaluarsa").value;
-                    const lokasi = document.getElementById("lokasi").value;
-                    const fotoInput = document.getElementById("fotoDonasi");
+            const kategori = document.getElementById("kategoriDonasi").value;
+            const namaDonasi = document.getElementById("namaDonasi").value;
+            const jumlah = document.getElementById("jumlahDonasi").value;
+            const satuan = document.getElementById("satuanDonasi").value;
+            const masaKadaluarsa = document.getElementById("masaKadaluarsa").value;  // Ambil nilai dari dropdown masa kadaluarsa
+            const lokasi = document.getElementById("lokasi").value;
+            const fotoInput = document.getElementById("fotoDonasi");
 
-                    let fotoBase64 = "";
-                    if (fotoInput?.files && fotoInput.files[0]) {
-                        const reader = new FileReader();
-                        reader.onload = async (ev) => {
-                            fotoBase64 = ev.target.result;
-                            await simpanDonasi();
-                        };
-                        reader.readAsDataURL(fotoInput.files[0]);
-                    } else {
-                        await simpanDonasi();
-                    }
-
-                    async function simpanDonasi() {
-                        try {
-                            const data = {
-                                kategori,
-                                nama: namaDonasi,
-                                jumlah,
-                                satuan,
-                                masaKadaluarsa,
-                                lokasi,
-                                status: "Tersedia",
-                                donaturId: user.id,
-                                foto: fotoBase64
-                            };
-                            const donasiId = await tambahDonasi(data);
-
-                            // Update Hasil Donasi Display
-                            document.getElementById("hasilKategori").textContent = kategori;
-                            document.getElementById("hasilNama").textContent = namaDonasi;
-                            document.getElementById("hasilJumlah").textContent = jumlah + " " + satuan;
-                            document.getElementById("hasilKadaluarsa").textContent = masaKadaluarsa;
-                            document.getElementById("hasilLokasi").textContent = lokasi;
-                            
-                            // Reset scan result state
-                            document.getElementById("scanResult").classList.add("d-none");
-
-                            formDonasi.classList.add("d-none");
-                            document.getElementById("hasilDonasi").classList.remove("d-none");
-                            console.log("✅ Donasi tersimpan:", donasiId);
-                        } catch (err) {
-                            console.error(err);
-                            alert("Gagal menyimpan donasi. Coba lagi.");
-                        }
-                    }
-                });
+            let fotoBase64 = "";
+            if (fotoInput?.files && fotoInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = async (ev) => {
+                    fotoBase64 = ev.target.result;
+                    await simpanDonasi();
+                };
+                reader.readAsDataURL(fotoInput.files[0]);
+            } else {
+                await simpanDonasi();
             }
 
-            // =====================
-            // QR SCANNER SIMULATION (UPLOAD FILE)
-            // =====================
-            const scanBtn = document.getElementById("scanBtn");
-            const qrFileInput = document.getElementById("qrFileInput");
-            const scanResultEl = document.getElementById("scanResult");
+            async function simpanDonasi() {
+                try {
+                    const data = {
+                        kategori,
+                        nama: namaDonasi,
+                        jumlah,
+                        satuan,
+                        masaKadaluarsa,  // Kirimkan masaKadaluarsa yang dipilih
+                        lokasi,
+                        status: "Tersedia",
+                        donaturId: user.id,
+                        foto: fotoBase64
+                    };
+                    const donasiId = await tambahDonasi(data);
 
-            if (scanBtn && qrFileInput) {
-                scanBtn.addEventListener("click", () => {
-                    scanResultEl.classList.add("d-none");
-                    qrFileInput.click();
-                });
+                    // Update Hasil Donasi Display
+                    document.getElementById("hasilKategori").textContent = kategori;
+                    document.getElementById("hasilNama").textContent = namaDonasi;
+                    document.getElementById("hasilJumlah").textContent = jumlah + " " + satuan;
+                    document.getElementById("hasilKadaluarsa").textContent = masaKadaluarsa + " Jam";  // Tampilkan masa kadaluarsa
+                    document.getElementById("hasilLokasi").textContent = lokasi;
 
-                qrFileInput.addEventListener("change", (e) => {
-                    const file = e.target.files[0];
-                    if (file) {
-                        const simulatedCode = `CODE-${file.name.substring(0, 10)}`; 
+                    // Reset scan result state
+                    document.getElementById("scanResult").classList.add("d-none");
 
-                        scanResultEl.classList.remove("d-none", "alert-info", "alert-danger");
-                        scanResultEl.classList.add("alert-success");
-                        scanResultEl.innerHTML = `<i class="bi bi-check-circle-fill"></i> Kode berhasil diunggah! Kode: <strong>${simulatedCode}</strong>.`;
-
-                        console.log(`Simulasi Kode Penyalur Terunggah: ${simulatedCode}`);
-                    } else {
-                        scanResultEl.classList.remove("d-none", "alert-success", "alert-danger");
-                        scanResultEl.classList.add("alert-info");
-                        scanResultEl.textContent = "Unggahan dibatalkan.";
-                    }
-                });
-            }
-
-            // =====================
-            // Profil Update
-            // =====================
-            const formAkun = document.getElementById("formAkun");
-            if (formAkun) {
-                formAkun.addEventListener("submit", (e) => {
-                    e.preventDefault();
-                    const nama = document.getElementById("namaDonatur").value || "Donatur Default";
-                    namaSidebarEl.textContent = nama;
-                    namaDashboardEl.textContent = nama;
-
-                    const fotoInput = document.getElementById("fotoProfil");
-                    if (fotoInput?.files && fotoInput.files[0]) {
-                        const reader = new FileReader();
-                        reader.onload = (ev) => profilePicEl.src = ev.target.result;
-                        reader.readAsDataURL(fotoInput.files[0]);
-                    }
-                });
-            }
-
-            // =====================
-            // Riwayat Donasi Realtime
-            // =====================
-            const tbody = document.getElementById("riwayatTableBody");
-            if (tbody) {
-                tbody.innerHTML = "<tr><td colspan='5'>⏳ Memuat...</td></tr>";
-
-                if (userId) {
-                    listenDonasiByDonaturId(userId, (data) => {
-                        tbody.innerHTML = "";
-
-                        if (!data || data.length === 0) {
-                            tbody.innerHTML = "<tr><td colspan='5'>Belum ada donasi dari Anda.</td></tr>";
-                            return;
-                        }
-
-                        data.forEach((donasi) => {
-                            const tr = document.createElement("tr");
-
-                            if (donasi.donaturId === userId) {
-                                let buktiTerimaContent = '-';
-                                const buktiFotoUrl = donasi.buktiTerimaFoto || donasi.ulasan; 
-                                
-                                if (buktiFotoUrl) {
-                                    buktiTerimaContent = `
-                                        <button class="btn btn-sm btn-info" 
-                                            data-bs-toggle="modal" 
-                                            data-bs-target="#buktiTerimaModal"
-                                            data-foto-url="${buktiFotoUrl}">
-                                            <i class="bi bi-image"></i> Lihat Bukti
-                                        </button>
-                                    `;
-                                } else if (donasi.status === "diambil") {
-                                    buktiTerimaContent = `<span class="text-muted">Menunggu</span>`;
-                                }
-                                
-                                tr.innerHTML = `
-                                    <td>${donasi.nama || "-"}</td>
-                                    <td>${donasi.jumlah || 0} ${donasi.satuan || ""}</td>
-                                    <td>${donasi.lokasi || "-"}</td>
-                                    <td>
-                                        <span class="badge ${donasi.status === "diambil" ? "bg-success" : "bg-warning"}">
-                                            ${donasi.status || "Tersedia"}
-                                        </span>
-                                    </td>
-                                    <td>${buktiTerimaContent}</td>
-                                `;
-                                tbody.appendChild(tr);
-                            }
-                        });
-                        
-                        const modal = document.getElementById('buktiTerimaModal');
-                        if (modal) {
-                            modal.addEventListener('show.bs.modal', function (event) {
-                                const button = event.relatedTarget;
-                                const fotoUrl = button.getAttribute('data-foto-url');
-                                const modalImage = document.getElementById('modalBuktiImage');
-                                modalImage.src = fotoUrl;
-                            });
-                        }
-                        
-                    });
-                } else {
-                    tbody.innerHTML = "<tr><td colspan='5'>Error: ID Donatur tidak ditemukan.</td></tr>";
+                    formDonasi.classList.add("d-none");
+                    document.getElementById("hasilDonasi").classList.remove("d-none");
+                    console.log("✅ Donasi tersimpan:", donasiId);
+                } catch (err) {
+                    console.error(err);
+                    alert("Gagal menyimpan donasi. Coba lagi.");
                 }
             }
-
         });
-    </script>
+    }
+
+    // =====================
+    // QR SCANNER SIMULATION (UPLOAD FILE)
+    // =====================
+    const scanBtn = document.getElementById("scanBtn");
+    const qrFileInput = document.getElementById("qrFileInput");
+    const scanResultEl = document.getElementById("scanResult");
+
+    if (scanBtn && qrFileInput) {
+        scanBtn.addEventListener("click", () => {
+            scanResultEl.classList.add("d-none");
+            qrFileInput.click();
+        });
+
+        qrFileInput.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const simulatedCode = `CODE-${file.name.substring(0, 10)}`;
+
+                scanResultEl.classList.remove("d-none", "alert-info", "alert-danger");
+                scanResultEl.classList.add("alert-success");
+                scanResultEl.innerHTML = `<i class="bi bi-check-circle-fill"></i> Kode berhasil diunggah! Kode: <strong>${simulatedCode}</strong>.`;
+
+                console.log(`Simulasi Kode Penyalur Terunggah: ${simulatedCode}`);
+            } else {
+                scanResultEl.classList.remove("d-none", "alert-success", "alert-danger");
+                scanResultEl.classList.add("alert-info");
+                scanResultEl.textContent = "Unggahan dibatalkan.";
+            }
+        });
+    }
+
+    // =====================
+    // Profil Update
+    // =====================
+    const formAkun = document.getElementById("formAkun");
+    if (formAkun) {
+        formAkun.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const nama = document.getElementById("namaDonatur").value || "Donatur Default";
+            namaSidebarEl.textContent = nama;
+            namaDashboardEl.textContent = nama;
+
+            const fotoInput = document.getElementById("fotoProfil");
+            if (fotoInput?.files && fotoInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (ev) => profilePicEl.src = ev.target.result;
+                reader.readAsDataURL(fotoInput.files[0]);
+            }
+        });
+    }
+
+    // =====================
+    // Riwayat Donasi Realtime
+    // =====================
+    const tbody = document.getElementById("riwayatTableBody");
+    if (tbody) {
+        tbody.innerHTML = "<tr><td colspan='5'>⏳ Memuat...</td></tr>";
+
+        if (userId) {
+            listenDonasiByDonaturId(userId, (data) => {
+                tbody.innerHTML = "";
+
+                if (!data || data.length === 0) {
+                    tbody.innerHTML = "<tr><td colspan='5'>Belum ada donasi dari Anda.</td></tr>";
+                    return;
+                }
+
+                data.forEach((donasi) => {
+                    const tr = document.createElement("tr");
+
+                    if (donasi.donaturId === userId) {
+                        let buktiTerimaContent = '-';
+                        const buktiFotoUrl = donasi.buktiTerimaFoto || donasi.ulasan; 
+
+                        if (buktiFotoUrl) {
+                            buktiTerimaContent = `
+                              <button class="btn btn-sm btn-info" 
+                                  data-bs-toggle="modal" 
+                                  data-bs-target="#buktiTerimaModal"
+                                  data-foto-url="${buktiFotoUrl}">
+                                  <i class="bi bi-image"></i> Lihat Bukti
+                              </button>
+                            `;
+                        } else if (donasi.status === "diambil") {
+                            buktiTerimaContent = `<span class="text-muted">Menunggu</span>`;
+                        }
+
+                        tr.innerHTML = `
+                          <td>${donasi.nama_donasi || "Nama Donasi Tidak Ditemukan"}</td> <!-- Ganti 'nama' menjadi 'nama_donasi' -->
+                          <td>${donasi.jumlah || 0} ${donasi.satuan || ""}</td>
+                          <td>${donasi.lokasi || "-"}</td>
+                          <td>
+                            <span class="badge ${donasi.status === "diambil" ? "bg-success" : "bg-warning"}">
+                                ${donasi.status || "Tersedia"}
+                            </span>
+                          </td>
+                          <td>${buktiTerimaContent}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    }
+                });
+
+                const modal = document.getElementById('buktiTerimaModal');
+                if (modal) {
+                    modal.addEventListener('show.bs.modal', function (event) {
+                        const button = event.relatedTarget;
+                                                const fotoUrl = button.getAttribute('data-foto-url');
+                        const modalImage = document.getElementById('modalBuktiImage');
+                        modalImage.src = fotoUrl;
+                    });
+                }
+
+            });
+        } else {
+            tbody.innerHTML = "<tr><td colspan='5'>Error: ID Donatur tidak ditemukan.</td></tr>";
+        }
+    }
+
+});
+
+   </script>
 
 </body>
 

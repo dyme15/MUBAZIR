@@ -176,30 +176,38 @@
     }
 
     for (const d of filtered) {
-      let donaturNama = "Anonim";
-      let fotoDonatur = "assets/img/default-avatar.png";
+      let donaturNama = "Nama Donatur Tidak Ditemukan"; // Default if donatur name not found
 
+      // Fetch Donatur name by Donatur ID
       if (d.donaturId) {
-        const user = await getDonaturById(d.donaturId);
-        if (user) {
-          donaturNama = user.nama || "Anonim";
-          if (user.fotoProfil) fotoDonatur = user.fotoProfil;
+        try {
+          const donatur = await getDonaturById(d.donaturId);
+          if (donatur && donatur.nama_donatur) {
+            donaturNama = donatur.nama_donatur; // Update donatur name if available
+          }
+        } catch (error) {
+          console.error("Error fetching donatur data", error);
         }
       }
+
+      // Expiry time logic
+      const waktuPost = new Date(d.dibuat);
+      const waktuKadaluarsa = new Date(waktuPost);
+      waktuKadaluarsa.setHours(waktuKadaluarsa.getHours() + 3);
+
+      const options = { timeZone: 'Asia/Jakarta', hour12: false, hour: '2-digit', minute: '2-digit' };
+      const waktuKadaluarsaFormatted = new Intl.DateTimeFormat('id-ID', options).format(waktuKadaluarsa);
 
       const card = document.createElement("div");
       card.className = "col-lg-6";
       card.innerHTML = `
-        <div class="feed-card">
-          <div class="feed-header d-flex align-items-center mb-2">
-            <img src="${fotoDonatur}" alt="Profil" style="width:40px;height:40px;border-radius:50%;margin-right:10px;">
-            <h5 class="mb-0">${donaturNama}</h5>
-          </div>
+        <div class="feed-card position-relative">
+          <div class="label-kadaluarsa">Kadaluarsa: ${waktuKadaluarsaFormatted} WIB</div>
           <div class="feed-gallery mb-2">
-            <img src="${d.foto || 'assets/img/default-food.jpg'}" alt="${d.nama}" class="main-img w-100" style="border-radius:10px;">
+            <img src="${d.foto || 'assets/img/default-food.jpg'}" alt="${d.nama_donasi}" class="main-img w-100" style="border-radius:10px;">
           </div>
           <div class="feed-body">
-            <p><strong>Nama Donasi:</strong> ${d.nama}</p>
+            <p><strong>Nama Donasi:</strong> ${d.nama_donasi || "Nama Donasi Tidak Ditemukan"}</p>
             <p><strong>Jumlah:</strong> ${d.jumlah} ${d.satuan || ""}</p>
             <p><strong>Lokasi:</strong> ${d.lokasi}</p>
           </div>
@@ -232,5 +240,7 @@
     });
   });
 </script>
+
+
 </body>
 </html>

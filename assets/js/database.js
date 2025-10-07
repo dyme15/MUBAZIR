@@ -1,9 +1,9 @@
-//import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-//import { getDatabase, ref, push, set, get, child, onValue } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
-// assets/js/database.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-// Tambahkan query, orderByChild, dan equalTo
-import { getDatabase, ref, push, set, get, child, onValue, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+import {
+  getDatabase, ref, push, set, get, child, onValue, 
+  query, orderByChild, equalTo
+} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+
 // =====================
 // Konfigurasi Firebase
 // =====================
@@ -11,19 +11,19 @@ const firebaseConfig = {
   apiKey: "AIzaSyAbhEbYYwcVMJQwBXH9UPXDNiUr6Az1Cgs",
   authDomain: "mubazir-8d111.firebaseapp.com",
   projectId: "mubazir-8d111",
-  storageBucket: "mubazir-8d111.firebasestorage.app",
+  storageBucket: "mubazir-8d111.appspot.com",
   messagingSenderId: "392114414906",
   appId: "1:392114414906:web:a928cc58ae0242fef51c03",
   measurementId: "G-7D2D8ZWG2R",
   databaseURL: "https://mubazir-8d111-default-rtdb.asia-southeast1.firebasedatabase.app"
 };
 
-// Init Firebase
+// Inisialisasi Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 // =====================
-//   ADMIN
+// ADMIN
 // =====================
 export async function tambahAdmin(data) {
   const newRef = push(ref(db, "admin"));
@@ -42,13 +42,21 @@ export async function getAdminById(id) {
 }
 
 // =====================
-//   DONATUR
+// DONATUR
 // =====================
 export async function tambahDonatur(data) {
   const newRef = push(ref(db, "donatur"));
-  await set(newRef, data);
+  await set(newRef, {
+    nama: data.nama,
+    email: data.email,
+    no_hp: data.no_hp,
+    password: data.password,
+    role: data.role || "donatur",
+    createdAt: new Date().toISOString()
+  });
   return newRef.key;
 }
+
 
 export async function getDonatur() {
   const snapshot = await get(child(ref(db), "donatur"));
@@ -62,12 +70,20 @@ export async function getDonaturById(id) {
 }
 
 // =====================
-//   DONASI
+// DONASI
 // =====================
 export async function tambahDonasi(data) {
   const newRef = push(ref(db, "donasi"));
   await set(newRef, {
-    ...data,
+    nama_donasi: data.nama,  // Menggunakan 'nama_donasi' untuk donasi
+    kategori: data.kategori,
+    jumlah: data.jumlah,
+    satuan: data.satuan,
+    masaKadaluarsa: data.masaKadaluarsa,
+    lokasi: data.lokasi,
+    status: data.status || "Tersedia",
+    donaturId: data.donaturId,
+    foto: data.foto,
     dibuat: new Date().toISOString()
   });
   return newRef.key;
@@ -103,7 +119,7 @@ export function listenDonasiByDonaturId(donaturId, callback) {
 }
 
 // =====================
-//   KLAIM
+// KLAIM
 // =====================
 export async function tambahKlaim(donasiId, dataKlaim) {
   const newRef = push(ref(db, `klaim/${donasiId}`));

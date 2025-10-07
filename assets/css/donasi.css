@@ -20,7 +20,7 @@
 
 /* Feed Card */
 .feed-card {
-  background: #fff;
+  background: #f0d3d3;
   border-radius: 15px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   padding: 20px;
@@ -114,3 +114,17 @@
   .filter-wrapper select {
     padding-left: 2rem; /* biar teks ga numpuk sama ikon */
   }
+
+  /* CSS untuk menambahkan label kadaluarsa */
+.label-kadaluarsa {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #f44336; /* Merah untuk label */
+  color: white;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 3px;
+  z-index: 1;
+}

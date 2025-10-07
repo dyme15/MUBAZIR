@@ -1,366 +1,396 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Admin - Mubazir</title>
 
   <link href="assets/img/extra/logo-M.png" rel="icon">
-
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 
   <style>
-    body { overflow-x: hidden; background: #f5f7fa; font-family: 'Segoe UI', sans-serif; }
+    body {
+      overflow-x: hidden;
+      background: #f5f7fa;
+      font-family: 'Segoe UI', sans-serif;
+    }
 
     /* Sidebar Admin */
-    #sidebar { min-width: 240px; max-width: 240px; background: linear-gradient(180deg, #dc3545 0%, #b02a37 100%); color: #fff; transition: all 0.3s ease; box-shadow: 5px 0 15px rgba(0,0,0,0.2); z-index: 1000; }
-    #sidebar.collapsed { margin-left: -240px; }
-    #profilePic { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; border: 3px solid #fff; margin: 10px 0; display: block; background: #ccc; }
-    #sidebar .user-info { text-align: left; margin-bottom: 20px; }
-    #sidebar .user-info h5 { margin: 0; font-size: 1rem; }
-    #sidebar .user-info small { font-size: 0.85rem; color: #e0e0e0; }
-    #sidebar .nav-link { color: #fff; padding: 10px 15px; margin: 4px 0; border-radius: 6px; transition: 0.3s; font-weight: 500; text-align: left; cursor: pointer; }
-    #sidebar .nav-link.active, #sidebar .nav-link:hover { background: rgba(255, 255, 255, 0.2); transform: translateX(6px); }
+    #sidebar {
+      min-width: 240px;
+      max-width: 240px;
+      background: linear-gradient(180deg, #dc3545 0%, #b02a37 100%);
+      color: #fff;
+      transition: all 0.3s ease;
+      box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+    }
+
+    #sidebar.collapsed {
+      margin-left: -240px;
+    }
+
+    #profilePic {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      margin: 10px 0;
+      display: block;
+      background: #ccc;
+    }
+
+    #sidebar .user-info {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    #sidebar .user-info h5 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    #sidebar .user-info small {
+      font-size: 0.85rem;
+      color: #e0e0e0;
+    }
+
+    #sidebar .nav-link {
+      color: #fff;
+      padding: 10px 15px;
+      margin: 4px 0;
+      border-radius: 6px;
+      transition: 0.3s;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    #sidebar .nav-link.active,
+    #sidebar .nav-link:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateX(6px);
+    }
 
     /* Content */
-    #content { margin-left: 240px; transition: margin-left 0.3s ease; }
-    #content.expanded { margin-left: 0; }
+    #content {
+      margin-left: 240px;
+      transition: margin-left 0.3s ease;
+    }
+
+    #content.expanded {
+      margin-left: 0;
+    }
 
     /* Topbar */
-    .navbar { background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
-    #toggleSidebar { margin-right: 15px; border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 6px rgba(0,0,0,0.2); transition: 0.3s; }
-    #toggleSidebar:hover { transform: rotate(90deg) scale(1.1); background: #dc3545; color: #fff; }
+    .navbar {
+      background: #fff;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    #toggleSidebar {
+      margin-right: 15px;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+      transition: 0.3s;
+    }
+
+    #toggleSidebar:hover {
+      transform: rotate(90deg) scale(1.1);
+      background: #dc3545;
+      color: #fff;
+    }
 
     /* Card */
-    .card { border: none; border-radius: 16px; background: #fff; box-shadow: 0 6px 16px rgba(0,0,0,0.1); transition: 0.3s; }
-    .card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); }
-    .page-section { display: none; }
-    .page-section.active { display: block; }
+    .card {
+      border: none;
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .page-section {
+      display: none;
+    }
+
+    .page-section.active {
+      display: block;
+    }
+
+	.sidebar-logo {
+        height: 150px;  /* Ukuran gambar */
+        width: 150px;   /* Ukuran gambar */
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        filter: drop-shadow(0 0 5px rgb(199, 197, 167));  /* Drop shadow putih tipis langsung pada gambar */
+        border-radius: 10px; /* Sudut gambar melengkung sedikit */
+        }
   </style>
 </head>
-<body>
-<div class="d-flex">
-  <nav id="sidebar" class="d-flex flex-column p-3 vh-100 position-fixed">
-    <img id="profilePic" src="assets/img/default-avatar.png" alt="Foto Profil">
-    <div class="user-info">
-      <h5 id="namaSidebar">Admin</h5>
-      <small id="usernameSidebar">@admin</small>
-    </div>
-    <ul class="nav nav-pills flex-column mb-auto">
-      <li><a class="nav-link active" data-section="dashboard"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
-      <li><a class="nav-link" data-section="akun"><i class="bi bi-people me-2"></i> Manajemen Akun</a></li>
-      <li><a class="nav-link" data-section="verifikasi"><i class="bi bi-check-circle me-2"></i> Verifikasi Donasi</a></li>
-      <li><a class="nav-link" data-section="monitor"><i class="bi bi-graph-up me-2"></i> Monitoring</a></li>
-      <li><a class="nav-link" data-section="laporan"><i class="bi bi-file-earmark-text me-2"></i> Laporan</a></li>
-      <li><button id="logoutBtn" class="btn btn-outline-light mt-3 w-100"><i class="bi bi-box-arrow-right"></i> Logout</button></li>
-    </ul>
-  </nav>
 
-  <div id="content" class="flex-grow-1">
-    <nav class="navbar navbar-light shadow-sm">
-      <div class="container-fluid d-flex align-items-center">
-        <button id="toggleSidebar" class="btn btn-outline-danger me-3"><i class="bi bi-grid"></i></button>
-        <img src="assets/img/extra/LOGO MUBAZIR-LOMBA (1).png" alt="Logo Mubazir" style="height:50px; width:50px;">
-        <span class="ms-auto badge bg-danger fs-6 shadow-sm"><i class="bi bi-shield-lock"></i> Admin Mode</span>
+<body>
+  <div class="d-flex">
+    <nav id="sidebar" class="d-flex flex-column p-3 vh-100 position-fixed">
+		<img class="sidebar-logo" src="assets/img/extra/LOGO MUBAZIR-LOMBA (1).png" alt="Logo Mubazir">
+      <div class="user-info">
       </div>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li><a class="nav-link active" data-section="dashboard"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
+
+        <li><a class="nav-link" data-section="verifikasi"><i class="bi bi-check-circle me-2"></i> Verifikasi Donasi</a></li>
+        <li><a class="nav-link" data-section="monitor"><i class="bi bi-graph-up me-2"></i> Monitoring</a></li>
+        <li><button id="logoutBtn" class="btn btn-outline-light mt-3 w-100"><i class="bi bi-box-arrow-right"></i> Logout</button></li>
+      </ul>
     </nav>
 
-    <div class="container my-4">
-      <div id="dashboard" class="page-section active">
-        <div class="card p-4 mb-4">
-          <h3>Selamat Datang, <span id="namaDashboard">Admin!</span></h3>
-          <p class="text-muted">Gunakan menu di samping untuk mengelola sistem Mubazir.</p>
+    <div id="content" class="flex-grow-1">
+      <nav class="navbar navbar-light shadow-sm">
+        <div class="container-fluid d-flex align-items-center">
+          <button id="toggleSidebar" class="btn btn-outline-danger me-3"><i class="bi bi-grid"></i></button>
+          <span class="ms-auto badge bg-danger fs-6 shadow-sm"><i class="bi bi-shield-lock"></i> Admin Mode</span>
         </div>
+      </nav>
+
+      <div class="container my-4">
+        <div id="dashboard" class="page-section active">
+          <div class="card p-4 mb-4">
+            <h3>Selamat Datang, <span id="namaDashboard">Admin!</span></h3>
+            <p class="text-muted">Gunakan menu di samping untuk mengelola sistem Mubazir.</p>
+          </div>
+        </div>
+
+        <div id="verifikasi" class="page-section">
+          <div class="card p-4">
+            <h4>✅ Verifikasi Donasi</h4>
+            <table class="table table-bordered mt-3">
+              <thead class="table-danger">
+                <tr>
+                  <th>Donatur</th>
+                  <th>Kategori</th>
+                  <th>Jumlah</th> <!-- Hanya menampilkan Jumlah tanpa Jenis -->
+                  <th>Kadaluarsa</th>
+                  <th>Lokasi</th>
+                  <th>Bukti Foto</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="verifikasiTableBody">
+                <!-- Donasi yang perlu verifikasi akan muncul di sini -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="monitor" class="page-section">
+          <div class="card p-4">
+            <h4>📊 Monitoring</h4>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <div class="card p-3 shadow-sm text-center">
+                  <h5>Total Donasi</h5>
+                  <h2 class="text-danger" id="totalDonasi">1.250</h2>
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="card p-3 shadow-sm text-center">
+                  <h5>Total Pengguna</h5>
+                  <h2 class="text-danger" id="totalPengguna">430</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
-
-      <div id="akun" class="page-section">
-		<div class="card p-4">
-			<h4>👥 Manajemen Akun</h4>
-			<table class="table table-hover mt-3">
-			<thead class="table-danger">
-				<tr>
-				<th>Nama</th>
-				<th>Email</th>
-				<th>Role</th>
-				<th>Aksi</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-				<td>Budi Santoso</td>
-				<td>budi@example.com</td>
-				<td>Donatur</td>
-				<td>
-					<button class="btn btn-sm btn-outline-primary">Edit</button>
-					<button class="btn btn-sm btn-outline-danger">Hapus</button>
-				</td>
-				</tr>
-				<tr>
-				<td>Yayasan ABC</td>
-				<td>yayasanabc@example.com</td>
-				<td>Penyalur</td>
-				<td>
-					<button class="btn btn-sm btn-outline-primary">Edit</button>
-					<button class="btn btn-sm btn-outline-danger">Hapus</button>
-				</td>
-				</tr>
-			</tbody>
-			</table>
-		</div>
-		</div>
-
-		<div id="verifikasi" class="page-section">
-		<div class="card p-4">
-			<h4>✅ Verifikasi Donasi</h4>
-			<table class="table table-bordered mt-3">
-			<thead class="table-danger">
-				<tr>
-				<th>Donatur</th>
-				<th>Kategori</th>
-				<th>Jenis & Jumlah</th>
-				<th>Kadaluarsa</th>
-				<th>Lokasi</th>
-				<th>Bukti Foto</th>
-				<th>Status</th>
-				<th>Aksi</th>
-				</tr>
-			</thead>
-			<tbody id="verifikasiTableBody">
-				</tbody>
-			</table>
-		</div>
-		</div>
-
-		<div id="monitor" class="page-section">
-		<div class="card p-4">
-			<h4>📊 Monitoring</h4>
-			<div class="row">
-			<div class="col-md-6 mb-3">
-				<div class="card p-3 shadow-sm text-center">
-				<h5>Total Donasi</h5>
-				<h2 class="text-danger">1.250</h2>
-				</div>
-			</div>
-			<div class="col-md-6 mb-3">
-				<div class="card p-3 shadow-sm text-center">
-				<h5>Total Pengguna</h5>
-				<h2 class="text-danger">430</h2>
-				</div>
-			</div>
-			</div>
-			<p class="text-muted mt-3">📌 Grafik distribusi makanan akan ditampilkan di sini.</p>
-		</div>
-		</div>
-
-		<div id="laporan" class="page-section">
-		<div class="card p-4">
-			<h4>📑 Laporan</h4>
-			<p class="text-muted">Admin dapat mengunduh data donasi, pengguna, atau distribusi untuk keperluan evaluasi.</p>
-			<button class="btn btn-outline-danger"><i class="bi bi-download"></i> Unduh Laporan Donasi</button>
-			<button class="btn btn-outline-danger ms-2"><i class="bi bi-download"></i> Unduh Laporan Pengguna</button>
-		</div>
-		</div>
     </div>
   </div>
-</div>
 
-<div class="modal fade" id="fotoModal" tabindex="-1" aria-labelledby="fotoModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="fotoModalLabel">Foto Bukti Donasi</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body text-center">
-        <img id="modalImage" src="" class="img-fluid rounded" alt="Bukti Donasi" style="max-height: 80vh;">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-      </div>
-    </div>
-  </div>
-</div>
-
+  <div class="modal fade" id="fotoModal" tabindex="-1" aria-labelledby="fotoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="fotoModalLabel">Foto Bukti Donasi</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img id="modalImage" src="" class="img-fluid rounded" alt="Bukti Donasi" style="max-height: 80vh;">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script type="module">
+  import { getDonasi, getDonaturById } from './assets/js/database.js';
+
+  document.addEventListener("DOMContentLoaded", async () => {
+    const donasiData = await getDonasi(); // Mendapatkan semua data donasi
+
+    // Fungsi untuk menampilkan badge status
+    function getStatusBadge(status) {
+      switch (status) {
+        case 'pending':
+          return `<span class="badge bg-warning text-dark"><i class="bi bi-clock"></i> Pending</span>`;
+        case 'approved':
+          return `<span class="badge bg-success"><i class="bi bi-check-circle"></i> Disetujui</span>`;
+        case 'rejected':
+          return `<span class="badge bg-danger"><i class="bi bi-x-circle"></i> Ditolak</span>`;
+        case 'finished':
+          return `<span class="badge bg-secondary"><i class="bi bi-flag"></i> Finish</span>`;
+        default:
+          return `<span class="badge bg-secondary">Unknown</span>`;
+      }
+    }
+
+    // Fungsi untuk menampilkan tombol aksi (approve, reject, finish)
+    function getActionButtons(donasi) {
+      let buttons = '';
+      if (donasi.status === 'pending') {
+        buttons += `<button class="btn btn-sm btn-success set-status-btn me-1" data-id="${donasi.id}" data-status="approved"><i class="bi bi-check-lg"></i> Setujui</button>`;
+        buttons += `<button class="btn btn-sm btn-outline-danger set-status-btn" data-id="${donasi.id}" data-status="rejected"><i class="bi bi-x-lg"></i> Tolak</button>`;
+      } else if (donasi.status === 'approved') {
+        buttons += `<button class="btn btn-sm btn-danger set-status-btn" data-id="${donasi.id}" data-status="finished"><i class="bi bi-flag"></i> Tuntaskan</button>`;
+      } else if (donasi.status === 'rejected') {
+        buttons += `<span class="text-danger small">Ditolak</span>`;
+      } else if (donasi.status === 'finished') {
+        buttons += `<span class="text-secondary small">Selesai</span>`;
+      }
+      return buttons;
+    }
+
+    // Fungsi untuk memuat tabel verifikasi donasi
+    async function loadVerifikasiTable(data) {
+      const tbody = document.getElementById("verifikasiTableBody");
+      tbody.innerHTML = ''; // Clear existing data
+
+      // Loop melalui data donasi dan ambil nama donatur berdasarkan donaturId
+      for (const donasi of data) {
+        let donaturNama = "Nama Donatur Tidak Ditemukan"; // Default jika nama donatur tidak ditemukan
+
+        // Mengambil data donatur berdasarkan donaturId
+        if (donasi.donaturId) {
+          try {
+            const donatur = await getDonaturById(donasi.donaturId);
+            if (donatur && donatur.nama_donatur) {
+              donaturNama = donatur.nama_donatur;
+            }
+          } catch (error) {
+            console.error("Error fetching donatur data", error);
+          }
+        }
+
+        // Membuat row baru untuk tabel verifikasi
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${donaturNama}</td>
+          <td>${donasi.kategori}</td>
+          <td>${donasi.jumlah} ${donasi.satuan}</td> <!-- Menampilkan hanya jumlah -->
+          <td>${donasi.masaKadaluarsa}</td>
+          <td>${donasi.lokasi}</td>
+          <td>
+            <button class="btn btn-sm btn-outline-danger view-photo-btn" 
+              data-bs-toggle="modal" 
+              data-bs-target="#fotoModal"
+              data-foto-url="${donasi.foto}">
+              <i class="bi bi-image"></i> Lihat
+            </button>
+          </td>
+          <td>${getStatusBadge(donasi.status)}</td>
+          <td>${getActionButtons(donasi)}</td>
+        `;
+        tbody.appendChild(tr);
+      }
+
+      // Event listener untuk tombol aksi (approve, reject, finish)
+      document.querySelectorAll('.set-status-btn').forEach(button => {
+        button.addEventListener('click', async (e) => {
+          const id = e.currentTarget.getAttribute('data-id');
+          const newStatus = e.currentTarget.getAttribute('data-status');
+
+          try {
+            // Update status di Firebase database
+            const donasiRef = ref(db, `donasi/${id}`);
+            await set(donasiRef, { status: newStatus });
+
+            // Setelah status diubah, update tampilan di UI
+            alert(`Status donasi ${id} diubah menjadi ${newStatus.toUpperCase()}!`);
+
+            // Muat ulang data atau sesuaikan dengan kondisi yang baru
+            const donasiData = await getDonasi();
+            loadVerifikasiTable(donasiData);  // Muat ulang tabel verifikasi
+          } catch (err) {
+            console.error("Terjadi kesalahan saat memperbarui status donasi:", err);
+            alert("Gagal memperbarui status donasi.");
+          }
+        });
+      });
+    }
+
+    // Memanggil fungsi untuk memuat data donasi saat halaman dimuat
+    loadVerifikasiTable(donasiData);
+
+    // Sidebar Toggle Functionality
+    const toggleSidebar = document.getElementById("toggleSidebar");
+    const sidebar = document.getElementById("sidebar");
+    const content = document.getElementById("content");
+
+    if (toggleSidebar) {
+      toggleSidebar.addEventListener("click", () => {
+        sidebar.classList.toggle("collapsed");
+        content.classList.toggle("expanded");
+      });
+    }
+
+    // Menu Navigation Functionality
+    document.querySelectorAll("#sidebar .nav-link").forEach((link) => {
+      link.addEventListener("click", () => {
+        document.querySelectorAll("#sidebar .nav-link").forEach((l) => l.classList.remove("active"));
+        document.querySelectorAll(".page-section").forEach((sec) => sec.classList.remove("active"));
+        link.classList.add("active");
+        const sectionId = link.getAttribute("data-section");
+        if (sectionId) document.getElementById(sectionId).classList.add("active");
+      });
+    });
+  });
+
+  // =====================
+// LOGOUT
+// =====================
 document.addEventListener("DOMContentLoaded", () => {
-  
-  // --- MOCK DATA (Simulasi dari input Donatur) ---
-  // Ini adalah data yang diinput oleh donatur dan menunggu verifikasi
-  const mockDonasiList = [
-    {
-      id: 'D001',
-      donatur: 'Budi Santoso',
-      kategori: 'Makanan',
-      jenis: 'Nasi Goreng',
-      jumlah: 10,
-      satuan: 'Porsi',
-      masaKadaluarsa: 'Baik hingga 3 jam',
-      lokasi: 'Jl. Utama No. 12, Medan',
-      foto: 'assets/img/gallery/gallery-1.jpg', // Ganti dengan URL foto yang diunggah donatur
-      status: 'pending' 
-    },
-    {
-      id: 'D002',
-      donatur: 'Yayasan ABC',
-      kategori: 'Minuman',
-      jenis: 'Air Mineral',
-      jumlah: 50,
-      satuan: 'Botol',
-      masaKadaluarsa: 'Exp. 2025-12-31',
-      lokasi: 'Jl. Merdeka No. 5, Medan',
-      foto: 'assets/img/gallery/gallery-2.jpg',
-      status: 'approved' // Sudah disetujui, menunggu dituntaskan
-    },
-    {
-      id: 'D003',
-      donatur: 'Siti Aisyah',
-      kategori: 'Snack',
-      jenis: 'Roti Cokelat',
-      jumlah: 20,
-      satuan: 'Buah',
-      masaKadaluarsa: 'Baik hingga besok',
-      lokasi: 'Perumahan Indah Blok C',
-      foto: 'assets/img/gallery/gallery-3.jpg',
-      status: 'finished' // Sudah selesai
-    }
-  ];
-
-  // Fungsi untuk mendapatkan badge status
-  function getStatusBadge(status) {
-    switch (status) {
-      case 'pending':
-        return `<span class="badge bg-warning text-dark"><i class="bi bi-clock"></i> Pending</span>`;
-      case 'approved':
-        return `<span class="badge bg-success"><i class="bi bi-check-circle"></i> Disetujui</span>`;
-      case 'rejected':
-        return `<span class="badge bg-danger"><i class="bi bi-x-circle"></i> Ditolak</span>`;
-      case 'finished':
-        return `<span class="badge bg-secondary"><i class="bi bi-flag"></i> Finish</span>`;
-      default:
-        return `<span class="badge bg-secondary">Unknown</span>`;
-    }
-  }
-
-  // Fungsi untuk mendapatkan tombol aksi
-  function getActionButtons(donasi) {
-    let buttons = '';
-    if (donasi.status === 'pending') {
-      buttons += `<button class="btn btn-sm btn-success set-status-btn me-1" data-id="${donasi.id}" data-status="approved"><i class="bi bi-check-lg"></i> Setujui</button>`;
-      buttons += `<button class="btn btn-sm btn-outline-danger set-status-btn" data-id="${donasi.id}" data-status="rejected"><i class="bi bi-x-lg"></i> Tolak</button>`;
-    } else if (donasi.status === 'approved') {
-      buttons += `<button class="btn btn-sm btn-danger set-status-btn" data-id="${donasi.id}" data-status="finished"><i class="bi bi-flag"></i> Tuntaskan</button>`;
-    } else if (donasi.status === 'rejected') {
-      buttons += `<span class="text-danger small">Ditolak</span>`;
-    } else if (donasi.status === 'finished') {
-      buttons += `<span class="text-secondary small">Selesai</span>`;
-    }
-    return buttons;
-  }
-  
-  // Fungsi untuk memuat tabel Verifikasi Donasi
-  function loadVerifikasiTable(data) {
-    const tbody = document.getElementById("verifikasiTableBody");
-    tbody.innerHTML = ''; // Bersihkan tabel
-
-    data.forEach((donasi) => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${donasi.donatur}</td>
-        <td>${donasi.kategori}</td>
-        <td>${donasi.jenis} (${donasi.jumlah} ${donasi.satuan})</td>
-        <td>${donasi.masaKadaluarsa}</td>
-        <td>${donasi.lokasi}</td>
-        <td>
-          <button class="btn btn-sm btn-outline-danger view-photo-btn" 
-            data-bs-toggle="modal" 
-            data-bs-target="#fotoModal"
-            data-foto-url="${donasi.foto}">
-            <i class="bi bi-image"></i> Lihat
-          </button>
-        </td>
-        <td>${getStatusBadge(donasi.status)}</td>
-        <td>${getActionButtons(donasi)}</td>
-      `;
-      tbody.appendChild(tr);
-    });
-    
-    // Re-attach event listener untuk tombol aksi
-    document.querySelectorAll('.set-status-btn').forEach(button => {
-      button.addEventListener('click', (e) => {
-        const id = e.currentTarget.getAttribute('data-id');
-        const newStatus = e.currentTarget.getAttribute('data-status');
-        
-        // Implementasi Mock: Update status di Mock Data
-        const donasiIndex = mockDonasiList.findIndex(d => d.id === id);
-        if (donasiIndex !== -1) {
-          mockDonasiList[donasiIndex].status = newStatus;
-          alert(`Status donasi ${id} diubah menjadi ${newStatus.toUpperCase()}!`);
-          loadVerifikasiTable(mockDonasiList); // Reload tabel untuk update UI
-        }
-      });
-    });
-  
-    // Atur event listener untuk modal foto (sekali saat load)
-    const fotoModal = document.getElementById('fotoModal');
-    if (fotoModal) {
-      fotoModal.addEventListener('show.bs.modal', function (event) {
-        const button = event.relatedTarget;
-        const fotoUrl = button.getAttribute('data-foto-url');
-        document.getElementById('modalImage').src = fotoUrl;
-      });
-    }
-  }
-
-  // Panggil load table dengan mock data saat DOM siap
-  loadVerifikasiTable(mockDonasiList);
-
-  // =====================
-  // Proteksi Admin
-  // =====================
-  const user = JSON.parse(localStorage.getItem("user"));
-  // Untuk demo, kita asumsikan user adalah admin jika tidak ada user di localStorage
-  if (!user || user.role !== "admin") {
-    // window.location.replace("login.html"); // Dikomentari untuk kemudahan demo/debug
-    // return; 
-    // Jika tidak ada user di localStorage, kita buat user default untuk mengisi sidebar
-    if (!user) {
-      const defaultUser = { nama: "Admin Default", email: "admin@mubazir.com", role: "admin" };
-      localStorage.setItem("user", JSON.stringify(defaultUser));
-    }
-  }
-  const currentUser = JSON.parse(localStorage.getItem("user")); // Ambil user setelah cek
-
-  // Set Info User
-  document.getElementById("namaSidebar").textContent = currentUser.nama || "Admin";
-  document.getElementById("namaDashboard").textContent = currentUser.nama || "Admin";
-  document.getElementById("usernameSidebar").textContent = "@" + (currentUser.email?.split("@")[0] || "admin");
-
-  // Logout
-  document.getElementById("logoutBtn").addEventListener("click", () => {
-    localStorage.removeItem("user");
-    window.location.href = "login.html";
-  });
-
-  // Sidebar Toggle
-  document.getElementById("toggleSidebar").addEventListener("click", () => {
-    document.getElementById("sidebar").classList.toggle("collapsed");
-    document.getElementById("content").classList.toggle("expanded");
-  });
-
-  // Navigasi Sidebar
-  document.querySelectorAll("#sidebar .nav-link").forEach((link) => {
-    link.addEventListener("click", () => {
-      document.querySelectorAll("#sidebar .nav-link").forEach((l) => l.classList.remove("active"));
-      document.querySelectorAll(".page-section").forEach((sec) => sec.classList.remove("active"));
-      link.classList.add("active");
-      const sectionId = link.getAttribute("data-section");
-      if (sectionId) document.getElementById(sectionId).classList.add("active");
-    });
-  });
+  const logoutBtn = document.getElementById("logoutBtn"); // Menangkap tombol logout
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      // Menghapus data user dari localStorage
+      localStorage.removeItem("user");
+      
+      // Arahkan ke halaman login setelah logout
+      window.location.href = "login.html";
+    });
+  }
 });
+
 </script>
+
 </body>
+
+
 </html>
