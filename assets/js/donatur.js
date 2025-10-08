@@ -173,13 +173,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // Riwayat & logika tampil form / scan
   // =====================
   if (tbody) {
-    tbody.innerHTML = "<tr><td colspan='5'>⏳ Memuat...</td></tr>";
+    tbody.innerHTML = "<tr><td colspan='4'>⏳ Memuat...</td></tr>"; // ubah colspan jadi 4 karena kolom bukti dihapus
 
     listenDonasiByUser(userId, data => {
       tbody.innerHTML = "";
 
       if (!data || data.length === 0) {
-        tbody.innerHTML = "<tr><td colspan='5'>Belum ada donasi dari Anda.</td></tr>";
+        tbody.innerHTML = "<tr><td colspan='4'>Belum ada donasi dari Anda.</td></tr>";
         formDonasi.classList.remove("d-none");
         hasilDonasiEl.classList.add("d-none");
         scanBtn.classList.add("d-none");
@@ -208,22 +208,9 @@ document.addEventListener("DOMContentLoaded", () => {
         scanBtn.classList.add("d-none");
       }
 
-      // Update riwayat
+      // Update riwayat tanpa kolom bukti
       data.forEach(donasi => {
         const tr = document.createElement("tr");
-        let buktiTerimaContent = "-";
-
-        if (donasi.buktiTerimaFoto) {
-          buktiTerimaContent = `
-            <button class="btn btn-sm btn-info" 
-              data-bs-toggle="modal" 
-              data-bs-target="#buktiTerimaModal"
-              data-foto-url="${donasi.buktiTerimaFoto}">
-              <i class="bi bi-image"></i> Lihat Bukti
-            </button>`;
-        } else if (donasi.status === "Diambil") {
-          buktiTerimaContent = `<span class="text-muted">Menunggu Bukti</span>`;
-        }
 
         const statusBadgeClass =
           donasi.status === "pending" ? "bg-warning" :
@@ -236,20 +223,9 @@ document.addEventListener("DOMContentLoaded", () => {
           <td>${donasi.jumlah || 0} ${donasi.satuan || ""}</td>
           <td>${donasi.lokasi || "-"}</td>
           <td><span class="badge ${statusBadgeClass}">${donasi.status || "-"}</span></td>
-          <td>${buktiTerimaContent}</td>
         `;
         tbody.appendChild(tr);
       });
-
-      // Modal bukti
-      const modal = document.getElementById("buktiTerimaModal");
-      if (modal) {
-        modal.addEventListener("show.bs.modal", event => {
-          const button = event.relatedTarget;
-          const fotoUrl = button.getAttribute("data-foto-url");
-          document.getElementById("modalBuktiImage").src = fotoUrl;
-        });
-      }
     });
   }
 });
