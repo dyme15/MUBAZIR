@@ -1,41 +1,96 @@
-// 🔍 Search: hanya cek "jenis" & "lokasi"
-const searchInput = document.getElementById("searchInput");
+import { getDonasi, getUserById } from "./database.js";
 
-searchInput.addEventListener("keyup", function () {
-  const keyword = this.value.toLowerCase();
+let semuaDonasi = [];
+let kategoriAktif = "all";
 
-  const posts = document.querySelectorAll("#postContainer .col-lg-6");
-  posts.forEach(post => {
-    const feedBody = post.querySelector(".feed-body");
-    const paragraphs = feedBody ? feedBody.querySelectorAll("p") : [];
+// =====================
+// Load & Render Donasi
+// =====================
+async function loadDonasi() {
+  semuaDonasi = await getDonasi();
+  renderDonasi();
+}
 
-    const donatur = post.querySelector(".feed-header h5")?.innerText.toLowerCase() || "";
-    const jenis   = paragraphs[0]?.innerText.toLowerCase() || "";
-    const jumlah  = paragraphs[1]?.innerText.toLowerCase() || "";
-    const lokasi  = paragraphs[2]?.innerText.toLowerCase() || "";
-    const kategoriAttr = post.getAttribute("data-kategori")?.toLowerCase() || "";
+async function renderDonasi() {
+  const postContainer = document.getElementById("postContainer");
+  const judulFeed = document.getElementById("judulFeed");
+  const searchKeyword = document.getElementById("searchInput").value.toLowerCase();
 
-    // cari judul kategori dari section
-    let kategoriTitle = "";
-    const kategoriSection = document.querySelector(`#${kategoriAttr} h2`);
-    if (kategoriSection) {
-      kategoriTitle = kategoriSection.innerText.toLowerCase();
+  postContainer.innerHTML = "";
+
+  let filtered = semuaDonasi.filter(d => {
+    const cocokStatus = d.status === "approved"; // hanya donasi disetujui
+    const cocokKategori = kategoriAktif === "all" || d.kategori === kategoriAktif;
+    const cocokSearch = Object.values(d).join(" ").toLowerCase().includes(searchKeyword);
+    return cocokStatus && cocokKategori && cocokSearch;
+  });
+
+  const selectedItem = document.querySelector(`.dropdown-menu .dropdown-item[data-value="${kategoriAktif}"]`);
+  judulFeed.textContent = selectedItem ? selectedItem.textContent : "Semua Donasi";
+
+  const currentUserId = localStorage.getItem("donaturId"); // Ambil user login
+
+  if (filtered.length === 0) {
+    postContainer.innerHTML = "<p class='text-center text-muted'>Tidak ada donasi ditemukan.</p>";
+    return;
+  }
+
+  for (const d of filtered) {
+    // ===== Nama & No HP donatur
+    let donaturNama = "Nama Donatur Tidak Ditemukan";
+    let donaturHp = "-";
+
+    if (d.donaturId) {
+      try {
+        const donatur = await getUserById(d.donaturId);
+        if (donatur?.nama) donaturNama = donatur.nama;
+        donaturHp = donatur?.no_hp || "-"; // <-- ambil no_hp
+      } catch (err) {
+        console.error("Error fetch donatur", err);
+      }
     }
 
-    // cek apakah keyword ada di donatur, jenis, jumlah, lokasi, atau kategori
-    const match = 
-      donatur.includes(keyword) ||
-      jenis.includes(keyword) ||
-      jumlah.includes(keyword) ||
-      lokasi.includes(keyword) ||
-      kategoriAttr.includes(keyword) ||
-      kategoriTitle.includes(keyword);
+    const waktuPost = new Date(d.dibuat);
+    const waktuKadaluarsa = new Date(waktuPost);
+    waktuKadaluarsa.setHours(waktuKadaluarsa.getHours() + 3);
+    const options = { timeZone: 'Asia/Jakarta', hour12: false, hour: '2-digit', minute: '2-digit' };
+    const waktuKadaluarsaFormatted = new Intl.DateTimeFormat('id-ID', options).format(waktuKadaluarsa);
 
-    post.style.display = match ? "" : "none";
-  });
-});
+    const card = document.createElement("div");
+    card.className = "col-lg-6";
+    card.setAttribute("data-id", d.id);
+    card.setAttribute("data-kategori", d.kategori || "");
 
-// 🖼️ Fungsi untuk aktifkan galeri thumbnail
+    // Link Ambil Donasi
+    const klaimLink = `klaim.html?donasiId=${d.id}${currentUserId ? `&donaturId=${currentUserId}` : ""}`;
+
+    card.innerHTML = `
+      <div class="feed-card position-relative">
+        <div class="label-kadaluarsa">Kadaluarsa: ${waktuKadaluarsaFormatted} WIB</div>
+        <div class="feed-gallery mb-2">
+          <img src="${d.foto || 'assets/img/default-food.jpg'}" alt="${d.nama || 'Donasi'}" class="main-img w-100" style="border-radius:10px;">
+        </div>
+        <div class="feed-body">
+          <p><strong>Nama Donasi:</strong> ${d.nama || "Nama Donasi Tidak Ditemukan"}</p>
+          <p><strong>Jumlah:</strong> ${d.jumlah || 0} ${d.satuan || ""}</p>
+          <p><strong>Lokasi:</strong> ${d.lokasi || "-"}</p>
+          <p><strong>Donatur:</strong> ${donaturNama} (${donaturHp})</p>
+        </div>
+        <div class="feed-footer mt-2">
+          <a href="${klaimLink}" class="btn btn-success btn-sm">Ambil Donasi</a>
+        </div>
+      </div>`;
+
+    postContainer.appendChild(card);
+  }
+
+  // Init gallery thumbnails
+  document.querySelectorAll(".feed-gallery").forEach(initGallery);
+}
+
+// =====================
+// Gallery
+// =====================
 function initGallery(gallery) {
   const mainImg = gallery.querySelector(".main-img");
   const thumbs = gallery.querySelectorAll(".thumb");
@@ -48,60 +103,44 @@ function initGallery(gallery) {
   });
 }
 
-// 📌 Setelah DOM siap
-document.addEventListener("DOMContentLoaded", function () {
-  // Inisialisasi galeri di feed utama
-  document.querySelectorAll(".feed-gallery").forEach(initGallery);
+// =====================
+// Search & Filter
+// =====================
+function debounce(func, delay) {
+  let timeout;
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), delay);
+  };
+}
 
-  // Clone card dari feed utama ke kategori
-  const posts = document.querySelectorAll("#postContainer .col-lg-6");
-  posts.forEach(post => {
-    const kategori = post.getAttribute("data-kategori");
-    if (kategori) {
-      const target = document.querySelector(`#${kategori} .row`);
-      if (target) {
-        const clone = post.cloneNode(true);
-        target.appendChild(clone);
+document.getElementById("searchInput").addEventListener("input", debounce(renderDonasi, 300));
 
-        // aktifkan galeri untuk hasil clone
-        const cloneGallery = clone.querySelector(".feed-gallery");
-        if (cloneGallery) initGallery(cloneGallery);
-      }
+document.querySelectorAll(".dropdown-menu .dropdown-item").forEach(item => {
+  item.addEventListener("click", e => {
+    e.preventDefault();
+    kategoriAktif = item.getAttribute("data-value");
+    renderDonasi();
+  });
+});
+
+// =====================
+// Login check Donasi button
+// =====================
+document.addEventListener("DOMContentLoaded", () => {
+  const btnDonasi = document.getElementById("btnDonasi");
+  const loginStatus = localStorage.getItem("isDonaturLogin");
+
+  btnDonasi.addEventListener("click", () => {
+    if (loginStatus === "true") {
+      window.location.href = "donatur.html";
+    } else {
+      window.location.href = "login.html";
     }
   });
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-  // cari semua tombol "Ambil Donasi"
-  const ambilButtons = document.querySelectorAll(".btn-ambil");
-
-  ambilButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      // ambil id dari parent card
-      const post = btn.closest(".col-lg-6");
-      const postId = post.getAttribute("data-id");
-
-      // redirect ke halaman klaim.html dengan query param
-      if (postId) {
-        window.location.href = `klaim.html?post_id=${postId}`;
-      } else {
-        alert("Donasi tidak valid.");
-      }
-    });
-  });
-});
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const loginStatus = localStorage.getItem("isDonaturLogin");
-    const btnDonasi = document.getElementById("btnDonasi");
-
-    btnDonasi.addEventListener("click", () => {
-      if (loginStatus === "true") {
-        window.location.href = "donatur.html";
-      } else {
-        window.location.href = "login.html";
-      }
-    });
-  });
-
-
+// =====================
+// Start
+// =====================
+loadDonasi();

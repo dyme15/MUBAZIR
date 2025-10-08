@@ -1,32 +1,23 @@
-import { 
-  getAdmin, 
-  getDonatur, 
-  tambahDonatur 
-} from "./database.js";
+import { getUserByEmail, tambahUser } from "./database.js";
 
 // =====================
-// Toggle Login / Register (Flip 3D)
+// Elemen DOM
 // =====================
 const loginForm = document.getElementById("login-form");
 const registerForm = document.getElementById("register-form");
-const formTitle = document.getElementById("form-title"); // hanya untuk sisi depan
-const toggleLink = document.getElementById("toggle-link");       // link di sisi login
-const toggleLinkBack = document.getElementById("toggle-link-back"); // link di sisi register
-const toggleText = document.getElementById("toggle-text");       // teks kecil di sisi login
 const authCard = document.querySelector(".auth-card");
+const toggleLink = document.getElementById("toggle-link");
+const toggleLinkBack = document.getElementById("toggle-link-back");
 
+// =====================
+// Animasi Flip Login/Register
+// =====================
 function flipToRegister() {
   authCard.classList.add("flipped");
-  if (formTitle) formTitle.textContent = "Login"; // tetap jaga konsistensi sisi depan
-  if (toggleText) toggleText.textContent = "Belum punya akun?";
-  if (toggleLink) toggleLink.textContent = "Daftar di sini";
 }
 
 function flipToLogin() {
   authCard.classList.remove("flipped");
-  if (formTitle) formTitle.textContent = "Login";
-  if (toggleText) toggleText.textContent = "Belum punya akun?";
-  if (toggleLink) toggleLink.textContent = "Daftar di sini";
 }
 
 if (toggleLink) {
@@ -58,49 +49,38 @@ loginForm.addEventListener("submit", async (e) => {
   }
 
   try {
-    // cek admin dulu
-    const adminData = await getAdmin();
-    const adminList = Object.entries(adminData || {});
-    const adminMatch = adminList.find(([id, data]) => 
-      data.email === email && data.password === password
+    const user = await getUserByEmail(email);
+
+    if (!user) {
+      alert("Email tidak ditemukan!");
+      return;
+    }
+
+    if (user.password !== password) {
+      alert("Password salah!");
+      return;
+    }
+
+    // Simpan ke localStorage
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        id: user.id,
+        nama: user.nama,
+        email: user.email,
+        role: user.role,
+      })
     );
 
-    if (adminMatch) {
-      const [id, data] = adminMatch;
-      localStorage.setItem("user", JSON.stringify({
-        role: "admin",
-        id,
-        nama: data.nama,
-        email: data.email
-      }));
+    if (user.role === "admin") {
       alert("Login sebagai Admin berhasil!");
       window.location.href = "admin.html";
-      return;
-    }
-
-    // cek donatur
-    const donaturData = await getDonatur();
-    const donaturList = Object.entries(donaturData || {});
-    const donaturMatch = donaturList.find(([id, data]) => 
-      data.email === email && data.password === password
-    );
-
-    if (donaturMatch) {
-      const [id, data] = donaturMatch;
-      localStorage.setItem("user", JSON.stringify({
-        role: "donatur",
-        id,
-        nama: data.nama,
-        email: data.email
-      }));
-      alert("Login Donatur berhasil!");
+    } else {
+      alert("Login sebagai Donatur berhasil!");
       window.location.href = "donatur.html";
-      return;
     }
-
-    alert("Email atau password salah!");
   } catch (err) {
-    console.error(err);
+    console.error("❌ Error saat login:", err);
     alert("Terjadi kesalahan saat login.");
   }
 });
@@ -122,15 +102,13 @@ registerForm.addEventListener("submit", async (e) => {
   }
 
   try {
-    const donaturData = await getDonatur();
-    const emailExists = Object.values(donaturData || {}).some(d => d.email === email);
-
-    if (emailExists) {
-      alert("Email sudah terdaftar, silakan gunakan email lain!");
+    const existingUser = await getUserByEmail(email);
+    if (existingUser) {
+      alert("Email sudah terdaftar. Gunakan email lain!");
       return;
     }
 
-    await tambahDonatur({
+    await tambahUser({
       nama,
       email,
       no_hp: noHp,
@@ -138,19 +116,19 @@ registerForm.addEventListener("submit", async (e) => {
       poin: 0,
       level: "Pemula",
       role: "donatur",
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
     });
 
     alert("Registrasi berhasil! Silakan login.");
     flipToLogin();
   } catch (err) {
-    console.error(err);
+    console.error("❌ Gagal registrasi:", err);
     alert("Terjadi kesalahan saat registrasi.");
   }
 });
 
 // =====================
-// LOGOUT (untuk dashboard)
+// LOGOUT
 // =====================
 document.addEventListener("DOMContentLoaded", () => {
   const logoutBtn = document.getElementById("logoutBtn");
@@ -173,7 +151,7 @@ function getCurrentUser() {
 function requireDonatur() {
   const user = getCurrentUser();
   if (!user || user.role !== "donatur") {
-    alert("Anda harus login sebagai Donatur untuk mengakses halaman ini!");
+    alert("Anda harus login sebagai Donatur!");
     window.location.href = "login.html";
   }
   return user;
@@ -182,7 +160,7 @@ function requireDonatur() {
 function requireAdmin() {
   const user = getCurrentUser();
   if (!user || user.role !== "admin") {
-    alert("Anda harus login sebagai Admin untuk mengakses halaman ini!");
+    alert("Anda harus login sebagai Admin!");
     window.location.href = "login.html";
   }
   return user;
@@ -191,5 +169,5 @@ function requireAdmin() {
 window.auth = {
   getCurrentUser,
   requireDonatur,
-  requireAdmin
+  requireAdmin,
 };

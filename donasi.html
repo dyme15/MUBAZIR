@@ -54,10 +54,8 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
           <h2 id="judulFeed" class="mb-0" style="font-weight: bold;">Semua Donasi</h2>
           <div class="d-flex gap-2" style="max-width: 600px; width:100%;">
-            <!-- Search Input -->
             <input type="text" id="searchInput" class="form-control flex-grow-1" placeholder="Cari donasi...">
 
-            <!-- Dropdown dengan ikon filter -->
             <div class="dropdown">
               <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownKategori" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-funnel"></i>
@@ -74,7 +72,7 @@
         </div>
 
         <div class="row gy-4" id="postContainer">
-          <!-- Data donasi akan di-load dari database.js -->
+          <!-- Data donasi akan di-load dari donasi.js -->
         </div>
       </div>
     </section>
@@ -143,106 +141,8 @@
 
   <!-- Main JS -->
   <script src="assets/js/main.js"></script>
-  <script type="module">
-  import { getDonasi, getDonaturById } from "./assets/js/database.js";
-
-  let semuaDonasi = [];
-  let kategoriAktif = "all";
-
-  async function loadDonasi() {
-    semuaDonasi = await getDonasi();
-    renderDonasi();
-  }
-
-  async function renderDonasi() {
-    const postContainer = document.getElementById("postContainer");
-    const judulFeed = document.getElementById("judulFeed");
-    const searchKeyword = document.getElementById("searchInput").value.toLowerCase();
-
-    postContainer.innerHTML = "";
-
-    let filtered = semuaDonasi.filter(d => {
-  const cocokStatus = d.status === "approved"; // hanya donasi yang disetujui
-  const cocokKategori = kategoriAktif === "all" || d.kategori === kategoriAktif;
-  const cocokSearch = Object.values(d).join(" ").toLowerCase().includes(searchKeyword);
-  return cocokStatus && cocokKategori && cocokSearch;
-});
-
-
-    const selectedItem = document.querySelector(`.dropdown-menu .dropdown-item[data-value="${kategoriAktif}"]`);
-    judulFeed.textContent = selectedItem ? selectedItem.textContent : "Semua Donasi";
-
-    if (filtered.length === 0) {
-      postContainer.innerHTML = "<p class='text-center text-muted'>Tidak ada donasi ditemukan.</p>";
-      return;
-    }
-
-    for (const d of filtered) {
-      let donaturNama = "Nama Donatur Tidak Ditemukan"; // Default if donatur name not found
-
-      // Fetch Donatur name by Donatur ID
-      if (d.donaturId) {
-        try {
-          const donatur = await getDonaturById(d.donaturId);
-          if (donatur && donatur.nama_donatur) {
-            donaturNama = donatur.nama_donatur; // Update donatur name if available
-          }
-        } catch (error) {
-          console.error("Error fetching donatur data", error);
-        }
-      }
-
-      // Expiry time logic
-      const waktuPost = new Date(d.dibuat);
-      const waktuKadaluarsa = new Date(waktuPost);
-      waktuKadaluarsa.setHours(waktuKadaluarsa.getHours() + 3);
-
-      const options = { timeZone: 'Asia/Jakarta', hour12: false, hour: '2-digit', minute: '2-digit' };
-      const waktuKadaluarsaFormatted = new Intl.DateTimeFormat('id-ID', options).format(waktuKadaluarsa);
-
-      const card = document.createElement("div");
-      card.className = "col-lg-6";
-      card.innerHTML = `
-        <div class="feed-card position-relative">
-          <div class="label-kadaluarsa">Kadaluarsa: ${waktuKadaluarsaFormatted} WIB</div>
-          <div class="feed-gallery mb-2">
-            <img src="${d.foto || 'assets/img/default-food.jpg'}" alt="${d.nama_donasi}" class="main-img w-100" style="border-radius:10px;">
-          </div>
-          <div class="feed-body">
-            <p><strong>Nama Donasi:</strong> ${d.nama_donasi || "Nama Donasi Tidak Ditemukan"}</p>
-            <p><strong>Jumlah:</strong> ${d.jumlah} ${d.satuan || ""}</p>
-            <p><strong>Lokasi:</strong> ${d.lokasi}</p>
-          </div>
-          <div class="feed-footer mt-2">
-            <a href="klaim.html?donasiId=${d.id}" class="btn btn-success btn-sm">Ambil Donasi</a>
-          </div>
-        </div>`;
-      postContainer.appendChild(card);
-    }
-  }
-
-  loadDonasi();
-
-  function debounce(func, delay) {
-    let timeout;
-    return (...args) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func(...args), delay);
-    };
-  }
-
-  document.getElementById("searchInput")
-    .addEventListener("input", debounce(renderDonasi, 300));
-
-  document.querySelectorAll(".dropdown-menu .dropdown-item").forEach(item => {
-    item.addEventListener("click", e => {
-      e.preventDefault();
-      kategoriAktif = item.getAttribute("data-value");
-      renderDonasi();
-    });
-  });
-</script>
-
+  <!-- Donasi JS -->
+  <script type="module" src="assets/js/donasi.js"></script>
 
 </body>
 </html>

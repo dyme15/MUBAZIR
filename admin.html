@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="id">
 
 <head>
@@ -106,6 +107,7 @@
       border-radius: 10px;
     }
   </style>
+
 </head>
 
 <body>
@@ -120,65 +122,68 @@
       </ul>
     </nav>
 
-    <div id="content" class="flex-grow-1">
-      <nav class="navbar navbar-light shadow-sm">
-        <div class="container-fluid d-flex align-items-center">
-          <button id="toggleSidebar" class="btn btn-outline-danger me-3"><i class="bi bi-grid"></i></button>
-          <span class="ms-auto badge bg-danger fs-6 shadow-sm"><i class="bi bi-shield-lock"></i> Admin Mode</span>
-        </div>
-      </nav>
+<div id="content" class="flex-grow-1">
+  <nav class="navbar navbar-light shadow-sm">
+    <div class="container-fluid d-flex align-items-center">
+      <button id="toggleSidebar" class="btn btn-outline-danger me-3"><i class="bi bi-grid"></i></button>
+      <span class="ms-auto badge bg-danger fs-6 shadow-sm"><i class="bi bi-shield-lock"></i> Admin Mode</span>
+    </div>
+  </nav>
 
-      <div class="container my-4">
-        <div id="dashboard" class="page-section active">
-          <div class="card p-4 mb-4">
-            <h3>Selamat Datang, <span id="namaDashboard">Admin!</span></h3>
-            <p class="text-muted">Gunakan menu di samping untuk mengelola sistem Mubazir.</p>
+  <div class="container my-4">
+    <div id="dashboard" class="page-section active">
+      <div class="card p-4 mb-4">
+        <h3>Selamat Datang, <span id="namaDashboard">Admin!</span></h3>
+        <p class="text-muted">Gunakan menu di samping untuk mengelola sistem Mubazir.</p>
+      </div>
+    </div>
+
+    <div id="verifikasi" class="page-section">
+      <div class="card p-4">
+        <h4>✅ Verifikasi Donasi</h4>
+        <table class="table table-bordered mt-3">
+          <thead class="table-danger">
+            <tr>
+              <th>Donatur</th>
+              <th>Kategori</th>
+              <th>Jumlah</th>
+              <th>Kadaluarsa</th>
+              <th>Lokasi</th>
+              <th>Bukti Foto</th>
+              <th>Status</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="verifikasiTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="monitor" class="page-section">
+      <div class="card p-4">
+        <h4>📊 Monitoring</h4>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <div class="card p-3 text-center">
+              <h5>Total Donasi</h5>
+              <h2 class="text-danger" id="totalDonasi">0</h2>
+            </div>
           </div>
-        </div>
-
-        <div id="verifikasi" class="page-section">
-          <div class="card p-4">
-            <h4>✅ Verifikasi Donasi</h4>
-            <table class="table table-bordered mt-3">
-              <thead class="table-danger">
-                <tr>
-                  <th>Donatur</th>
-                  <th>Kategori</th>
-                  <th>Jumlah</th>
-                  <th>Kadaluarsa</th>
-                  <th>Lokasi</th>
-                  <th>Bukti Foto</th>
-                  <th>Status</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody id="verifikasiTableBody"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <div id="monitor" class="page-section">
-          <div class="card p-4">
-            <h4>📊 Monitoring</h4>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <div class="card p-3 text-center">
-                  <h5>Total Donasi</h5>
-                  <h2 class="text-danger" id="totalDonasi">0</h2>
-                </div>
-              </div>
-              <div class="col-md-6 mb-3">
-                <div class="card p-3 text-center">
-                  <h5>Total Pengguna</h5>
-                  <h2 class="text-danger" id="totalPengguna">0</h2>
-                </div>
-              </div>
+          <div class="col-md-6 mb-3">
+            <div class="card p-3 text-center">
+              <h5>Total Pengguna</h5>
+              <h2 class="text-danger" id="totalPengguna">0</h2>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+  </div>
+
+  <!-- Modal foto donasi -->
 
   <div class="modal fade" id="fotoModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
@@ -195,101 +200,7 @@
   </div>
 
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script type="module">
-    import { getDonasi, getDonaturById, updateDonasiStatus } from './assets/js/database.js';
-
-    document.addEventListener("DOMContentLoaded", async () => {
-      let donasiData = await getDonasi();
-
-      function getStatusBadge(status) {
-        switch (status) {
-          case 'pending': return `<span class="badge bg-warning text-dark"><i class="bi bi-clock"></i> Pending</span>`;
-          case 'approved': return `<span class="badge bg-success"><i class="bi bi-check-circle"></i> Disetujui</span>`;
-          case 'rejected': return `<span class="badge bg-danger"><i class="bi bi-x-circle"></i> Ditolak</span>`;
-          default: return `<span class="badge bg-secondary">Tidak Diketahui</span>`;
-        }
-      }
-
-      function getActionButtons(donasi) {
-        if (donasi.status === 'pending') {
-          return `
-            <button class="btn btn-sm btn-success set-status-btn me-1" data-id="${donasi.id}" data-status="approved"><i class="bi bi-check-lg"></i> Setujui</button>
-            <button class="btn btn-sm btn-outline-danger set-status-btn" data-id="${donasi.id}" data-status="rejected"><i class="bi bi-x-lg"></i> Tolak</button>`;
-        } else if (donasi.status === 'approved') {
-          return `<span class="text-success small">Disetujui</span>`;
-        } else if (donasi.status === 'rejected') {
-          return `<span class="text-danger small">Ditolak</span>`;
-        } else {
-          return `<span class="text-secondary small">Selesai</span>`;
-        }
-      }
-
-      async function loadVerifikasiTable() {
-        const tbody = document.getElementById("verifikasiTableBody");
-        tbody.innerHTML = "";
-
-        for (const donasi of donasiData) {
-          let nama = "Tidak diketahui";
-          if (donasi.donaturId) {
-            const donatur = await getDonaturById(donasi.donaturId);
-            if (donatur?.nama_donatur || donatur?.nama) nama = donatur.nama_donatur || donatur.nama;
-          }
-
-          const tr = document.createElement("tr");
-          tr.innerHTML = `
-            <td>${nama}</td>
-            <td>${donasi.kategori || '-'}</td>
-            <td>${donasi.jumlah || 0} ${donasi.satuan || ''}</td>
-            <td>${donasi.masaKadaluarsa || '-'}</td>
-            <td>${donasi.lokasi || '-'}</td>
-            <td>
-              <button class="btn btn-sm btn-outline-danger view-photo-btn" data-bs-toggle="modal"
-                data-bs-target="#fotoModal" data-foto-url="${donasi.foto || 'assets/img/default-food.jpg'}">
-                <i class="bi bi-image"></i> Lihat
-              </button>
-            </td>
-            <td>${getStatusBadge(donasi.status)}</td>
-            <td>${getActionButtons(donasi)}</td>
-          `;
-          tbody.appendChild(tr);
-        }
-
-        document.querySelectorAll('.set-status-btn').forEach(btn => {
-          btn.addEventListener('click', async (e) => {
-            const id = e.target.getAttribute('data-id');
-            const statusBaru = e.target.getAttribute('data-status');
-            await updateDonasiStatus(id, statusBaru);
-            alert(`Status donasi berhasil diubah menjadi ${statusBaru.toUpperCase()}`);
-            donasiData = await getDonasi();
-            await loadVerifikasiTable();
-          });
-        });
-      }
-
-      await loadVerifikasiTable();
-
-      document.getElementById("toggleSidebar").addEventListener("click", () => {
-        document.getElementById("sidebar").classList.toggle("collapsed");
-        document.getElementById("content").classList.toggle("expanded");
-      });
-
-      document.querySelectorAll("#sidebar .nav-link").forEach(link => {
-        link.addEventListener("click", () => {
-          document.querySelectorAll("#sidebar .nav-link").forEach(l => l.classList.remove("active"));
-          document.querySelectorAll(".page-section").forEach(sec => sec.classList.remove("active"));
-          link.classList.add("active");
-          const id = link.getAttribute("data-section");
-          document.getElementById(id).classList.add("active");
-        });
-      });
-
-      document.getElementById("logoutBtn").addEventListener("click", () => {
-        localStorage.removeItem("user");
-        window.location.href = "login.html";
-      });
-    });
-  </script>
+  <script type="module" src="assets/js/admin.js"></script>
 </body>
 
 </html>
-

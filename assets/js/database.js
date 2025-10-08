@@ -1,8 +1,19 @@
+import { 
+  initializeApp 
+} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
 import {
-  getDatabase, ref, push, set, get, child, onValue,
-  query, orderByChild, equalTo, update
+  getDatabase,
+  ref,
+  push,
+  set,
+  get,
+  child,
+  query,
+  orderByChild,
+  equalTo,
+  onValue,
+  update
 } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 
 // =====================
@@ -24,49 +35,74 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 // =====================
-// ADMIN
+// AUTO-SEED ADMIN DEFAULT
 // =====================
-export async function tambahAdmin(data) {
-  const newRef = push(ref(db, "admin"));
+async function seedAdmin() {
+  try {
+    const usersRef = ref(db, "users");
+    const snapshot = await get(usersRef);
+
+    // Cek apakah admin sudah ada
+    let adminSudahAda = false;
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      adminSudahAda = Object.values(data).some(
+        (u) => u.email === "admin@mubazir.com"
+      );
+    }
+
+    // Jika belum ada admin
+    if (!adminSudahAda) {
+      const newRef = push(usersRef);
+      await set(newRef, {
+        nama: "Admin Utama",
+        email: "admin@mubazir.com",
+        password: "admin123",
+        no_hp: "081234567890",
+        role: "admin",
+        createdAt: new Date().toISOString(),
+      });
+      console.log("✅ Admin default berhasil ditambahkan ke database.");
+    } else {
+      console.log("ℹ️ Admin default sudah ada, tidak ditambahkan ulang.");
+    }
+  } catch (err) {
+    console.error("❌ Gagal membuat admin default:", err);
+  }
+}
+
+// Jalankan otomatis saat load
+seedAdmin();
+
+// =====================
+// USERS (Admin + Donatur)
+// =====================
+export async function tambahUser(data) {
+  const newRef = push(ref(db, "users"));
   await set(newRef, data);
   return newRef.key;
 }
 
-export async function getAdmin() {
-  const snapshot = await get(child(ref(db), "admin"));
-  return snapshot.exists() ? snapshot.val() : {};
-}
-
-export async function getAdminById(id) {
-  const snapshot = await get(child(ref(db), `admin/${id}`));
-  return snapshot.exists() ? snapshot.val() : null;
-}
-
-// =====================
-// DONATUR
-// =====================
-export async function tambahDonatur(data) {
-  const newRef = push(ref(db, "donatur"));
-  await set(newRef, {
-    nama: data.nama,
-    email: data.email,
-    no_hp: data.no_hp,
-    password: data.password,
-    role: data.role || "donatur",
-    createdAt: new Date().toISOString()
-  });
-  return newRef.key;
-}
-
-export async function getDonatur() {
-  const snapshot = await get(child(ref(db), "donatur"));
+export async function getUsers() {
+  const snapshot = await get(child(ref(db), "users"));
   const data = snapshot.exists() ? snapshot.val() : {};
-  return Object.entries(data).map(([id, donatur]) => ({ id, ...donatur }));
+  return Object.entries(data).map(([id, user]) => ({ id, ...user }));
 }
 
-export async function getDonaturById(id) {
-  const snapshot = await get(child(ref(db), `donatur/${id}`));
+export async function getUserById(id) {
+  const snapshot = await get(child(ref(db), `users/${id}`));
   return snapshot.exists() ? { id, ...snapshot.val() } : null;
+}
+
+export async function getUserByEmail(email) {
+  const usersRef = ref(db, "users");
+  const q = query(usersRef, orderByChild("email"), equalTo(email));
+  const snapshot = await get(q);
+
+  if (!snapshot.exists()) return null;
+  const data = snapshot.val();
+  const [id, user] = Object.entries(data)[0];
+  return { id, ...user };
 }
 
 // =====================
@@ -75,16 +111,9 @@ export async function getDonaturById(id) {
 export async function tambahDonasi(data) {
   const newRef = push(ref(db, "donasi"));
   await set(newRef, {
-    nama_donasi: data.nama,
-    kategori: data.kategori,
-    jumlah: data.jumlah,
-    satuan: data.satuan,
-    masaKadaluarsa: data.masaKadaluarsa,
-    lokasi: data.lokasi,
+    ...data,
     status: data.status || "pending",
-    donaturId: data.donaturId,
-    foto: data.foto,
-    dibuat: new Date().toISOString()
+    dibuat: new Date().toISOString(),
   });
   return newRef.key;
 }
@@ -100,17 +129,13 @@ export async function getDonasiById(id) {
   return snapshot.exists() ? { id, ...snapshot.val() } : null;
 }
 
-export function listenDonasiByDonaturId(donaturId, callback) {
+export function listenDonasiByUser(userId, callback) {
   const donasiRef = ref(db, "donasi");
-  const donasiQuery = query(
-    donasiRef,
-    orderByChild("donaturId"),
-    equalTo(donaturId)
-  );
-
+  const donasiQuery = query(donasiRef, orderByChild("donaturId"), equalTo(userId));
   onValue(donasiQuery, (snapshot) => {
     const data = snapshot.exists() ? snapshot.val() : {};
-    callback(Object.entries(data).map(([id, donasi]) => ({ id, ...donasi })));
+    const result = Object.entries(data).map(([id, donasi]) => ({ id, ...donasi }));
+    callback(result);
   });
 }
 
@@ -118,14 +143,12 @@ export function listenDonasiByDonaturId(donaturId, callback) {
 // KLAIM
 // =====================
 export async function klaimDonasi(donasiId, klaimData) {
-  try {
-    const newRef = push(ref(db, `klaim/${donasiId}`));
-    await set(newRef, klaimData);
-    return newRef.key;
-  } catch (error) {
-    console.error("Error saving claim:", error);
-    throw new Error("Gagal menyimpan klaim");
-  }
+  const newRef = push(ref(db, `klaim/${donasiId}`));
+  await set(newRef, {
+    ...klaimData,
+    waktuKlaim: new Date().toISOString(),
+  });
+  return newRef.key;
 }
 
 export async function getKlaimByDonasi(donasiId) {
@@ -139,6 +162,9 @@ export async function getKlaimById(donasiId, klaimId) {
   return snapshot.exists() ? { id: klaimId, ...snapshot.val() } : null;
 }
 
+// =====================
+// VALIDASI KLAIM HARIAN
+// =====================
 export async function cekKlaimHariIni(noHp) {
   const today = new Date().toISOString().split("T")[0];
   const snapshot = await get(child(ref(db), `klaim_by_hp/${noHp}/${today}`));
@@ -155,7 +181,7 @@ export async function tambahKlaimDenganValidasi(donasiId, dataKlaim) {
   const newRef = push(ref(db, `klaim/${donasiId}`));
   const klaimData = {
     ...dataKlaim,
-    waktuKlaim: new Date().toISOString()
+    waktuKlaim: new Date().toISOString(),
   };
 
   await set(newRef, klaimData);
@@ -165,16 +191,10 @@ export async function tambahKlaimDenganValidasi(donasiId, dataKlaim) {
 }
 
 // =====================
-// UPDATE STATUS DONASI (BARU)
+// UPDATE STATUS DONASI
 // =====================
 export async function updateDonasiStatus(donasiId, statusBaru) {
-  try {
-    const donasiRef = ref(db, `donasi/${donasiId}`);
-    await update(donasiRef, { status: statusBaru });
-    console.log(`✅ Status donasi ${donasiId} diperbarui menjadi ${statusBaru}`);
-  } catch (err) {
-    console.error("Gagal update status donasi:", err);
-    throw err;
-  }
+  const donasiRef = ref(db, `donasi/${donasiId}`);
+  await update(donasiRef, { status: statusBaru });
+  console.log(`✅ Status donasi ${donasiId} diperbarui menjadi ${statusBaru}`);
 }
-
